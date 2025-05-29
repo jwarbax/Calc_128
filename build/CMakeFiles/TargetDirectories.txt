@@ -1,0 +1,3 @@
+/home/war/Documents/CPP_Projects/Calc/build/CMakeFiles/Calc.dir
+/home/war/Documents/CPP_Projects/Calc/build/CMakeFiles/edit_cache.dir
+/home/war/Documents/CPP_Projects/Calc/build/CMakeFiles/rebuild_cache.dir
