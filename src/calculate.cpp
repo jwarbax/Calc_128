@@ -149,5 +149,5 @@ inline string to_string128(__float128 value, int precision = 40) {
         }
       }
     }
-  reference.roundedResult=strtoflt128(reference.rawTokens[0].c_str(),nullptr);
+  reference.float128_Result=strtoflt128(reference.rawTokens[0].c_str(),nullptr);
   }

@@ -14,5 +14,14 @@ struct Context
   string rawInput;
   string cleanInput;
   int zeroCount;
-  long double roundedResult;
+  __float128 float128_Result;
+  string stringResult;
+  string calculationTime;
+  string inputBuffer;
+  int userPrecision;
+};
+
+struct UserDefined
+{
+  bool displayElapsedTime;
 };
