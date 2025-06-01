@@ -1,12 +1,10 @@
 #include <iostream>
-#include "input.h"
 #include "SDL3/SDL.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include <imgui_impl_sdlrenderer3.h>
-#include "misc/cpp/imgui_stdlib.h"
 
-#include "output.h"
+#include "functions.h"
 
 int main()
 {
@@ -15,9 +13,6 @@ int main()
     printf("Error: SDL_Init(): %s\n", SDL_GetError());
     return -1;
   }
-  constexpr int screenRatioMultiplier{50};
-  constexpr int windowWidth = 16*screenRatioMultiplier;
-  constexpr int windowHeight = 9*screenRatioMultiplier;
 
   constexpr SDL_WindowFlags windowFlags = 0;
   SDL_Window* window = SDL_CreateWindow("Calc_128", windowWidth, windowHeight, windowFlags);
@@ -62,22 +57,7 @@ int main()
       ImGui::NewFrame();
       ImGui::SetNextWindowPos(ImVec2(0, 0));
       ImGui::SetNextWindowSize(ImVec2(windowWidth, windowHeight));
-
-      constexpr ImGuiWindowFlags guiFlags = ImGuiWindowFlags_NoResize |
-                                         ImGuiWindowFlags_NoMove |
-                                         ImGuiWindowFlags_NoCollapse |
-                                         ImGuiWindowFlags_NoTitleBar |
-                                         ImGuiWindowFlags_NoBringToFrontOnFocus;
-
-      ImGui::Begin("Main",nullptr,guiFlags);
-      ImGui::InputTextMultiline("boo", &input, ImVec2(windowWidth/2, windowHeight/2));
-      ImGui::NewLine();
-      if (ImGui::SmallButton("click here"))
-      {
-        calculationResult();
-      }
-      ImGui::TextWrapped(globalResult.c_str());
-      ImGui::End();
+      renderGUI();
       ImGui::Render();
       SDL_SetRenderScale(renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
       SDL_SetRenderDrawColorFloat(renderer, clearColor.x, clearColor.y, clearColor.z, clearColor.w);

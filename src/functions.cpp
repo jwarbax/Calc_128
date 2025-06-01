@@ -10,14 +10,17 @@
  * precedence and parentheses handling.
  */
 
-#include "context.h"
+#include "functions.h"
 #include <chrono>
 #include <map>
 #include <quadmath.h>
 #include <iostream>
 #include "examples/example_sdl3_sdlrenderer3/imgui.h"
+#include "misc/cpp/imgui_stdlib.h"
 
 using namespace std;
+
+globals global;
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
@@ -69,12 +72,12 @@ inline void dividedZero()
  */
 void getRawInput()
 {
-    if (input[0]!='('||input[input.size()-1]!=')')
+    if (global.globalInput[0]!='('||global.globalInput[global.globalInput.size()-1]!=')')
     {
-        input.insert(input.begin(),'(');
-        input.push_back(')');
+        global.globalInput.insert(global.globalInput.begin(),'(');
+        global.globalInput.push_back(')');
     }
-    rawInput=input;
+    global.rawInput=global.globalInput;
 };
 
 /**
@@ -85,15 +88,15 @@ void getRawInput()
  */
 void getCleanInput()
 {
-    for (size_t i=0;i<rawInput.size();i++)
+    for (size_t i=0;i<global.rawInput.size();i++)
     {
-        if (isspace(rawInput[i]))
+        if (isspace(global.rawInput[i]))
         {
-            rawInput.erase(rawInput.begin()+i);
+            global.rawInput.erase(global.rawInput.begin()+i);
             i--;
         }
     }
-    cleanInput={rawInput};
+    global.cleanInput={global.rawInput};
 };
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
@@ -111,24 +114,24 @@ void getCleanInput()
  */
     bool isValidFirst()
     {
-        char c{cleanInput[0]};
+        char c{global.cleanInput[0]};
         if(invalidFirst.find(c)!=string::npos)
         {
             cerr<<"Error: String cannot start with: "<<invalidFirst;
             return false;
         }
 
-        if(c=='-'&&!isdigit(cleanInput[1])&&cleanInput[1]!='.'&&cleanInput[1]!='(')
+        if(c=='-'&&!isdigit(global.cleanInput[1])&&global.cleanInput[1]!='.'&&global.cleanInput[1]!='(')
         {
             cerr<<"Error: '-' Must be followed by a digit, decimal, or open parentheses";
             return false;
         }
-        if(c=='('&&cleanInput[1]==')')
+        if(c=='('&&global.cleanInput[1]==')')
         {
             cerr<<"Error: Empty Parentheses()";
             return false;
         }
-        if(c=='.'&&!isdigit(cleanInput[1]))
+        if(c=='.'&&!isdigit(global.cleanInput[1]))
         {
             cerr<<"Error: '.' Must be followed by a digit";
             return false;
@@ -148,10 +151,10 @@ void getCleanInput()
         int openCount{0};
         int closeCount{0};
 
-        for (unsigned long long i{0}; i<cleanInput.size(); i++)
+        for (unsigned long long i{0}; i<global.cleanInput.size(); i++)
         {
 
-            char currentChar=cleanInput[i];
+            char currentChar=global.cleanInput[i];
 
             if (currentChar=='(')
             {
@@ -166,7 +169,7 @@ void getCleanInput()
                 cerr<<"Error: Invalid Parenthesis";
                 return false;
             }
-            if (i==cleanInput.size()-1&&openCount-closeCount==0)
+            if (i==global.cleanInput.size()-1&&openCount-closeCount==0)
             {
                 return true;
             }
@@ -187,9 +190,9 @@ void getCleanInput()
 
     auto currentState{state::start};
 
-    for(unsigned long long i{0};i<cleanInput.size();++i)
+    for(unsigned long long i{0};i<global.cleanInput.size();++i)
     {
-      char characterIndex{cleanInput[i]};
+      char characterIndex{global.cleanInput[i]};
 
       state previousState=currentState;
 
@@ -346,7 +349,7 @@ void getCleanInput()
  */
     bool isValidInput()
     {
-      for(char currentCharacter:cleanInput)
+      for(char currentCharacter:global.cleanInput)
       {
         if(validList.find(currentCharacter)==string::npos)
         {
@@ -387,31 +390,31 @@ void tokenize()
   int decimalCount{0};
   string substring;
 
-  for (unsigned long long index{0};index<=cleanInput.length();index++)
+  for (unsigned long long index{0};index<=global.cleanInput.length();index++)
   {
-    char currentCharacter{cleanInput[index]};
+    char currentCharacter{global.cleanInput[index]};
     if (isdigit(currentCharacter))
     {
       if (decimalCount>1)
       {
         cerr<< "Error: Too Many Decimals";
       }
-      if (cleanInput[index-1]==')')
+      if (global.cleanInput[index-1]==')')
       {
-        rawTokens.emplace_back("*");
+        global.rawTokens.emplace_back("*");
       }
       substring.push_back(currentCharacter);
       continue;
     }
     if (currentCharacter=='.')
     {
-      if (!isdigit(cleanInput[index+1]))
+      if (!isdigit(global.cleanInput[index+1]))
       {
         cerr<< "Error: Invalid Decimal";
       }
-      if (cleanInput[index-1]==')')
+      if (global.cleanInput[index-1]==')')
       {
-        rawTokens.emplace_back("*");
+        global.rawTokens.emplace_back("*");
       }
       decimalCount++;
       substring.push_back(currentCharacter);
@@ -421,7 +424,7 @@ void tokenize()
     {
       if (!empty(substring))
       {
-        rawTokens.emplace_back(substring);
+        global.rawTokens.emplace_back(substring);
         substring.clear();
       }
       decimalCount=0;
@@ -429,105 +432,105 @@ void tokenize()
       {
         if (index==0)
         {
-          rawTokens.emplace_back("(");
+          global.rawTokens.emplace_back("(");
           continue;
         }
-        if (index>=1&&cleanInput[index-1]=='-')
+        if (index>=1&&global.cleanInput[index-1]=='-')
         {
-          if (index>=2&&cleanInput[index-2]!=')'&&!isdigit(cleanInput[index-2]))
+          if (index>=2&&global.cleanInput[index-2]!=')'&&!isdigit(global.cleanInput[index-2]))
           {
-            rawTokens.emplace_back("-1");
-            rawTokens.emplace_back("*");
-            rawTokens.emplace_back("(");
+            global.rawTokens.emplace_back("-1");
+            global.rawTokens.emplace_back("*");
+            global.rawTokens.emplace_back("(");
             continue;
           }
-          if (index>=2&&cleanInput[index-2]==')')
+          if (index>=2&&global.cleanInput[index-2]==')')
           {
-            rawTokens.emplace_back("(");
+            global.rawTokens.emplace_back("(");
             continue;
           }
         }
-        if (cleanInput[index-1]==')')
+        if (global.cleanInput[index-1]==')')
         {
-          rawTokens.emplace_back("*");
-          rawTokens.emplace_back("(");
+          global.rawTokens.emplace_back("*");
+          global.rawTokens.emplace_back("(");
           continue;
         }
-        if (isdigit(cleanInput[index-1]))
+        if (isdigit(global.cleanInput[index-1]))
         {
-          rawTokens.emplace_back("*");
-          rawTokens.emplace_back("(");
+          global.rawTokens.emplace_back("*");
+          global.rawTokens.emplace_back("(");
           continue;
         }
-        if (isalpha(cleanInput[index-1]))
+        if (isalpha(global.cleanInput[index-1]))
         {
-          rawTokens.emplace_back("*");
-          rawTokens.emplace_back("(");
+          global.rawTokens.emplace_back("*");
+          global.rawTokens.emplace_back("(");
           continue;
         }
         if (index!=0)
         {
-          rawTokens.emplace_back("(");
+          global.rawTokens.emplace_back("(");
           continue;
         }
       }
       else if (currentCharacter==')')
       {
-        rawTokens.emplace_back(")");
+        global.rawTokens.emplace_back(")");
         continue;
       }
       else if (currentCharacter=='^')
       {
-        rawTokens.emplace_back("^");
+        global.rawTokens.emplace_back("^");
         continue;
       }
       else if (currentCharacter=='*')
       {
-        rawTokens.emplace_back("*");
+        global.rawTokens.emplace_back("*");
         continue;
       }
       else if (currentCharacter=='/')
       {
-        rawTokens.emplace_back("/");
+        global.rawTokens.emplace_back("/");
         continue;
       }
       else if (currentCharacter=='+')
       {
-        rawTokens.emplace_back("+");
+        global.rawTokens.emplace_back("+");
         continue;
       }
       else if (currentCharacter=='-')
       {
         if (index==0)
         {
-          if (cleanInput[index+1]=='(')
+          if (global.cleanInput[index+1]=='(')
           {
             continue;
           }
           substring.push_back('-');
           continue;
         }
-        if (isblank(cleanInput[index+1])||cleanInput[index+1]==')')
+        if (isblank(global.cleanInput[index+1])||global.cleanInput[index+1]==')')
         {
           cerr<<"Error: Invalid End\n";
           continue;
         }
-        if ((isdigit(cleanInput[index-1]) || isalpha(cleanInput[index-1])||cleanInput[index-1]==')')
-          &&!isdigit(cleanInput[index+1])&&!isalpha(cleanInput[index+1])&&cleanInput[index+1]!='.')
+        if ((isdigit(global.cleanInput[index-1]) || isalpha(global.cleanInput[index-1])||global.cleanInput[index-1]==')')
+          &&!isdigit(global.cleanInput[index+1])&&!isalpha(global.cleanInput[index+1])&&global.cleanInput[index+1]!='.')
         {
-          rawTokens.emplace_back("-");
+          global.rawTokens.emplace_back("-");
           continue;
         }
-        if (isdigit(cleanInput[index+1]) || isalpha(cleanInput[index+1])
-          ||cleanInput[index+1]=='.'||cleanInput[index-1]=='(')
+        if (isdigit(global.cleanInput[index+1]) || isalpha(global.cleanInput[index+1])
+          ||global.cleanInput[index+1]=='.'||global.cleanInput[index-1]=='(')
         {
-          if (cleanInput[index-1]==')')
+          if (global.cleanInput[index-1]==')')
           {
-            rawTokens.emplace_back("+");
+            global.rawTokens.emplace_back("+");
           }
-          else if (isalpha(cleanInput[index-1])||isdigit(cleanInput[index-1]))
+          else if (isalpha(global.cleanInput[index-1])||isdigit(global.cleanInput[index-1]))
           {
-            rawTokens.emplace_back("+");
+            global.rawTokens.emplace_back("+");
           }
           substring.push_back('-');
           continue;
@@ -536,7 +539,7 @@ void tokenize()
     }
     if (!empty(substring))
     {
-      rawTokens.emplace_back(substring);
+      global.rawTokens.emplace_back(substring);
     }
   }
 }
@@ -566,53 +569,53 @@ void tokenize()
     const string add{"+"};
     const string subtract{"-"};
 
-    rawTokens.emplace_back(" ");
+    global.rawTokens.emplace_back(" ");
 
     BEGIN:
 
-    for (size_t index{0};index<rawTokens.size();++index)
+    for (size_t index{0};index<global.rawTokens.size();++index)
     {
-      if (rawTokens[index]==")")
+      if (global.rawTokens[index]==")")
       {
 
         for (size_t firstClosedPar{0};firstClosedPar<index;++firstClosedPar) //double check it's the first closed par
         {
-          if (rawTokens[firstClosedPar]==")"&&index>firstClosedPar)
+          if (global.rawTokens[firstClosedPar]==")"&&index>firstClosedPar)
           {
             index=firstClosedPar;
           }
         }
         for (size_t firstOpenPar{index};firstOpenPar>=0;--firstOpenPar)
         {
-          if (rawTokens[firstOpenPar]=="(")
+          if (global.rawTokens[firstOpenPar]=="(")
           {
 
             for (size_t subIndex=index;subIndex>firstOpenPar;--subIndex)
             {
-              if (rawTokens[subIndex]=="^")
+              if (global.rawTokens[subIndex]=="^")
               {
-                __float128 base=strtoflt128(rawTokens[subIndex-1].c_str(),nullptr);
-                __float128 exponent=strtoflt128(rawTokens[subIndex+1].c_str(),nullptr);
-                __float128 result=powq(base,exponent);
+                __float128 base=strtoflt128(global.rawTokens[subIndex-1].c_str(),nullptr);
+                __float128 exponent=strtoflt128(global.rawTokens[subIndex+1].c_str(),nullptr);
+                __float128 localResult=powq(base,exponent);
 
-                rawTokens[subIndex-1]=to_string128(result);
+                global.rawTokens[subIndex-1]=to_string128(localResult);
 
-                rawTokens.erase(rawTokens.begin()+subIndex,rawTokens.begin()+subIndex+2);
+                global.rawTokens.erase(global.rawTokens.begin()+subIndex,global.rawTokens.begin()+subIndex+2);
 
                 goto BEGIN;
               }
             }
             for (size_t subIndex=firstOpenPar;subIndex<index;++subIndex)
             {
-              if (rawTokens[subIndex]=="*"||rawTokens[subIndex]=="/")
+              if (global.rawTokens[subIndex]=="*"||global.rawTokens[subIndex]=="/")
               {
-                __float128 leftOperand=strtoflt128(rawTokens[subIndex-1].c_str(),nullptr);
-                __float128 rightOperand=strtoflt128(rawTokens[subIndex+1].c_str(),nullptr);
-                __float128 result;
-                if (rawTokens[subIndex]=="*")
+                __float128 leftOperand=strtoflt128(global.rawTokens[subIndex-1].c_str(),nullptr);
+                __float128 rightOperand=strtoflt128(global.rawTokens[subIndex+1].c_str(),nullptr);
+                __float128 localResult;
+                if (global.rawTokens[subIndex]=="*")
                 {
-                  result=leftOperand*rightOperand;
-                  rawTokens[subIndex-1]=to_string128(result);
+                  localResult=leftOperand*rightOperand;
+                  global.rawTokens[subIndex-1]=to_string128(localResult);
                 }
                 else
                 {
@@ -621,12 +624,12 @@ void tokenize()
                     dividedZero();
                   }
                   {
-                    result=leftOperand/rightOperand;
-                    rawTokens[subIndex-1]=to_string128(result);
+                    localResult=leftOperand/rightOperand;
+                    global.rawTokens[subIndex-1]=to_string128(localResult);
                   }
                 }
 
-                rawTokens.erase(rawTokens.begin()+subIndex,rawTokens.begin()+subIndex+2);
+                global.rawTokens.erase(global.rawTokens.begin()+subIndex,global.rawTokens.begin()+subIndex+2);
 
                 goto BEGIN;
               }
@@ -634,32 +637,32 @@ void tokenize()
             }
             for (size_t subIndex=firstOpenPar;subIndex<index;++subIndex)
             {
-              if (rawTokens[subIndex]=="+"||rawTokens[subIndex]=="-")
+              if (global.rawTokens[subIndex]=="+"||global.rawTokens[subIndex]=="-")
               {
-                __float128 leftOperand=strtoflt128(rawTokens[subIndex-1].c_str(),nullptr);
-                __float128 rightOperand=strtoflt128(rawTokens[subIndex+1].c_str(),nullptr);
+                __float128 leftOperand=strtoflt128(global.rawTokens[subIndex-1].c_str(),nullptr);
+                __float128 rightOperand=strtoflt128(global.rawTokens[subIndex+1].c_str(),nullptr);
                 __float128 localResult;
-                if (rawTokens[subIndex]=="+")
+                if (global.rawTokens[subIndex]=="+")
                 {
                   localResult=leftOperand+rightOperand;
-                  rawTokens[subIndex-1]=to_string128(localResult);
+                  global.rawTokens[subIndex-1]=to_string128(localResult);
                 }
                 else
                 {
                   localResult=leftOperand-rightOperand;
-                  rawTokens[subIndex-1]=to_string128(localResult);
+                  global.rawTokens[subIndex-1]=to_string128(localResult);
                 }
 
-                rawTokens.erase(rawTokens.begin()+subIndex,rawTokens.begin()+subIndex+2);
+                global.rawTokens.erase(global.rawTokens.begin()+subIndex,global.rawTokens.begin()+subIndex+2);
 
                 goto BEGIN;
               }
             }
-            if (rawTokens[firstOpenPar]=="("&&rawTokens[firstOpenPar+2]==")")
+            if (global.rawTokens[firstOpenPar]=="("&&global.rawTokens[firstOpenPar+2]==")")
             {
 
-              rawTokens.erase(rawTokens.begin()+firstOpenPar);
-              rawTokens.erase(rawTokens.begin()+firstOpenPar+1);
+              global.rawTokens.erase(global.rawTokens.begin()+firstOpenPar);
+              global.rawTokens.erase(global.rawTokens.begin()+firstOpenPar+1);
 
               goto BEGIN;
             }
@@ -667,7 +670,7 @@ void tokenize()
         }
       }
     }
-  float128_Result=strtoflt128(rawTokens[0].c_str(),nullptr);
+  global.float128_Result=strtoflt128(global.rawTokens[0].c_str(),nullptr);
   }
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
@@ -684,7 +687,7 @@ void tokenize()
  */
 void renderCalculationProgress()
 {
-    switch (currentPhase)
+    switch (global.currentPhase)
     {
        case phase::verifying:
             ImGui::Text("Verifying input...");
@@ -694,15 +697,15 @@ void renderCalculationProgress()
            break;
        case phase::calculating:
        {
-           float progress={1.0f - currentTokens / totalTokens};
+           float progress={1.0f - global.currentTokens / global.totalTokens};
            ImGui::Text("Calculating...");
            ImGui::ProgressBar(progress);
-           ImGui::Text("Operations remaining: %zu", currentTokens);
+           ImGui::Text("Operations remaining: %zu", global.currentTokens);
            break;
        }
        case phase::complete:
        {
-           ImGui::Text("Completed in: ", timeTaken);
+           ImGui::Text("Completed in: ", global.timeTaken);
            break;
        }
        case phase::error:
@@ -769,25 +772,43 @@ void calculationResult()
 
         ostringstream roundedResult;
 
-        long double doubleResult{static_cast<double>(float128_Result)};
+        long double doubleResult{static_cast<double>(global.float128_Result)};
 
-        roundedResult << fixed << setprecision(userPrecision);
+        roundedResult << fixed << setprecision(global.userPrecision);
         roundedResult << doubleResult << endl;
 
-        stringResult = roundedResult.str();
-        globalResult=stringResult;
-        calculationTime=calculationTimeFormat(duration);
+        global.stringResult = roundedResult.str();
+        global.globalResult=global.stringResult;
+        global.calculationTime=calculationTimeFormat(duration);
     }
     else
     {
-        stringResult = "UNDEFINED ERROR(calculationResult)";
-        globalResult=stringResult;
-        calculationTime.clear();
+        global.stringResult = "UNDEFINED ERROR(calculationResult)";
+        global.globalResult=global.stringResult;
+        global.calculationTime.clear();
     }
-    rawInput.clear();
-    cleanInput.clear();
-    rawTokens.clear();
-    float128_Result={0};
-    stringResult.clear();
-    calculationTime.clear();
+    global.rawInput.clear();
+    global.cleanInput.clear();
+    global.rawTokens.clear();
+    global.float128_Result={0};
+    global.stringResult.clear();
+    global.calculationTime.clear();
 }
+
+void renderGUI ()
+    {
+      constexpr ImGuiWindowFlags guiFlags = ImGuiWindowFlags_NoResize |
+                                   ImGuiWindowFlags_NoMove |
+                                   ImGuiWindowFlags_NoCollapse |
+                                   ImGuiWindowFlags_NoTitleBar |
+                                   ImGuiWindowFlags_NoBringToFrontOnFocus;
+      ImGui::Begin("Main",nullptr,guiFlags);
+      ImGui::InputTextMultiline("boo", &global.globalInput, ImVec2(windowWidth/2, windowHeight/2));
+      ImGui::NewLine();
+      if (ImGui::SmallButton("click here"))
+      {
+        calculationResult();
+      }
+      ImGui::TextWrapped(global.globalResult.c_str());
+      ImGui::End();
+    }

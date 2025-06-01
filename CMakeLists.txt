@@ -33,12 +33,7 @@ target_include_directories(imgui PUBLIC
 target_link_libraries(imgui PUBLIC SDL3::SDL3)
 
 add_library(core
-        src/tokenize.cpp
-        src/validate.cpp
-        src/calculate.cpp
-        src/input.cpp
-        src/output.cpp
-        src/context.cpp
+        src/functions.cpp
         cmake-build-debug/_deps/imgui-src/misc/cpp/imgui_stdlib.cpp
 )
 

@@ -9,6 +9,7 @@
  * floating point arithmetic.
  */
 #pragma once
+#include <atomic>
 #include <cstdint>
 #include <vector>
 #include <string>
@@ -89,62 +90,66 @@ const string validList{" ()^*/+-0123456789."};
 const string invalidFirst{"*/+=)^"};
 const string operatorList{"^*/+-()"};
 
-  //unaltered string taken directly out of the GUI input field
-  string input;
+constexpr int screenRatioMultiplier{50};
+constexpr int windowWidth = 16*screenRatioMultiplier;
+constexpr int windowHeight = 9*screenRatioMultiplier;
 
-  //string has had parentheses added to the ends (if needed)
-  string rawInput;
+struct globals
+{
+    //unaltered string taken directly out of the GUI input field
+    string globalInput;
 
-  //string has had all unnecessary characters removed with 'isspace'
-  //space (' '),
-  //horizontal tab ('\t'),
-  //newline ('\n'),
-  //vertical tab ('\v'),
-  //form feed ('\f'),
-  //and carriage return ('\r')
-  string cleanInput;
+    //string has had parentheses added to the ends (if needed)
+    string rawInput;
 
-  //string is parsed into tokens contained in an array
-  //the minus sign '-' prefers to create negative numbers and add '+' in front of them
-  //multiplication is inferred with )( or any parenthesis next to a number
-  //factorial '!' not currently handled
-  //variables "x, y, z" not currently handled
-  vector<string> rawTokens;
+    //string has had all unnecessary characters removed with 'isspace'
+    //space (' '),
+    //horizontal tab ('\t'),
+    //newline ('\n'),
+    //vertical tab ('\v'),
+    //form feed ('\f'),
+    //and carriage return ('\r')
+    string cleanInput;
 
-  //numerical result in 128bit floating point
-  __float128 float128_Result;
+    //string is parsed into tokens contained in an array
+    //the minus sign '-' prefers to create negative numbers and add '+' in front of them
+    //multiplication is inferred with )( or any parenthesis next to a number
+    //factorial '!' not currently handled
+    //variables "x, y, z" not currently handled
+    vector<string> rawTokens;
 
-  //numerical result converted to std::string
-  string stringResult;
+    //numerical result in 128bit floating point
+    __float128 float128_Result{};
 
-  //stores result so that GUI can continue displaying after stringResult is cleared
-  //MUST be initialized non-empty! (I think)
-  string globalResult=" ";
+    //numerical result converted to std::string
+    string stringResult;
 
-  //time taken to complete calculation
-  string calculationTime;
+    //stores result so that GUI can continue displaying after stringResult is cleared
+    string globalResult=" ";
 
-  //stores result so that GUI can continue displaying after calculationTime is cleared
-  //MUST be initialized non-empty! (I think)
-  string timeTaken=" ";
+    //time taken to complete calculation
+    string calculationTime;
 
-  //the user can disable the elapsed time being displayed if they wish
-  bool displayElapsedTime;
+    //stores result so that GUI can continue displaying after calculationTime is cleared
+    string timeTaken=" ";
 
-  //user can set desired precision,
-  //the number represents how many digits are shown after the decimal
-  int userPrecision{40};
+    //the user can disable the elapsed time being displayed if they wish
+    bool displayElapsedTime{};
 
-  //records how many times the user attempts to divide by zero
-  //so that we can display increasingly witty failure responses, of course
-  int zeroCount;
+    //user can set desired precision,
+    //the number represents how many digits are shown after the decimal
+    int userPrecision{40};
 
-  //for rendering the progress bar for longer calculations
-  float totalTokens{0.0f};
-  float currentTokens{static_cast<float>(rawTokens.size())};
+    //records how many times the user attempts to divide by zero
+    //so that we can display increasingly witty failure responses, of course
+    int zeroCount{};
 
-  auto currentPhase{phase::idle};
+    //for rendering the progress bar for longer calculations
+    float totalTokens{0.0f};
+    float currentTokens{static_cast<float>(rawTokens.size())};
 
+    phase currentPhase{phase::idle};
+};
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
@@ -187,4 +192,6 @@ void calculationResult();
  * @brief Renders calculation progress in ImGui interface
  */
 void renderCalculationProgress();
+
+void renderGUI ();
 
