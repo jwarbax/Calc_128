@@ -50,7 +50,7 @@ void calculationResult(Context& reference)
     getRawInput(reference);
     getCleanInput(reference);
 
-    if (SDL_EVENT_KEY_DOWN==SDLK_RETURN && isValidInput(reference))
+    if (isValidInput(reference))
     {
         auto start{chrono::high_resolution_clock::now()};
 
@@ -65,17 +65,18 @@ void calculationResult(Context& reference)
         long double doubleResult{static_cast<double>(reference.float128_Result)};
 
         roundedResult << fixed << setprecision(reference.userPrecision);
-        roundedResult << &doubleResult << endl;
+        roundedResult << doubleResult << endl;
 
         reference.stringResult = roundedResult.str();
+        reference.result=reference.stringResult.c_str();
         reference.calculationTime=calculationTimeFormat(duration);
     }
     else
     {
         reference.stringResult = "UNDEFINED ERROR(calculationResult)";
+        reference.result=reference.stringResult.c_str();
         reference.calculationTime.clear();
     }
-    ImGui::Text("%s", reference.stringResult);
     reference.rawInput.clear();
     reference.cleanInput.clear();
     reference.rawTokens.clear();

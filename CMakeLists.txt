@@ -39,6 +39,7 @@ add_library(core
         src/input.cpp
         src/output.cpp
         src/context.cpp
+        cmake-build-debug/_deps/imgui-src/misc/cpp/imgui_stdlib.cpp
 )
 
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include cmake-build-debug/_deps/imgui-src cmake-build-debug/_deps/imgui-src/backends)

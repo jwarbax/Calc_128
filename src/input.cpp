@@ -10,39 +10,25 @@
 
 using namespace std;
 
-static int InputTextCallback(ImGuiInputTextCallbackData* data)
-{
-  if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
-  {
-    // Resize string and update buffer pointer
-    auto* str = static_cast<std::string*>(data->UserData);
-    str->resize(data->BufTextLen);
-    data->Buf = str->data();
-  }
-  return 0;
-}
-
 void getRawInput(Context& reference)
 {
-  string input;
-  input.reserve(1024);
-  ImGui::InputText("Problem", input.data(), input.capacity()+1,
-  ImGuiInputTextFlags_CallbackResize, InputTextCallback, &input);
-
-  input.insert(input.begin(),'(');
-  input.push_back(')');
-  reference.rawInput=input;
+  if (reference.input[0]!='('||reference.input[reference.input.size()-1]!=')')
+  {
+    reference.input.insert(reference.input.begin(),'(');
+    reference.input.push_back(')');
+  }
+  reference.rawInput=reference.input;
 };
 
 void getCleanInput(Context& reference)
 {
-  for (size_t i=0;i<reference.rawInput.size();i++)
-  {
-    if (isblank(reference.rawInput[i]))
-    {
-      reference.rawInput.erase(reference.rawInput.begin()+i);
-      i--;
-    }
-  }
+ for (size_t i=0;i<reference.rawInput.size();i++)
+ {
+   if (isspace(reference.rawInput[i]))
+   {
+     reference.rawInput.erase(reference.rawInput.begin()+i);
+     i--;
+   }
+ }
   reference.cleanInput={reference.rawInput};
 };
