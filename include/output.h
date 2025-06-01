@@ -6,4 +6,3 @@
 
 using namespace std;
 
-void calculationResult(Context& reference);

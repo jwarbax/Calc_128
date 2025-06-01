@@ -7,6 +7,6 @@
 
 using namespace std;
 
-const string operatorList{"^*/+-()"};
+
 
 void tokenize(Context&);

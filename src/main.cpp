@@ -45,7 +45,6 @@ int main()
   ImGui_ImplSDLRenderer3_Init(renderer);
 
   auto clearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    Context reference;
     bool running = true;
     while (running)
     {
@@ -71,13 +70,13 @@ int main()
                                          ImGuiWindowFlags_NoBringToFrontOnFocus;
 
       ImGui::Begin("Main",nullptr,guiFlags);
-      ImGui::InputTextMultiline("boo", &reference.input, ImVec2(windowWidth/2, windowHeight/2));
+      ImGui::InputTextMultiline("boo", &input, ImVec2(windowWidth/2, windowHeight/2));
       ImGui::NewLine();
       if (ImGui::SmallButton("click here"))
       {
-        calculationResult(reference);
+        calculationResult();
       }
-      ImGui::TextWrapped(reference.result.c_str());
+      ImGui::TextWrapped(globalResult.c_str());
       ImGui::End();
       ImGui::Render();
       SDL_SetRenderScale(renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);

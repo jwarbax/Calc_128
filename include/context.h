@@ -1,16 +1,94 @@
-//
-// Created by war on 5/28/25.
-//
+/**
+* @file context.h
+ * @brief Mathematical expression parser and calculator context definitions
+ * @author jwarbax
+ * @date 5/28/25
+ *
+ * This header defines the Context structure and supporting enums/constants
+ * for a high-precision mathematical expression calculator using 128-bit
+ * floating point arithmetic.
+ */
 #pragma once
-
-#include <atomic>
+#include <cstdint>
 #include <vector>
 #include <string>
 
 using namespace std;
 
-struct Context
+//╔══════════════════════════════════════════════════════════════════════════════╗
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//║▓▓▓▓▒▒▒▒░░░░                      ENUMERATIONS                    ░░░░▒▒▒▒▓▓▓▓║
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//╚══════════════════════════════════════════════════════════════════════════════╝
+/**
+ * @brief States for syntax validation and phases for progress reporting
+ *
+ * "state" Defines all possible states during mathematical expression parsing
+ * and validation. Used by the syntax checker to ensure proper grammar.
+ * "phase" Defines what the calculation function is doing so that the user
+ * can have a progress report displayed to them
+ */
+
+enum class state : uint8_t
 {
+  start,
+
+  //0-9
+  number,
+
+  //currently not implemented in final calculation
+  //tests isalpha
+  variable,
+
+  //*/+-^
+  operator_,
+
+  //minus sign pre-assessment
+  //BASE VALUE for unary and binary minus
+  minus,
+
+  //negative number
+  unary_minus,
+
+  //subtraction
+  binary_minus,
+
+  //only for testing syntax
+  decimal,
+
+  //if decimal comes before a number
+  fractional,
+
+  open_par,
+
+  close_par,
+};
+
+//state holding for progress system
+enum class phase
+{
+  idle,
+  verifying,
+  validating,
+  calculating,
+  complete,
+  error
+};
+
+//╔══════════════════════════════════════════════════════════════════════════════╗
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//║▓▓▓▓▒▒▒▒░░░░                       CONSTANTS                      ░░░░▒▒▒▒▓▓▓▓║
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//╚══════════════════════════════════════════════════════════════════════════════╝
+/** @brief Allowed characters, and data needed for parsing, validating, and calculating
+ *
+ * Tracks the complete workflow from raw
+ * input through tokenization to final high-precision results.
+ */
+const string validList{" ()^*/+-0123456789."};
+const string invalidFirst{"*/+=)^"};
+const string operatorList{"^*/+-()"};
+
   //unaltered string taken directly out of the GUI input field
   string input;
 
@@ -41,10 +119,14 @@ struct Context
 
   //stores result so that GUI can continue displaying after stringResult is cleared
   //MUST be initialized non-empty! (I think)
-  string result=" ";
+  string globalResult=" ";
 
   //time taken to complete calculation
   string calculationTime;
+
+  //stores result so that GUI can continue displaying after calculationTime is cleared
+  //MUST be initialized non-empty! (I think)
+  string timeTaken=" ";
 
   //the user can disable the elapsed time being displayed if they wish
   bool displayElapsedTime;
@@ -58,22 +140,51 @@ struct Context
   int zeroCount;
 
   //for rendering the progress bar for longer calculations
-  size_t totalTokens{0};
-  size_t currentTokens{rawTokens.size()};
+  float totalTokens{0.0f};
+  float currentTokens{static_cast<float>(rawTokens.size())};
 
-  //state holding for progress system
-  enum class phase
-  {
-    idle,
-    verifying,
-    validating,
-    calculating,
-    complete,
-    error
-  };
-atomic<phase> currentPhase{phase::idle};
-};
+  auto currentPhase{phase::idle};
 
-//to display the calculation progress in GUI
+
+//╔══════════════════════════════════════════════════════════════════════════════╗
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//║▓▓▓▓▒▒▒▒░░░░                  FUNCTION DECLARATIONS               ░░░░▒▒▒▒▓▓▓▓║
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//╚══════════════════════════════════════════════════════════════════════════════╝
+
+/**
+ * @brief Validates the first character of input expression
+ * @return true if first character is valid, false otherwise
+ */
+bool isValidFirst();
+
+/**
+ * @brief Validates parentheses matching in expression
+ * @return true if all parentheses are properly matched, false otherwise
+ */
+bool isValidPar();
+
+/**
+ * @brief Validates complete syntax of mathematical expression
+ * @return true if syntax is valid, false otherwise
+ */
+bool isValidSyntax();
+
+/**
+ * @brief Master validation function combining all input checks
+ *
+ * This function first checks entire string against validList to ensure it includes no illegal characters
+ * @return true if input passes all validation tests, false otherwise
+ */
+bool isValidInput();
+
+/**
+ * @brief Processes mathematical expression and generates result
+ */
+void calculationResult();
+
+/**
+ * @brief Renders calculation progress in ImGui interface
+ */
 void renderCalculationProgress();
 
