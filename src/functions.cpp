@@ -1,13 +1,13 @@
 /**
-* @file context.cpp
- * @brief Implementation of mathematical expression calculator
+* @file functions.cpp
+ * @brief High-precision mathematical expression calculator implementation
  * @author jwarbax
  * @date 5/28/25
+ * @version 1.0
  *
- * High-precision mathematical expression calculator supporting 128-bit
- * floating point arithmetic. Handles parsing, validation, tokenization,
- * and calculation of mathematical expressions with proper operator
- * precedence and parentheses handling.
+ * Implements a complete mathematical expression parser with 128-bit floating
+ * point precision, supporting standard operators (+,-,*,/,^) with proper
+ * precedence, parentheses, and comprehensive error handling.
  */
 
 #include "functions.h"
@@ -29,10 +29,12 @@ globals global;
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
 /**
- * @brief Converts 128-bit float to string with specified precision
- * @param value The 128-bit floating point value to convert
- * @param precision Number of decimal places (default: 40)
- * @return String representation of the value
+ * @brief Converts __float128 to formatted string
+ * @param value 128-bit floating point value
+ * @param precision Decimal places to display (default: 40)
+ * @return Formatted string representation
+ *
+ * Uses quadmath library for precise string conversion of high-precision values.
  */
 string to_string128(__float128 value, int precision = 40) {
   char buf[1024];
@@ -43,10 +45,10 @@ string to_string128(__float128 value, int precision = 40) {
 }
 
 /**
- * @brief Handles division by zero error reporting
+ * @brief Handles division by zero errors with tracking
  *
- * Creates error table and outputs division by zero message.
- * Is intended to be used to track error counts for witty responses.
+ * Records error occurrence for potential witty user feedback
+ * and outputs error information to stderr.
  */
 inline void dividedZero()
 {
@@ -65,10 +67,10 @@ inline void dividedZero()
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
 /**
- * @brief Ensures input has surrounding parentheses
+ * @brief Ensures expression has outer parentheses for consistent parsing
  *
- * Adds outer parentheses to input if not already present.
- * This simplifies parsing by guaranteeing parenthetical structure.
+ * Adds surrounding parentheses if not present, simplifying the
+ * recursive parsing algorithm by guaranteeing parenthetical structure.
  */
 void getRawInput()
 {
@@ -81,10 +83,10 @@ void getRawInput()
 };
 
 /**
- * @brief Removes whitespace from input expression
+ * @brief Removes all whitespace characters from input expression
  *
- * Strips space, horizontal tab, newline, vertical tab, form feed, and carriage return with "isspace"
- * from the raw input string for easier parsing.
+ * Strips space, horizontal tab, newline, vertical tab, form feed, and carriage return using isspace()
+ * to prepare clean input for character-by-character parsing.
  */
 void getCleanInput()
 {
@@ -99,19 +101,31 @@ void getCleanInput()
     global.cleanInput={global.rawInput};
 };
 
+/**
+ * @defgroup validation Input Validation
+ * @brief Comprehensive input validation pipeline
+ *
+ * Multi-stage validation ensures mathematical expressions are syntactically
+ * correct before processing:
+ * - Character whitelist validation
+ * - First character context rules
+ * - Balanced parentheses checking
+ * - Complete grammar state machine validation
+ *
+ * @example
+ * Valid expressions:
+ * - "2 + 3 * 4"        → 14
+ * - "2(3 + 4)"         → 14 (implicit multiplication)
+ * - "-(2 + 3)"         → -5 (unary minus) **BREAKS TOKENIZATION** **DEBUG**
+ * - "2^3^2"            → 512 (right-associative exponentiation)
+ * - "((2+3)*4)/5"      → 4 (nested parentheses)
+ */
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //║▓▓▓▓▒▒▒▒░░░░                  VALIDATION FUNCTIONS                ░░░░▒▒▒▒▓▓▓▓║
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
-/**
- * @brief Validates the first character of cleaned input
- * @return true if first character is valid, false otherwise
- *
- * Checks for invalid starting characters and validates context-specific
- * rules for minus signs, decimals, and parentheses.
- */
     bool isValidFirst()
     {
         char c{global.cleanInput[0]};
@@ -139,13 +153,6 @@ void getCleanInput()
         return true;
     }
 
-/**
- * @brief Validates parentheses matching and nesting
- * @return true if parentheses are properly matched, false otherwise
- *
- * Ensures all opening parentheses have matching closing parentheses
- * and that nesting is valid throughout the expression.
- */
     bool isValidPar()
     {
         int openCount{0};
@@ -178,13 +185,6 @@ void getCleanInput()
         return false;
     }
 
-/**
- * @brief Validates complete mathematical expression syntax
- * @return true if syntax is valid, false otherwise
- *
- * Uses state machine to validate proper sequence of numbers, operators,
- * variables, decimals, and parentheses according to mathematical grammar.
- */
     bool isValidSyntax()
   {
 
@@ -340,13 +340,6 @@ void getCleanInput()
     return true;
   }
 
-/**
- * @brief Master validation function for input expressions
- * @return true if input passes all validation tests, false otherwise
- *
- * Combines character validation, first character check, parentheses
- * validation, and complete syntax validation into single test.
- */
     bool isValidInput()
     {
       for(char currentCharacter:global.cleanInput)
@@ -379,11 +372,13 @@ void getCleanInput()
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
 /**
- * @brief Converts validated input into mathematical tokens
+ * @brief Converts cleaned input into mathematical operation tokens
  *
- * Parses mathematical expression into array of tokens (numbers, operators,
- * parentheses). Handles implicit multiplication, unary minus conversion,
- * and decimal number recognition. Does not handle factorial calculation or variables.
+ * Parses expression into array of numbers, operators, and parentheses.
+ * Handles implicit multiplication (e.g., "2(3)" → "2*3"), converts
+ * unary minus to negative numbers, and validates decimal formatting.
+ *
+ * @note Does not support factorial (!) or variables (x,y,z) in current version
  */
 void tokenize()
 {
@@ -551,15 +546,16 @@ void tokenize()
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
 /**
- * @brief Evaluates tokenized mathematical expression
+ * @brief Evaluates tokenized expression using operator precedence
  *
- * Processes tokens using operator precedence rules:
- * 1. Parentheses (innermost first)
- * 2. Exponentiation (^)
- * 3. Multiplication and Division (*, /)
- * 4. Addition and Subtraction (+, -)
+ * Processes tokens in mathematical order:
+ * 1. Innermost parentheses first
+ * 2. Exponentiation (^) - right associative
+ * 3. Multiplication/Division (*,/) - left associative
+ * 4. Addition/Subtraction (+,-) - left associative
  *
- * Uses 128-bit floating point for high precision calculations.
+ * Uses 128-bit floating point throughout for maximum precision.
+ * Handles division by zero with error reporting.
  */
   void calculate()
   {
@@ -571,6 +567,11 @@ void tokenize()
 
     global.rawTokens.emplace_back(" ");
 
+      /**
+       * @note Uses goto for efficient re-parsing after token modifications.
+       * This avoids deep recursion and provides O(n²) worst-case performance
+       * for complex nested expressions.
+       */
     BEGIN:
 
     for (size_t index{0};index<global.rawTokens.size();++index)
@@ -679,12 +680,6 @@ void tokenize()
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
-/**
- * @brief Renders calculation progress in ImGui interface
- *
- * Displays appropriate progress information based on current calculation
- * phase: verifying, validating, calculating, complete, or error state.
- */
 void renderCalculationProgress()
 {
     switch (global.currentPhase)
@@ -715,11 +710,12 @@ void renderCalculationProgress()
 }
 
 /**
- * @brief Formats calculation duration for display
- * @param duration Microseconds elapsed during calculation
- * @return Formatted time string with appropriate units (µs, ms, s)
+ * @brief Formats calculation duration with appropriate time units
+ * @param duration Elapsed time in microseconds
+ * @return Human-readable time string (µs, ms, or s)
  *
- * Automatically selects appropriate time units based on duration length.
+ * Automatically selects optimal units: microseconds (<1ms),
+ * milliseconds (<1s), or seconds with 2 decimal places.
  */
 string calculationTimeFormat(chrono::microseconds& duration)
 {
@@ -795,6 +791,13 @@ void calculationResult()
     global.calculationTime.clear();
 }
 
+/**
+ * @brief Implements main calculator interface layout
+ *
+ * Creates fixed-size window with multiline input field, calculate button,
+ * and result display area. Handles user interaction events and triggers
+ * calculation workflow.
+ */
 void renderGUI ()
     {
       constexpr ImGuiWindowFlags guiFlags = ImGuiWindowFlags_NoResize |

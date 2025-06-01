@@ -1,15 +1,33 @@
 /**
-* @file context.h
- * @brief Mathematical expression parser and calculator context definitions
+ * @mainpage High-Precision Mathematical Calculator
+ *
+ * A mathematical expression parser and calculator supporting 128-bit floating
+ * point precision with comprehensive syntax validation and real-time GUI.
+ *
+ * @section features Key Features
+ * - 128-bit floating point precision using libquadmath
+ * - Complete expression syntax validation with detailed error reporting
+ * - Support for standard operators: +, -, *, /, ^ with proper precedence
+ * - Implicit multiplication (e.g., "2(3+4)" becomes "2*(3+4)")
+ * - Real-time calculation progress feedback
+ * - SDL3 + ImGui cross-platform interface
+ *
+ * @section workflow Processing Workflow
+ * 1. Input validation and cleaning
+ * 2. Tokenization with operator precedence handling
+ * 3. Recursive calculation with parentheses resolution
+ * 4. High-precision result formatting
+ *
+ * @section limitations Current Limitations
+ * - No support for variables (x, y, z)
+ * - No factorial operator (!)
+ * - No trigonometric or logarithmic functions
+ *
  * @author jwarbax
  * @date 5/28/25
- *
- * This header defines the Context structure and supporting enums/constants
- * for a high-precision mathematical expression calculator using 128-bit
- * floating point arithmetic.
+ * @version 1.0
  */
 #pragma once
-#include <atomic>
 #include <cstdint>
 #include <vector>
 #include <string>
@@ -18,46 +36,55 @@ using namespace std;
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//║▓▓▓▓▒▒▒▒░░░░                       CONSTANTS                      ░░░░▒▒▒▒▓▓▓▓║
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
+//╚══════════════════════════════════════════════════════════════════════════════╝
+
+/**
+ * @brief Parser configuration constants and validation sets
+ *
+ * Character sets for input validation, window dimensions, and
+ * global state management for the calculation workflow.
+ */
+const string validList{" ()^*/+-0123456789."};
+const string invalidFirst{"*/+=)^"};
+const string operatorList{"^*/+-()"};
+
+constexpr int screenRatioMultiplier{50};
+constexpr int windowWidth = 16*screenRatioMultiplier;
+constexpr int windowHeight = 9*screenRatioMultiplier;
+
+//╔══════════════════════════════════════════════════════════════════════════════╗
+//║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //║▓▓▓▓▒▒▒▒░░░░                      ENUMERATIONS                    ░░░░▒▒▒▒▓▓▓▓║
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //╚══════════════════════════════════════════════════════════════════════════════╝
-/**
- * @brief States for syntax validation and phases for progress reporting
- *
- * "state" Defines all possible states during mathematical expression parsing
- * and validation. Used by the syntax checker to ensure proper grammar.
- * "phase" Defines what the calculation function is doing so that the user
- * can have a progress report displayed to them
- */
 
+/**
+ * @brief Parser state machine states for syntax validation
+ *
+ * Defines transition states used during mathematical expression parsing
+ * to ensure proper grammar and operator precedence.
+ */
 enum class state : uint8_t
 {
   start,
 
-  //0-9
   number,
 
-  //currently not implemented in final calculation
-  //tests isalpha
+  //**UNUSED**//
   variable,
 
-  //*/+-^
   operator_,
 
-  //minus sign pre-assessment
-  //BASE VALUE for unary and binary minus
   minus,
 
-  //negative number
   unary_minus,
 
-  //subtraction
   binary_minus,
 
-  //only for testing syntax
   decimal,
 
-  //if decimal comes before a number
   fractional,
 
   open_par,
@@ -65,7 +92,12 @@ enum class state : uint8_t
   close_par,
 };
 
-//state holding for progress system
+/**
+ * @brief Calculation progress phases for user feedback
+ *
+ * Tracks current processing stage to display meaningful progress
+ * information during long calculations.
+ */
 enum class phase
 {
   idle,
@@ -78,77 +110,42 @@ enum class phase
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
-//║▓▓▓▓▒▒▒▒░░░░                       CONSTANTS                      ░░░░▒▒▒▒▓▓▓▓║
+//║▓▓▓▓▒▒▒▒░░░░                    DATA STRUCTURES                   ░░░░▒▒▒▒▓▓▓▓║
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                     ❖ ◦ ◦ ❖                    ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //╚══════════════════════════════════════════════════════════════════════════════╝
-/** @brief Allowed characters, and data needed for parsing, validating, and calculating
+
+/**
+ * @brief Global application state and calculation context
  *
- * Tracks the complete workflow from raw
- * input through tokenization to final high-precision results.
+ * Centralized storage for input processing stages, calculation results,
+ * timing data, user preferences, and GUI state management.
  */
-const string validList{" ()^*/+-0123456789."};
-const string invalidFirst{"*/+=)^"};
-const string operatorList{"^*/+-()"};
-
-constexpr int screenRatioMultiplier{50};
-constexpr int windowWidth = 16*screenRatioMultiplier;
-constexpr int windowHeight = 9*screenRatioMultiplier;
-
 struct globals
 {
-    //unaltered string taken directly out of the GUI input field
-    string globalInput;
+    //Input Processing
+    string globalInput;              ///< Raw user input from GUI field
+    string rawInput;                 ///< Input with guaranteed outer parentheses
+    string cleanInput;               ///< Whitespace-stripped, ready for parsing
+    vector<string> rawTokens;        ///< Parsed mathematical tokens (numbers, operators, parentheses)
 
-    //string has had parentheses added to the ends (if needed)
-    string rawInput;
+    //Calculation Results
+    __float128 float128_Result{};    ///< High-precision numerical result
+    string stringResult;             ///< Formatted result for current calculation
+    string globalResult=" ";         ///< Persistent result display for GUI
 
-    //string has had all unnecessary characters removed with 'isspace'
-    //space (' '),
-    //horizontal tab ('\t'),
-    //newline ('\n'),
-    //vertical tab ('\v'),
-    //form feed ('\f'),
-    //and carriage return ('\r')
-    string cleanInput;
+    //Performance Metrics
+    string calculationTime;          ///< Formatted elapsed time string
+    string timeTaken=" ";            ///< Persistent timing display for GUI
 
-    //string is parsed into tokens contained in an array
-    //the minus sign '-' prefers to create negative numbers and add '+' in front of them
-    //multiplication is inferred with )( or any parenthesis next to a number
-    //factorial '!' not currently handled
-    //variables "x, y, z" not currently handled
-    vector<string> rawTokens;
+    //User Preferences
+    bool displayElapsedTime{};       ///< User preference for showing timing
+    int userPrecision{40};           ///< Decimal places to display (max 40)
 
-    //numerical result in 128bit floating point
-    __float128 float128_Result{};
-
-    //numerical result converted to std::string
-    string stringResult;
-
-    //stores result so that GUI can continue displaying after stringResult is cleared
-    string globalResult=" ";
-
-    //time taken to complete calculation
-    string calculationTime;
-
-    //stores result so that GUI can continue displaying after calculationTime is cleared
-    string timeTaken=" ";
-
-    //the user can disable the elapsed time being displayed if they wish
-    bool displayElapsedTime{};
-
-    //user can set desired precision,
-    //the number represents how many digits are shown after the decimal
-    int userPrecision{40};
-
-    //records how many times the user attempts to divide by zero
-    //so that we can display increasingly witty failure responses, of course
-    int zeroCount{};
-
-    //for rendering the progress bar for longer calculations
-    float totalTokens{0.0f};
-    float currentTokens{static_cast<float>(rawTokens.size())};
-
-    phase currentPhase{phase::idle};
+    //Progress Tracking
+    int zeroCount{};                 ///< Division-by-zero attempts (for error messages)
+    float totalTokens{0.0f};         ///< Initial token count for progress calculation
+    float currentTokens{static_cast<float>(rawTokens.size())}; ///< Remaining operations
+    phase currentPhase{phase::idle}; ///< Current processing stage
 };
 
 //╔══════════════════════════════════════════════════════════════════════════════╗
@@ -158,40 +155,53 @@ struct globals
 //╚══════════════════════════════════════════════════════════════════════════════╝
 
 /**
- * @brief Validates the first character of input expression
- * @return true if first character is valid, false otherwise
+ * @brief Validates expression starting character
+ * @return true if first character follows mathematical grammar rules
  */
 bool isValidFirst();
 
 /**
- * @brief Validates parentheses matching in expression
- * @return true if all parentheses are properly matched, false otherwise
+ * @brief Ensures balanced parentheses throughout expression
+ * @return true if all parentheses are properly matched and nested
  */
 bool isValidPar();
 
 /**
- * @brief Validates complete syntax of mathematical expression
- * @return true if syntax is valid, false otherwise
+ * @brief Validates complete mathematical expression syntax
+ * @return true if expression follows proper mathematical grammar
  */
 bool isValidSyntax();
 
 /**
- * @brief Master validation function combining all input checks
+ * @brief Comprehensive input validation pipeline
+ * @return true if input passes character, syntax, and structure validation
  *
- * This function first checks entire string against validList to ensure it includes no illegal characters
- * @return true if input passes all validation tests, false otherwise
+ * Combines all validation functions to ensure safe processing of
+ * mathematical expressions before tokenization and calculation.
  */
 bool isValidInput();
 
 /**
- * @brief Processes mathematical expression and generates result
+ * @brief Orchestrates complete calculation workflow
+ *
+ * Processes input through validation, tokenization, calculation,
+ * and result formatting with timing measurements.
  */
 void calculationResult();
 
 /**
- * @brief Renders calculation progress in ImGui interface
+ * @brief Renders real-time calculation progress in ImGui
+ *
+ * Displays phase-appropriate progress information including
+ * progress bars for long calculations.
  */
 void renderCalculationProgress();
 
+/**
+ * @brief Main application GUI renderer
+ *
+ * Creates the primary interface for input, calculation trigger,
+ * and result display using ImGui framework.
+ */
 void renderGUI ();
 

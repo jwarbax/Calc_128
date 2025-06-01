@@ -1,3 +1,21 @@
+/**
+* @file main.cpp
+ * @brief Application entry point and SDL3/ImGui initialization
+ * @author jwarbax
+ * @date 5/28/25
+ *
+ * Initializes SDL3 graphics, creates ImGui context, and runs the
+ * main application loop for the high-precision calculator interface.
+ */
+
+/**
+ * @brief Application entry point
+ * @return 0 on success, -1 on initialization failure
+ *
+ * Sets up SDL3 window and renderer, initializes ImGui framework,
+ * and runs the main event loop until user closes the application.
+ */
+
 #include <iostream>
 #include "SDL3/SDL.h"
 #include "imgui.h"
