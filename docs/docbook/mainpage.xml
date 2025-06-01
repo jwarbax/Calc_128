@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_mainpage" xml:lang="en-US">
+<title>High-Precision Mathematical Calculator</title>
+<indexterm><primary>High-Precision Mathematical Calculator</primary></indexterm>
+
+<para>A mathematical expression parser and calculator supporting 128-bit floating point precision with comprehensive syntax validation and real-time GUI.</para>
+<section xml:id="_index_1features">
+<title>Key Features</title>
+<para><itemizedlist>
+<listitem>
+<para>128-bit floating point precision using libquadmath</para>
+</listitem><listitem>
+<para>Complete expression syntax validation with detailed error reporting</para>
+</listitem><listitem>
+<para>Support for standard operators: +, -, *, /, ^ with proper precedence</para>
+</listitem><listitem>
+<para>Implicit multiplication (e.g., 2(3+4) becomes 2 * (3+4))</para>
+</listitem><listitem>
+<para>Real-time calculation progress feedback</para>
+</listitem><listitem>
+<para>SDL3 + ImGui cross-platform interface</para>
+</listitem></itemizedlist>
+</para>
+</section>
+<section xml:id="_index_1workflow">
+<title>Processing Workflow</title>
+<para><orderedlist>
+<listitem>
+<para>Input validation and cleaning</para>
+</listitem><listitem>
+<para>Tokenization with operator precedence handling</para>
+</listitem><listitem>
+<para>Recursive calculation with parentheses resolution</para>
+</listitem><listitem>
+<para>High-precision result formatting</para>
+</listitem></orderedlist>
+</para>
+</section>
+<section xml:id="_index_1limitations">
+<title>Current Limitations</title>
+<para><itemizedlist>
+<listitem>
+<para>No support for variables (x, y, z)</para>
+</listitem><listitem>
+<para>No factorial operator (!)</para>
+</listitem><listitem>
+<para>No trigonometric or logarithmic functions </para>
+</listitem></itemizedlist>
+</para>
+</section>
+</chapter>

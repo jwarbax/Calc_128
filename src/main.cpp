@@ -1,5 +1,5 @@
 /**
-* @file main.cpp
+ * @file main.cpp
  * @brief Application entry point and SDL3/ImGui initialization
  * @author jwarbax
  * @date 5/28/25

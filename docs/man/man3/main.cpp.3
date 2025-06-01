@@ -1,0 +1,67 @@
+.TH "src/main.cpp" 3 "Version 1.0" "Calc_128" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/main.cpp \- Application entry point and SDL3/ImGui initialization\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <iostream>\fP
+.br
+\fR#include 'SDL3/SDL\&.h'\fP
+.br
+\fR#include 'imgui\&.h'\fP
+.br
+\fR#include 'imgui_impl_sdl3\&.h'\fP
+.br
+\fR#include <imgui_impl_sdlrenderer3\&.h>\fP
+.br
+\fR#include 'functions\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP ()"
+.br
+.RI "Application entry point\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Application entry point and SDL3/ImGui initialization\&. 
+
+
+.PP
+\fBAuthor\fP
+.RS 4
+jwarbax 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+5/28/25
+.RE
+.PP
+Initializes SDL3 graphics, creates ImGui context, and runs the main application loop for the high-precision calculator interface\&. 
+.PP
+Definition in file \fBmain\&.cpp\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int main ()"
+
+.PP
+Application entry point\&. 
+.PP
+\fBReturns\fP
+.RS 4
+0 on success, -1 on initialization failure
+.RE
+.PP
+Sets up SDL3 window and renderer, initializes ImGui framework, and runs the main event loop until user closes the application\&. 
+.PP
+Definition at line \fB27\fP of file \fBmain\&.cpp\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Calc_128 from the source code\&.

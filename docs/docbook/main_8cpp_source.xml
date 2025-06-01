@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main_8cpp_source" xml:lang="en-US">
+<title>main.cpp</title>
+<indexterm><primary>src/main.cpp</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_main_8cpp_source_1l00001"/>00001 
+<anchor xml:id="_main_8cpp_source_1l00010"/>00010 
+<anchor xml:id="_main_8cpp_source_1l00018"/>00018 
+<anchor xml:id="_main_8cpp_source_1l00019"/>00019 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00020"/>00020 <emphasis role="preprocessor">#include&#32;&quot;SDL3/SDL.h&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00021"/>00021 <emphasis role="preprocessor">#include&#32;&quot;imgui.h&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00022"/>00022 <emphasis role="preprocessor">#include&#32;&quot;imgui_impl_sdl3.h&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00023"/>00023 <emphasis role="preprocessor">#include&#32;&lt;imgui_impl_sdlrenderer3.h&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00024"/>00024 
+<anchor xml:id="_main_8cpp_source_1l00025"/>00025 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_functions_8h">functions.h</link>&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00026"/>00026 
+<anchor xml:id="_main_8cpp_source_1l00027"/><link linkend="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">00027</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>()
+<anchor xml:id="_main_8cpp_source_1l00028"/>00028 {
+<anchor xml:id="_main_8cpp_source_1l00029"/>00029 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!SDL_Init(SDL_INIT_VIDEO&#32;|&#32;SDL_INIT_GAMEPAD))
+<anchor xml:id="_main_8cpp_source_1l00030"/>00030 &#32;&#32;{
+<anchor xml:id="_main_8cpp_source_1l00031"/>00031 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Error:&#32;SDL_Init():&#32;%s\n&quot;</emphasis>,&#32;SDL_GetError());
+<anchor xml:id="_main_8cpp_source_1l00032"/>00032 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
+<anchor xml:id="_main_8cpp_source_1l00033"/>00033 &#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00034"/>00034 
+<anchor xml:id="_main_8cpp_source_1l00035"/>00035 &#32;&#32;<emphasis role="keyword">constexpr</emphasis>&#32;SDL_WindowFlags&#32;windowFlags&#32;=&#32;0;
+<anchor xml:id="_main_8cpp_source_1l00036"/>00036 &#32;&#32;SDL_Window*&#32;window&#32;=&#32;SDL_CreateWindow(<emphasis role="stringliteral">&quot;Calc_128&quot;</emphasis>,&#32;<link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link>,&#32;<link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link>,&#32;windowFlags);
+<anchor xml:id="_main_8cpp_source_1l00037"/>00037 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(window&#32;==&#32;<emphasis role="keyword">nullptr</emphasis>)
+<anchor xml:id="_main_8cpp_source_1l00038"/>00038 &#32;&#32;{
+<anchor xml:id="_main_8cpp_source_1l00039"/>00039 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Error:&#32;SDL_CreateWindow():&#32;%s\n&quot;</emphasis>,&#32;SDL_GetError());
+<anchor xml:id="_main_8cpp_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
+<anchor xml:id="_main_8cpp_source_1l00041"/>00041 &#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00042"/>00042 &#32;&#32;SDL_Renderer*&#32;renderer&#32;=&#32;SDL_CreateRenderer(window,&#32;<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_main_8cpp_source_1l00043"/>00043 &#32;&#32;SDL_SetRenderVSync(renderer,&#32;1);
+<anchor xml:id="_main_8cpp_source_1l00044"/>00044 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(renderer&#32;==&#32;<emphasis role="keyword">nullptr</emphasis>)
+<anchor xml:id="_main_8cpp_source_1l00045"/>00045 &#32;&#32;{
+<anchor xml:id="_main_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;SDL_Log(<emphasis role="stringliteral">&quot;Error:&#32;SDL_CreateRenderer():&#32;%s\n&quot;</emphasis>,&#32;SDL_GetError());
+<anchor xml:id="_main_8cpp_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
+<anchor xml:id="_main_8cpp_source_1l00048"/>00048 &#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00049"/>00049 &#32;&#32;SDL_SetWindowPosition(window,&#32;SDL_WINDOWPOS_CENTERED,&#32;SDL_WINDOWPOS_CENTERED);
+<anchor xml:id="_main_8cpp_source_1l00050"/>00050 
+<anchor xml:id="_main_8cpp_source_1l00051"/>00051 &#32;&#32;IMGUI_CHECKVERSION();
+<anchor xml:id="_main_8cpp_source_1l00052"/>00052 &#32;&#32;ImGui::CreateContext();
+<anchor xml:id="_main_8cpp_source_1l00053"/>00053 &#32;&#32;ImGuiIO&amp;&#32;io&#32;=&#32;ImGui::GetIO();&#32;(void)io;
+<anchor xml:id="_main_8cpp_source_1l00054"/>00054 
+<anchor xml:id="_main_8cpp_source_1l00055"/>00055 &#32;&#32;ImGui::StyleColorsDark();
+<anchor xml:id="_main_8cpp_source_1l00056"/>00056 
+<anchor xml:id="_main_8cpp_source_1l00057"/>00057 &#32;&#32;ImGui_ImplSDL3_InitForSDLRenderer(window,&#32;renderer);
+<anchor xml:id="_main_8cpp_source_1l00058"/>00058 &#32;&#32;ImGui_ImplSDLRenderer3_Init(renderer);
+<anchor xml:id="_main_8cpp_source_1l00059"/>00059 
+<anchor xml:id="_main_8cpp_source_1l00060"/>00060 &#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;clearColor&#32;=&#32;ImVec4(0.45f,&#32;0.55f,&#32;0.60f,&#32;1.00f);
+<anchor xml:id="_main_8cpp_source_1l00061"/>00061 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;running&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(running)
+<anchor xml:id="_main_8cpp_source_1l00063"/>00063 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_main_8cpp_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;SDL_Event&#32;event;
+<anchor xml:id="_main_8cpp_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(SDL_PollEvent(&amp;event))
+<anchor xml:id="_main_8cpp_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_main_8cpp_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui_ImplSDL3_ProcessEvent(&amp;event);
+<anchor xml:id="_main_8cpp_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(event.type&#32;==&#32;SDL_EVENT_QUIT)
+<anchor xml:id="_main_8cpp_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;running&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(event.type&#32;==&#32;SDL_EVENT_WINDOW_CLOSE_REQUESTED&#32;&amp;&amp;&#32;event.window.windowID&#32;==&#32;SDL_GetWindowID(window))
+<anchor xml:id="_main_8cpp_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;running&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;ImGui_ImplSDLRenderer3_NewFrame();
+<anchor xml:id="_main_8cpp_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;ImGui_ImplSDL3_NewFrame();
+<anchor xml:id="_main_8cpp_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::NewFrame();
+<anchor xml:id="_main_8cpp_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::SetNextWindowPos(ImVec2(0,&#32;0));
+<anchor xml:id="_main_8cpp_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::SetNextWindowSize(ImVec2(<link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link>,&#32;<link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link>));
+<anchor xml:id="_main_8cpp_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8h_1a570eda3c279bcaa2dad085617116843b">renderGUI</link>();
+<anchor xml:id="_main_8cpp_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::Render();
+<anchor xml:id="_main_8cpp_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;SDL_SetRenderScale(renderer,&#32;io.DisplayFramebufferScale.x,&#32;io.DisplayFramebufferScale.y);
+<anchor xml:id="_main_8cpp_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;SDL_SetRenderDrawColorFloat(renderer,&#32;clearColor.x,&#32;clearColor.y,&#32;clearColor.z,&#32;clearColor.w);
+<anchor xml:id="_main_8cpp_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;SDL_RenderClear(renderer);
+<anchor xml:id="_main_8cpp_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(),&#32;renderer);
+<anchor xml:id="_main_8cpp_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;SDL_RenderPresent(renderer);
+<anchor xml:id="_main_8cpp_source_1l00085"/>00085 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00086"/>00086 &#32;&#32;ImGui_ImplSDLRenderer3_Shutdown();
+<anchor xml:id="_main_8cpp_source_1l00087"/>00087 &#32;&#32;ImGui_ImplSDL3_Shutdown();
+<anchor xml:id="_main_8cpp_source_1l00088"/>00088 &#32;&#32;ImGui::DestroyContext();
+<anchor xml:id="_main_8cpp_source_1l00089"/>00089 
+<anchor xml:id="_main_8cpp_source_1l00090"/>00090 &#32;&#32;SDL_DestroyRenderer(renderer);
+<anchor xml:id="_main_8cpp_source_1l00091"/>00091 &#32;&#32;SDL_DestroyWindow(window);
+<anchor xml:id="_main_8cpp_source_1l00092"/>00092 &#32;&#32;SDL_Quit();
+<anchor xml:id="_main_8cpp_source_1l00093"/>00093 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_main_8cpp_source_1l00094"/>00094 }
+</programlisting></section>

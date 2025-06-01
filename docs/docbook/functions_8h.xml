@@ -1,0 +1,485 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_functions_8h" xml:lang="en-US">
+<title>include/functions.h File Reference</title>
+<indexterm><primary>include/functions.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;cstdint&gt;<?linebreak?>#include &lt;vector&gt;<?linebreak?>#include &lt;string&gt;<?linebreak?></programlisting>Include dependency graph for functions.h:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+This graph shows which files directly or indirectly include this file:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>struct <link linkend="_structglobals">globals</link></para>
+
+<para>Global application state and calculation context. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Enumerations    </title>
+        <itemizedlist>
+            <listitem><para>enum class <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">state</link> : uint8_t { <?linebreak?><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">number</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">variable</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">operator_</link>
+, <?linebreak?><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">minus</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">unary_minus</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">binary_minus</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">decimal</link>
+, <?linebreak?><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">fractional</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">open_par</link>
+, <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">close_par</link>
+ }</para>
+
+<para>Parser state machine states for syntax validation. </para>
+</listitem>
+            <listitem><para>enum class <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link> { <?linebreak?><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">idle</link>
+, <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47">verifying</link>
+, <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493">validating</link>
+, <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86">calculating</link>
+, <?linebreak?><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1">complete</link>
+, <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282">error</link>
+ }</para>
+
+<para>Calculation progress phases for user feedback. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>bool <link linkend="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link> ()</para>
+
+<para>Validates expression starting character. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link> ()</para>
+
+<para>Ensures balanced parentheses throughout expression. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link> ()</para>
+
+<para>Validates complete mathematical expression syntax. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8h_1a934deca8a1216d29140a7965acf53707">isValidInput</link> ()</para>
+
+<para>Comprehensive input validation pipeline. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link> ()</para>
+
+<para>Orchestrates complete calculation workflow. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67">renderCalculationProgress</link> ()</para>
+
+<para>Renders real-time calculation progress in ImGui. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8h_1a570eda3c279bcaa2dad085617116843b">renderGUI</link> ()</para>
+
+<para>Main application GUI renderer. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>const string <link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link> {&quot; ()^*/+-0123456789.&quot;}</para>
+
+<para>Parser configuration constants and validation sets. </para>
+</listitem>
+            <listitem><para>const string <link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link> {&quot;*/+=)^&quot;}</para>
+</listitem>
+            <listitem><para>const string <link linkend="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491">operatorList</link> {&quot;^*/+-()&quot;}</para>
+</listitem>
+            <listitem><para>constexpr int <link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link> {50}</para>
+</listitem>
+            <listitem><para>constexpr int <link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link> = 16*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link></para>
+</listitem>
+            <listitem><para>constexpr int <link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link> = 9*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para><formalpara><title>Author</title>
+
+<para>jwarbax </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>5/28/25 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0 </para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<section>
+<title>Enumeration Type Documentation</title>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d"/><section>
+    <title>phase</title>
+<indexterm><primary>phase</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>phase</secondary></indexterm>
+<para><computeroutput>enum class <link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link><computeroutput>[strong]</computeroutput></computeroutput></para><para>
+
+<para>Calculation progress phases for user feedback. </para>
+</para>
+
+<para>Tracks current processing stage to display meaningful progress information during long calculations. </para>
+<informaltable frame="all">
+<title>Enumerator</title>
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<tbody>
+<row><entry><indexterm><primary>idle</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>idle</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb"/>idle</entry><entry></entry></row><row><entry><indexterm><primary>verifying</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>verifying</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47"/>verifying</entry><entry></entry></row><row><entry><indexterm><primary>validating</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>validating</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493"/>validating</entry><entry></entry></row><row><entry><indexterm><primary>calculating</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>calculating</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86"/>calculating</entry><entry></entry></row><row><entry><indexterm><primary>complete</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>complete</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1"/>complete</entry><entry></entry></row><row><entry><indexterm><primary>error</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>error</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282"/>error</entry><entry></entry></row>    </tbody>
+    </tgroup>
+</informaltable>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00102">102</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860"/><section>
+    <title>state</title>
+<indexterm><primary>state</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>state</secondary></indexterm>
+<para><computeroutput>enum class <link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">state</link> : uint8_t<computeroutput>[strong]</computeroutput></computeroutput></para><para>
+
+<para>Parser state machine states for syntax validation. </para>
+</para>
+
+<para>Defines transition states used during mathematical expression parsing to ensure proper grammar and operator precedence. </para>
+<informaltable frame="all">
+<title>Enumerator</title>
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<tbody>
+<row><entry><indexterm><primary>start</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>start</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92"/>start</entry><entry></entry></row><row><entry><indexterm><primary>number</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>number</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df"/>number</entry><entry></entry></row><row><entry><indexterm><primary>variable</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>variable</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26"/>variable</entry><entry></entry></row><row><entry><indexterm><primary>operator_</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>operator_</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437"/>operator_</entry><entry></entry></row><row><entry><indexterm><primary>minus</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>minus</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7"/>minus</entry><entry></entry></row><row><entry><indexterm><primary>unary_minus</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>unary_minus</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12"/>unary_minus</entry><entry></entry></row><row><entry><indexterm><primary>binary_minus</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>binary_minus</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5"/>binary_minus</entry><entry></entry></row><row><entry><indexterm><primary>decimal</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>decimal</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f"/>decimal</entry><entry></entry></row><row><entry><indexterm><primary>fractional</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>fractional</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5"/>fractional</entry><entry></entry></row><row><entry><indexterm><primary>open_par</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>open_par</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322"/>open_par</entry><entry></entry></row><row><entry><indexterm><primary>close_par</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>close_par</secondary></indexterm>
+<anchor xml:id="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51"/>close_par</entry><entry></entry></row>    </tbody>
+    </tgroup>
+</informaltable>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00070">70</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0"/><section>
+    <title>calculationResult()</title>
+<indexterm><primary>calculationResult</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>calculationResult</secondary></indexterm>
+<para><computeroutput>void calculationResult ( )</computeroutput></para><para>
+
+<para>Orchestrates complete calculation workflow. </para>
+</para>
+
+<para>Processes input through validation, tokenization, calculation, and result formatting with timing measurements.</para>
+
+<para>Orchestrates complete calculation workflow.</para>
+
+<para>Coordinates the complete calculation workflow:<orderedlist>
+<listitem>
+<para>Input processing and cleaning</para>
+</listitem><listitem>
+<para>Validation of mathematical expression</para>
+</listitem><listitem>
+<para>Tokenization and parsing</para>
+</listitem><listitem>
+<para>High-precision calculation</para>
+</listitem><listitem>
+<para>Result formatting and timing</para>
+</listitem></orderedlist>
+</para>
+
+<para>Cleans up context after processing. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00756">756</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a760d14bec1ac400123cb014ac0f64cf0_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a760d14bec1ac400123cb014ac0f64cf0_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b"/><section>
+    <title>isValidFirst()</title>
+<indexterm><primary>isValidFirst</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>isValidFirst</secondary></indexterm>
+<para><computeroutput>bool isValidFirst ( )</computeroutput></para><para>
+
+<para>Validates expression starting character. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if first character follows mathematical grammar rules </para>
+</formalpara>
+</para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00130">130</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a4da61f7a155354b3cbb7f1fd4468a68b_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8h_1a934deca8a1216d29140a7965acf53707"/><section>
+    <title>isValidInput()</title>
+<indexterm><primary>isValidInput</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>isValidInput</secondary></indexterm>
+<para><computeroutput>bool isValidInput ( )</computeroutput></para><para>
+
+<para>Comprehensive input validation pipeline. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if input passes character, syntax, and structure validation</para>
+</formalpara>
+Combines all validation functions to ensure safe processing of mathematical expressions before tokenization and calculation. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00344">344</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a934deca8a1216d29140a7965acf53707_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a934deca8a1216d29140a7965acf53707_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45"/><section>
+    <title>isValidPar()</title>
+<indexterm><primary>isValidPar</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>isValidPar</secondary></indexterm>
+<para><computeroutput>bool isValidPar ( )</computeroutput></para><para>
+
+<para>Ensures balanced parentheses throughout expression. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if all parentheses are properly matched and nested </para>
+</formalpara>
+</para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00157">157</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a12cd1d9d8726563506fd2141d3f75f45_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f"/><section>
+    <title>isValidSyntax()</title>
+<indexterm><primary>isValidSyntax</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>isValidSyntax</secondary></indexterm>
+<para><computeroutput>bool isValidSyntax ( )</computeroutput></para><para>
+
+<para>Validates complete mathematical expression syntax. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if expression follows proper mathematical grammar </para>
+</formalpara>
+</para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00189">189</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a06f3efbda9626fc105f146c3f64c702f_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67"/><section>
+    <title>renderCalculationProgress()</title>
+<indexterm><primary>renderCalculationProgress</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>renderCalculationProgress</secondary></indexterm>
+<para><computeroutput>void renderCalculationProgress ( )</computeroutput></para><para>
+
+<para>Renders real-time calculation progress in ImGui. </para>
+</para>
+
+<para>Displays phase-appropriate progress information including progress bars for long calculations. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00685">685</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a570eda3c279bcaa2dad085617116843b"/><section>
+    <title>renderGUI()</title>
+<indexterm><primary>renderGUI</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>renderGUI</secondary></indexterm>
+<para><computeroutput>void renderGUI ( )</computeroutput></para><para>
+
+<para>Main application GUI renderer. </para>
+</para>
+
+<para>Creates the primary interface for input, calculation trigger, and result display using ImGui framework.</para>
+
+<para>Main application GUI renderer.</para>
+
+<para>Creates fixed-size window with multiline input field, calculate button, and result display area. Handles user interaction events and triggers calculation workflow. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00803">803</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a570eda3c279bcaa2dad085617116843b_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8h_a570eda3c279bcaa2dad085617116843b_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6"/><section>
+    <title>invalidFirst</title>
+<indexterm><primary>invalidFirst</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>invalidFirst</secondary></indexterm>
+<para><computeroutput>const string invalidFirst {&quot;*/+=)^&quot;}</computeroutput></para><para>
+Definition at line <link linkend="_functions_8h_source_1l00051">51</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491"/><section>
+    <title>operatorList</title>
+<indexterm><primary>operatorList</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>operatorList</secondary></indexterm>
+<para><computeroutput>const string operatorList {&quot;^*/+-()&quot;}</computeroutput></para><para>
+Definition at line <link linkend="_functions_8h_source_1l00052">52</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626"/><section>
+    <title>screenRatioMultiplier</title>
+<indexterm><primary>screenRatioMultiplier</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>screenRatioMultiplier</secondary></indexterm>
+<para><computeroutput>int screenRatioMultiplier {50}<computeroutput>[constexpr]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_functions_8h_source_1l00054">54</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a538796c494f27edc133ab80c6bf225a6"/><section>
+    <title>validList</title>
+<indexterm><primary>validList</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>validList</secondary></indexterm>
+<para><computeroutput>const string validList {&quot; ()^*/+-0123456789.&quot;}</computeroutput></para><para>
+
+<para>Parser configuration constants and validation sets. </para>
+</para>
+
+<para>Character sets for input validation, window dimensions, and global state management for the calculation workflow. </para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00050">50</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0"/><section>
+    <title>windowHeight</title>
+<indexterm><primary>windowHeight</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>windowHeight</secondary></indexterm>
+<para><computeroutput>int windowHeight = 9*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link><computeroutput>[constexpr]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_functions_8h_source_1l00056">56</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_functions_8h_1a050b21607767707ea2b3000538598bdf"/><section>
+    <title>windowWidth</title>
+<indexterm><primary>windowWidth</primary><secondary>functions.h</secondary></indexterm>
+<indexterm><primary>functions.h</primary><secondary>windowWidth</secondary></indexterm>
+<para><computeroutput>int windowWidth = 16*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link><computeroutput>[constexpr]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_functions_8h_source_1l00055">55</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+</section>
+</section>

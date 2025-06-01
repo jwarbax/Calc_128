@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structglobals" xml:lang="en-US">
+<title>globals Struct Reference</title>
+<indexterm><primary>globals</primary></indexterm>
+<para>
+
+<para>Global application state and calculation context. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;functions.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>string <link linkend="_structglobals_1a21cfa4911a020abd93196257f16f1c9c">globalInput</link></para>
+
+<para>Raw user input from GUI field. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd">rawInput</link></para>
+
+<para>Input with guaranteed outer parentheses. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123">cleanInput</link></para>
+
+<para>Whitespace-stripped, ready for parsing. </para>
+</listitem>
+            <listitem><para>vector&lt; string &gt; <link linkend="_structglobals_1af8164e2095e2213110b324be3cc6b463">rawTokens</link></para>
+
+<para>Parsed mathematical tokens (numbers, operators, parentheses) </para>
+</listitem>
+            <listitem><para>__float128 <link linkend="_structglobals_1a46b25073320c32f18d9fea86c064eacf">float128_Result</link> {}</para>
+
+<para>High-precision numerical result. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1aebf1d77908e583110c060bc3f10ef6f7">stringResult</link></para>
+
+<para>Formatted result for current calculation. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1a623cc0c55239723cd7286e40ba040b08">globalResult</link> =&quot; &quot;</para>
+
+<para>Persistent result display for GUI. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1a7a82e89893efc5828d494af105db6146">calculationTime</link></para>
+
+<para>Formatted elapsed time string. </para>
+</listitem>
+            <listitem><para>string <link linkend="_structglobals_1a3c4ea25c7632a0b6ab362d68de434a33">timeTaken</link> =&quot; &quot;</para>
+
+<para>Persistent timing display for GUI. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_structglobals_1a243d8dce37e7c20a3aa558a5599bf48a">displayElapsedTime</link> {}</para>
+
+<para>User preference for showing timing. </para>
+</listitem>
+            <listitem><para>int <link linkend="_structglobals_1af5b7f30cabd10f24059123a8100589a3">userPrecision</link> {40}</para>
+
+<para>Decimal places to display (max 40) </para>
+</listitem>
+            <listitem><para>int <link linkend="_structglobals_1add26994aa930d44a11cf93c91ef3ada1">zeroCount</link> {}</para>
+
+<para>Division-by-zero attempts (for error messages) </para>
+</listitem>
+            <listitem><para>float <link linkend="_structglobals_1a80c1636a0d85ac9778779d0b346a3187">totalTokens</link> {0.0f}</para>
+
+<para>Initial token count for progress calculation. </para>
+</listitem>
+            <listitem><para>float <link linkend="_structglobals_1a31c0203f2279f18cc66cb177a5514d1c">currentTokens</link> {static_cast&lt;float&gt;(rawTokens.size())}</para>
+
+<para>Remaining operations. </para>
+</listitem>
+            <listitem><para><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link> <link linkend="_structglobals_1ad6954113475f63fb6b12d37d6286ca10">currentPhase</link> {<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">phase::idle</link>}</para>
+
+<para>Current processing stage. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Global application state and calculation context. </para>
+
+
+
+<para>Centralized storage for input processing stages, calculation results, timing data, user preferences, and GUI state management. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00124">124</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_structglobals_1a7a82e89893efc5828d494af105db6146"/><section>
+    <title>calculationTime</title>
+<indexterm><primary>calculationTime</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>calculationTime</secondary></indexterm>
+<para><computeroutput>string globals::calculationTime</computeroutput></para><para>
+
+<para>Formatted elapsed time string. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00138">138</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123"/><section>
+    <title>cleanInput</title>
+<indexterm><primary>cleanInput</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>cleanInput</secondary></indexterm>
+<para><computeroutput>string globals::cleanInput</computeroutput></para><para>
+
+<para>Whitespace-stripped, ready for parsing. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00129">129</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1ad6954113475f63fb6b12d37d6286ca10"/><section>
+    <title>currentPhase</title>
+<indexterm><primary>currentPhase</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>currentPhase</secondary></indexterm>
+<para><computeroutput><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link> globals::currentPhase {<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">phase::idle</link>}</computeroutput></para><para>
+
+<para>Current processing stage. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00149">149</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a31c0203f2279f18cc66cb177a5514d1c"/><section>
+    <title>currentTokens</title>
+<indexterm><primary>currentTokens</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>currentTokens</secondary></indexterm>
+<para><computeroutput>float globals::currentTokens {static_cast&lt;float&gt;(rawTokens.size())}</computeroutput></para><para>
+
+<para>Remaining operations. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00148">148</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a243d8dce37e7c20a3aa558a5599bf48a"/><section>
+    <title>displayElapsedTime</title>
+<indexterm><primary>displayElapsedTime</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>displayElapsedTime</secondary></indexterm>
+<para><computeroutput>bool globals::displayElapsedTime {}</computeroutput></para><para>
+
+<para>User preference for showing timing. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00142">142</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a46b25073320c32f18d9fea86c064eacf"/><section>
+    <title>float128_Result</title>
+<indexterm><primary>float128_Result</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>float128_Result</secondary></indexterm>
+<para><computeroutput>__float128 globals::float128_Result {}</computeroutput></para><para>
+
+<para>High-precision numerical result. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00133">133</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a21cfa4911a020abd93196257f16f1c9c"/><section>
+    <title>globalInput</title>
+<indexterm><primary>globalInput</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>globalInput</secondary></indexterm>
+<para><computeroutput>string globals::globalInput</computeroutput></para><para>
+
+<para>Raw user input from GUI field. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00127">127</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a623cc0c55239723cd7286e40ba040b08"/><section>
+    <title>globalResult</title>
+<indexterm><primary>globalResult</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>globalResult</secondary></indexterm>
+<para><computeroutput>string globals::globalResult =&quot; &quot;</computeroutput></para><para>
+
+<para>Persistent result display for GUI. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00135">135</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd"/><section>
+    <title>rawInput</title>
+<indexterm><primary>rawInput</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>rawInput</secondary></indexterm>
+<para><computeroutput>string globals::rawInput</computeroutput></para><para>
+
+<para>Input with guaranteed outer parentheses. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00128">128</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1af8164e2095e2213110b324be3cc6b463"/><section>
+    <title>rawTokens</title>
+<indexterm><primary>rawTokens</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>rawTokens</secondary></indexterm>
+<para><computeroutput>vector&lt;string&gt; globals::rawTokens</computeroutput></para><para>
+
+<para>Parsed mathematical tokens (numbers, operators, parentheses) </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00130">130</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1aebf1d77908e583110c060bc3f10ef6f7"/><section>
+    <title>stringResult</title>
+<indexterm><primary>stringResult</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>stringResult</secondary></indexterm>
+<para><computeroutput>string globals::stringResult</computeroutput></para><para>
+
+<para>Formatted result for current calculation. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00134">134</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a3c4ea25c7632a0b6ab362d68de434a33"/><section>
+    <title>timeTaken</title>
+<indexterm><primary>timeTaken</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>timeTaken</secondary></indexterm>
+<para><computeroutput>string globals::timeTaken =&quot; &quot;</computeroutput></para><para>
+
+<para>Persistent timing display for GUI. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00139">139</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1a80c1636a0d85ac9778779d0b346a3187"/><section>
+    <title>totalTokens</title>
+<indexterm><primary>totalTokens</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>totalTokens</secondary></indexterm>
+<para><computeroutput>float globals::totalTokens {0.0f}</computeroutput></para><para>
+
+<para>Initial token count for progress calculation. </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00147">147</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1af5b7f30cabd10f24059123a8100589a3"/><section>
+    <title>userPrecision</title>
+<indexterm><primary>userPrecision</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>userPrecision</secondary></indexterm>
+<para><computeroutput>int globals::userPrecision {40}</computeroutput></para><para>
+
+<para>Decimal places to display (max 40) </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00143">143</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<anchor xml:id="_structglobals_1add26994aa930d44a11cf93c91ef3ada1"/><section>
+    <title>zeroCount</title>
+<indexterm><primary>zeroCount</primary><secondary>globals</secondary></indexterm>
+<indexterm><primary>globals</primary><secondary>zeroCount</secondary></indexterm>
+<para><computeroutput>int globals::zeroCount {}</computeroutput></para><para>
+
+<para>Division-by-zero attempts (for error messages) </para>
+</para>
+<para>
+Definition at line <link linkend="_functions_8h_source_1l00146">146</link> of file <link linkend="_functions_8h_source">functions.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+include/<link linkend="_functions_8h">functions.h</link></section>
+</section>

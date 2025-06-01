@@ -1,0 +1,731 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example" xml:lang="en-US">
+<title>/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</title>
+
+<para>Valid expressions:<itemizedlist>
+<listitem>
+<para>&quot;2 + 3 \* 4&quot; → 14</para>
+</listitem><listitem>
+<para>&quot;2(3 + 4)&quot; → 14 (implicit multiplication)</para>
+</listitem><listitem>
+<para>&quot;-(2 + 3)&quot; → -5 (unary minus) <emphasis role="bold">BREAKS TOKENIZATION</emphasis> <emphasis role="bold">DEBUG</emphasis></para>
+</listitem><listitem>
+<para>&quot;2^3^2&quot; → 512 (right-associative exponentiation)</para>
+</listitem><listitem>
+<para>&quot;((2+3) \* 4)/5&quot; → 4 (nested parentheses)</para>
+</listitem></itemizedlist>
+</para>
+
+<para><literallayout><computeroutput>
+
+<emphasis role="preprocessor">#include&#32;&quot;<link linkend="_functions_8h">functions.h</link>&quot;</emphasis>
+<emphasis role="preprocessor">#include&#32;&lt;chrono&gt;</emphasis>
+<emphasis role="preprocessor">#include&#32;&lt;map&gt;</emphasis>
+<emphasis role="preprocessor">#include&#32;&lt;quadmath.h&gt;</emphasis>
+<emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<emphasis role="preprocessor">#include&#32;&quot;examples/example_sdl3_sdlrenderer3/imgui.h&quot;</emphasis>
+<emphasis role="preprocessor">#include&#32;&quot;misc/cpp/imgui_stdlib.h&quot;</emphasis>
+
+<emphasis role="keyword">using&#32;namespace&#32;</emphasis>std;
+
+<link linkend="_structglobals">globals</link>&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>;
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;HELPER&#32;FUNCTIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(__float128&#32;value,&#32;<emphasis role="keywordtype">int</emphasis>&#32;precision&#32;=&#32;40)&#32;{
+&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buf[1024];
+&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;fmt[40];
+&#32;&#32;snprintf(fmt,&#32;<emphasis role="keyword">sizeof</emphasis>(fmt),&#32;<emphasis role="stringliteral">&quot;%%.%dQg&quot;</emphasis>,&#32;precision);
+&#32;&#32;quadmath_snprintf(buf,&#32;<emphasis role="keyword">sizeof</emphasis>(buf),&#32;fmt,&#32;value);
+&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;{buf};
+}
+
+<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">dividedZero</link>()
+{
+&#32;&#32;map&lt;string,int&gt;zero_table;
+
+&#32;&#32;zero_table[<emphasis role="stringliteral">&quot;Error:&#32;Division&#32;by&#32;Zero&quot;</emphasis>]=0;
+&#32;&#32;zero_table[<emphasis role="stringliteral">&quot;Error:&#32;Division&#32;by&#32;Zero&quot;</emphasis>]=1;
+
+&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Big&#32;Error:\n&quot;</emphasis>;
+}
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;INPUT&#32;PROCESSING&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">getRawInput</link>()
+{
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput[0]!=<emphasis role="charliteral">&apos;(&apos;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput[<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.size()-1]!=<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.insert(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.begin(),<emphasis role="charliteral">&apos;(&apos;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.push_back(<emphasis role="charliteral">&apos;)&apos;</emphasis>);
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput;
+};
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">getCleanInput</link>()
+{
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i=0;i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.size();i++)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isspace(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput[i]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.begin()+i);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i--;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput={<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput};
+};
+
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;VALIDATION&#32;FUNCTIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link>()
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;c{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[0]};
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link>.find(c)!=string::npos)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;String&#32;cannot&#32;start&#32;with:&#32;&quot;</emphasis>&lt;&lt;<link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;-&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1])&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]!=<emphasis role="charliteral">&apos;.&apos;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]!=<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;&apos;-&apos;&#32;Must&#32;be&#32;followed&#32;by&#32;a&#32;digit,&#32;decimal,&#32;or&#32;open&#32;parentheses&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;(&apos;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Empty&#32;Parentheses()&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;.&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;&apos;.&apos;&#32;Must&#32;be&#32;followed&#32;by&#32;a&#32;digit&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link>()
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;openCount{0};
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;closeCount{0};
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;i{0};&#32;i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size();&#32;i++)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;currentChar=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[i];
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentChar==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;openCount++;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentChar==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closeCount++;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(openCount-closeCount&#32;&lt;&#32;0||closeCount-openCount&#32;&gt;&#32;0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Parenthesis&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i==<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size()-1&amp;&amp;openCount-closeCount==0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Parenthesis&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link>()
+&#32;&#32;{
+
+&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;currentState{<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>};
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;i{0};i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size();++i)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;characterIndex{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[i]};
+
+&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">state</link>&#32;previousState=currentState;
+
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//counter&#32;for&#32;currentState</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(isdigit(characterIndex))
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(isalpha(characterIndex))
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;*&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;/&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;+&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;^&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">state::minus</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Undefined&#32;valid_syntax&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>(currentState)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Undefined&#32;//syntax_switch_test&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Decimal&#32;cannot&#32;come&#32;before&#32;variable&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Decimal&#32;cannot&#32;come&#32;before&#32;operator&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Operator&#32;cannot&#32;come&#32;before&#32;operator&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Cannot&#32;start&#32;string&#32;with&#32;an&#32;operator&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">state::minus</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Operator&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Operator&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Decimal&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Open&#32;Parenthesis/Unary&#32;Minus&#32;must&#32;only&#32;precede&#32;a&#32;digit&#32;or&#32;decimal&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Close&#32;Parenthesis&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+&#32;&#32;}
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a934deca8a1216d29140a7965acf53707">isValidInput</link>()
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(<emphasis role="keywordtype">char</emphasis>&#32;currentCharacter:<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link>.find(currentCharacter)==string::npos)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Input\n&quot;</emphasis>&lt;&lt;<emphasis role="stringliteral">&quot;valid_list&#32;=&#32;&quot;</emphasis>&lt;&lt;<link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!<link linkend="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link>())
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!<link linkend="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link>())
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!<link linkend="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link>())
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+&#32;&#32;&#32;&#32;}
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;TOKEN&#32;PARSING&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">tokenize</link>()
+{
+&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;decimalCount{0};
+&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;substring;
+
+&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;index{0};index&lt;=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.length();index++)
+&#32;&#32;{
+&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;currentCharacter{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index]};
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(currentCharacter))
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(decimalCount&gt;1)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error:&#32;Too&#32;Many&#32;Decimals&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(currentCharacter);
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]))
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Decimal&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;decimalCount++;
+&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(currentCharacter);
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491">operatorList</link>.find(currentCharacter)!=string::npos)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!empty(substring))
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(substring);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.clear();
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;decimalCount=0;
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index==0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=1&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=2&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]!=<emphasis role="charliteral">&apos;)&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;-1&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=2&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index!=0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;)&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;^&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;^&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;*&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;/&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;/&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;+&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index==0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(<emphasis role="charliteral">&apos;-&apos;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isblank(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;End\n&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])&#32;||&#32;isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&amp;&amp;!isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]!=<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;-&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&#32;||&#32;isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;.&apos;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])||isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(<emphasis role="charliteral">&apos;-&apos;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!empty(substring))
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(substring);
+&#32;&#32;&#32;&#32;}
+&#32;&#32;}
+}
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;CALCULATION&#32;ENGINE&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">calculate</link>()
+&#32;&#32;{
+&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;power{<emphasis role="stringliteral">&quot;^&quot;</emphasis>};
+&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;multiply{<emphasis role="stringliteral">&quot;*&quot;</emphasis>};
+&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;divide{<emphasis role="stringliteral">&quot;/&quot;</emphasis>};
+&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;add{<emphasis role="stringliteral">&quot;+&quot;</emphasis>};
+&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;subtract{<emphasis role="stringliteral">&quot;-&quot;</emphasis>};
+
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;&#32;&quot;</emphasis>);
+
+
+&#32;&#32;&#32;&#32;BEGIN:
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;index{0};index&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.size();++index)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[index]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;{
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;firstClosedPar{0};firstClosedPar&lt;index;++firstClosedPar)&#32;<emphasis role="comment">//double&#32;check&#32;it&apos;s&#32;the&#32;first&#32;closed&#32;par</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstClosedPar]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>&amp;&amp;index&gt;firstClosedPar)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;index=firstClosedPar;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;firstOpenPar{index};firstOpenPar&gt;=0;--firstOpenPar)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar]==<emphasis role="stringliteral">&quot;(&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=index;subIndex&gt;firstOpenPar;--subIndex)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;^&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;base=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;exponent=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult=powq(base,exponent);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=firstOpenPar;subIndex&lt;index;++subIndex)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;*&quot;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;/&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;leftOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;rightOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;*&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand*rightOperand;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(rightOperand==0)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">dividedZero</link>();
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand/rightOperand;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=firstOpenPar;subIndex&lt;index;++subIndex)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;+&quot;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;-&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;leftOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;rightOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;+&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand+rightOperand;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand-rightOperand;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar]==<emphasis role="stringliteral">&quot;(&quot;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar+2]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>)
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+firstOpenPar);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+firstOpenPar+1);
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;}
+&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[0].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+&#32;&#32;}
+
+<emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OUTPUT&#32;AND&#32;DISPLAY&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67">renderCalculationProgress</link>()
+{
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentPhase)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47">phase::verifying</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Verifying&#32;input...&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493">phase::validating</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Parsing&#32;tokens...&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86">phase::calculating</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;progress={1.0f&#32;-&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentTokens&#32;/&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.totalTokens};
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Calculating...&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::ProgressBar(progress);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Operations&#32;remaining:&#32;%zu&quot;</emphasis>,&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentTokens);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1">phase::complete</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Completed&#32;in:&#32;&quot;</emphasis>,&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.timeTaken);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282">phase::error</link>:
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;UNDEFINED&#32;ERROR&#32;(renderCalculationProgress)&quot;</emphasis>);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+&#32;&#32;&#32;&#32;}
+}
+
+<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">calculationTimeFormat</link>(chrono::microseconds&amp;&#32;duration)
+{
+&#32;&#32;&#32;&#32;<emphasis role="keyword">using&#32;namespace&#32;</emphasis>std::chrono;
+&#32;&#32;&#32;&#32;ostringstream&#32;durationStream;
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(duration.count()&lt;1000)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;duration.count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;µs&quot;</emphasis>;
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(duration.count()&lt;1000000)
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;ms&#32;=&#32;duration_cast&lt;milliseconds&gt;(duration);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;ms.count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;ms&quot;</emphasis>;
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;seconds&#32;=&#32;duration.count()/1000000.0;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;fixed&#32;&lt;&lt;&#32;setprecision(2);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;seconds&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;s&quot;</emphasis>;
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;durationStream.str();
+}
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link>()
+{
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">getRawInput</link>();
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">getCleanInput</link>();
+
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8h_1a934deca8a1216d29140a7965acf53707">isValidInput</link>())
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>{chrono::high_resolution_clock::now()};
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">tokenize</link>();
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">calculate</link>();
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;end{chrono::high_resolution_clock::now()};
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;duration{std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(end&#32;-&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>)};
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ostringstream&#32;roundedResult;
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;doubleResult{<emphasis role="keyword">static_cast&lt;</emphasis><emphasis role="keywordtype">double</emphasis><emphasis role="keyword">&gt;</emphasis>(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result)};
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;roundedResult&#32;&lt;&lt;&#32;fixed&#32;&lt;&lt;&#32;setprecision(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.userPrecision);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;roundedResult&#32;&lt;&lt;&#32;doubleResult&#32;&lt;&lt;&#32;endl;
+
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult&#32;=&#32;roundedResult.str();
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime=<link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">calculationTimeFormat</link>(duration);
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult&#32;=&#32;<emphasis role="stringliteral">&quot;UNDEFINED&#32;ERROR(calculationResult)&quot;</emphasis>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime.clear();
+&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.clear();
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.clear();
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.clear();
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result={0};
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult.clear();
+&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime.clear();
+}
+
+<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1a570eda3c279bcaa2dad085617116843b">renderGUI</link>&#32;()
+&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">constexpr</emphasis>&#32;ImGuiWindowFlags&#32;guiFlags&#32;=&#32;ImGuiWindowFlags_NoResize&#32;|
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoMove&#32;|
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoCollapse&#32;|
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoTitleBar&#32;|
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoBringToFrontOnFocus;
+&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Begin(<emphasis role="stringliteral">&quot;Main&quot;</emphasis>,<emphasis role="keyword">nullptr</emphasis>,guiFlags);
+&#32;&#32;&#32;&#32;&#32;&#32;ImGui::InputTextMultiline(<emphasis role="stringliteral">&quot;boo&quot;</emphasis>,&#32;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput,&#32;ImVec2(<link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link>/2,&#32;<link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link>/2));
+&#32;&#32;&#32;&#32;&#32;&#32;ImGui::NewLine();
+&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ImGui::SmallButton(<emphasis role="stringliteral">&quot;click&#32;here&quot;</emphasis>))
+&#32;&#32;&#32;&#32;&#32;&#32;{
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link>();
+&#32;&#32;&#32;&#32;&#32;&#32;}
+&#32;&#32;&#32;&#32;&#32;&#32;ImGui::TextWrapped(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult.c_str());
+&#32;&#32;&#32;&#32;&#32;&#32;ImGui::End();
+&#32;&#32;&#32;&#32;}
+</computeroutput></literallayout> </para>
+</section>

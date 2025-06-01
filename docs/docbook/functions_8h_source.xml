@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_functions_8h_source" xml:lang="en-US">
+<title>functions.h</title>
+<indexterm><primary>include/functions.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_functions_8h_source_1l00001"/>00001 
+<anchor xml:id="_functions_8h_source_1l00031"/>00031 <emphasis role="preprocessor">#pragma&#32;once</emphasis>
+<anchor xml:id="_functions_8h_source_1l00032"/>00032 <emphasis role="preprocessor">#include&#32;&lt;cstdint&gt;</emphasis>
+<anchor xml:id="_functions_8h_source_1l00033"/>00033 <emphasis role="preprocessor">#include&#32;&lt;vector&gt;</emphasis>
+<anchor xml:id="_functions_8h_source_1l00034"/>00034 <emphasis role="preprocessor">#include&#32;&lt;string&gt;</emphasis>
+<anchor xml:id="_functions_8h_source_1l00035"/>00035 
+<anchor xml:id="_functions_8h_source_1l00036"/>00036 <emphasis role="keyword">using&#32;namespace&#32;</emphasis>std;
+<anchor xml:id="_functions_8h_source_1l00037"/>00037 
+<anchor xml:id="_functions_8h_source_1l00038"/>00038 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8h_source_1l00039"/>00039 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00040"/>00040 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;CONSTANTS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00041"/>00041 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00042"/>00042 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8h_source_1l00043"/>00043 
+<anchor xml:id="_functions_8h_source_1l00050"/><link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">00050</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link>{<emphasis role="stringliteral">&quot;&#32;()^*/+-0123456789.&quot;</emphasis>};
+<anchor xml:id="_functions_8h_source_1l00051"/><link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">00051</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link>{<emphasis role="stringliteral">&quot;*/+=)^&quot;</emphasis>};
+<anchor xml:id="_functions_8h_source_1l00052"/><link linkend="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491">00052</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491">operatorList</link>{<emphasis role="stringliteral">&quot;^*/+-()&quot;</emphasis>};
+<anchor xml:id="_functions_8h_source_1l00053"/>00053 
+<anchor xml:id="_functions_8h_source_1l00054"/><link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">00054</link> <emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link>{50};
+<anchor xml:id="_functions_8h_source_1l00055"/><link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">00055</link> <emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link>&#32;=&#32;16*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link>;
+<anchor xml:id="_functions_8h_source_1l00056"/><link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">00056</link> <emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link>&#32;=&#32;9*<link linkend="_functions_8h_1a80ba6c853ffdc30b2889aed0eca21626">screenRatioMultiplier</link>;
+<anchor xml:id="_functions_8h_source_1l00057"/>00057 
+<anchor xml:id="_functions_8h_source_1l00058"/>00058 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8h_source_1l00059"/>00059 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00060"/>00060 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ENUMERATIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00061"/>00061 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00062"/>00062 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8h_source_1l00063"/>00063 
+<anchor xml:id="_functions_8h_source_1l00070"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">00070</link> <emphasis role="keyword">enum&#32;class</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">state</link>&#32;:&#32;uint8_t
+<anchor xml:id="_functions_8h_source_1l00071"/>00071 {
+<anchor xml:id="_functions_8h_source_1l00072"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">00072</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>,
+<anchor xml:id="_functions_8h_source_1l00073"/>00073 
+<anchor xml:id="_functions_8h_source_1l00074"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">00074</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">number</link>,
+<anchor xml:id="_functions_8h_source_1l00075"/>00075 
+<anchor xml:id="_functions_8h_source_1l00076"/>00076 &#32;&#32;<emphasis role="comment">//**UNUSED**//</emphasis>
+<anchor xml:id="_functions_8h_source_1l00077"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">00077</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">variable</link>,
+<anchor xml:id="_functions_8h_source_1l00078"/>00078 
+<anchor xml:id="_functions_8h_source_1l00079"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">00079</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">operator_</link>,
+<anchor xml:id="_functions_8h_source_1l00080"/>00080 
+<anchor xml:id="_functions_8h_source_1l00081"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">00081</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">minus</link>,
+<anchor xml:id="_functions_8h_source_1l00082"/>00082 
+<anchor xml:id="_functions_8h_source_1l00083"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">00083</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">unary_minus</link>,
+<anchor xml:id="_functions_8h_source_1l00084"/>00084 
+<anchor xml:id="_functions_8h_source_1l00085"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">00085</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">binary_minus</link>,
+<anchor xml:id="_functions_8h_source_1l00086"/>00086 
+<anchor xml:id="_functions_8h_source_1l00087"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">00087</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">decimal</link>,
+<anchor xml:id="_functions_8h_source_1l00088"/>00088 
+<anchor xml:id="_functions_8h_source_1l00089"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">00089</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">fractional</link>,
+<anchor xml:id="_functions_8h_source_1l00090"/>00090 
+<anchor xml:id="_functions_8h_source_1l00091"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">00091</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">open_par</link>,
+<anchor xml:id="_functions_8h_source_1l00092"/>00092 
+<anchor xml:id="_functions_8h_source_1l00093"/><link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">00093</link> &#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">close_par</link>,
+<anchor xml:id="_functions_8h_source_1l00094"/>00094 };
+<anchor xml:id="_functions_8h_source_1l00095"/>00095 
+<anchor xml:id="_functions_8h_source_1l00102"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">00102</link> <emphasis role="keyword">enum&#32;class</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link>
+<anchor xml:id="_functions_8h_source_1l00103"/>00103 {
+<anchor xml:id="_functions_8h_source_1l00104"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">00104</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">idle</link>,
+<anchor xml:id="_functions_8h_source_1l00105"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47">00105</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47">verifying</link>,
+<anchor xml:id="_functions_8h_source_1l00106"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493">00106</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493">validating</link>,
+<anchor xml:id="_functions_8h_source_1l00107"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86">00107</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86">calculating</link>,
+<anchor xml:id="_functions_8h_source_1l00108"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1">00108</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1">complete</link>,
+<anchor xml:id="_functions_8h_source_1l00109"/><link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282">00109</link> &#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282">error</link>
+<anchor xml:id="_functions_8h_source_1l00110"/>00110 };
+<anchor xml:id="_functions_8h_source_1l00111"/>00111 
+<anchor xml:id="_functions_8h_source_1l00112"/>00112 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8h_source_1l00113"/>00113 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00114"/>00114 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;DATA&#32;STRUCTURES&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00115"/>00115 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00116"/>00116 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8h_source_1l00117"/>00117 
+<anchor xml:id="_functions_8h_source_1l00124"/><link linkend="_structglobals">00124</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structglobals">globals</link>
+<anchor xml:id="_functions_8h_source_1l00125"/>00125 {
+<anchor xml:id="_functions_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;<emphasis role="comment">//Input&#32;Processing</emphasis>
+<anchor xml:id="_functions_8h_source_1l00127"/><link linkend="_structglobals_1a21cfa4911a020abd93196257f16f1c9c">00127</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1a21cfa4911a020abd93196257f16f1c9c">globalInput</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00128"/><link linkend="_structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd">00128</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd">rawInput</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00129"/><link linkend="_structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123">00129</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123">cleanInput</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00130"/><link linkend="_structglobals_1af8164e2095e2213110b324be3cc6b463">00130</link> &#32;&#32;&#32;&#32;vector&lt;string&gt;&#32;<link linkend="_structglobals_1af8164e2095e2213110b324be3cc6b463">rawTokens</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00131"/>00131 
+<anchor xml:id="_functions_8h_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="comment">//Calculation&#32;Results</emphasis>
+<anchor xml:id="_functions_8h_source_1l00133"/><link linkend="_structglobals_1a46b25073320c32f18d9fea86c064eacf">00133</link> &#32;&#32;&#32;&#32;__float128&#32;<link linkend="_structglobals_1a46b25073320c32f18d9fea86c064eacf">float128_Result</link>{};&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00134"/><link linkend="_structglobals_1aebf1d77908e583110c060bc3f10ef6f7">00134</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1aebf1d77908e583110c060bc3f10ef6f7">stringResult</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00135"/><link linkend="_structglobals_1a623cc0c55239723cd7286e40ba040b08">00135</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1a623cc0c55239723cd7286e40ba040b08">globalResult</link>=<emphasis role="stringliteral">&quot;&#32;&quot;</emphasis>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00136"/>00136 
+<anchor xml:id="_functions_8h_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<emphasis role="comment">//Performance&#32;Metrics</emphasis>
+<anchor xml:id="_functions_8h_source_1l00138"/><link linkend="_structglobals_1a7a82e89893efc5828d494af105db6146">00138</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1a7a82e89893efc5828d494af105db6146">calculationTime</link>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00139"/><link linkend="_structglobals_1a3c4ea25c7632a0b6ab362d68de434a33">00139</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_structglobals_1a3c4ea25c7632a0b6ab362d68de434a33">timeTaken</link>=<emphasis role="stringliteral">&quot;&#32;&quot;</emphasis>;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00140"/>00140 
+<anchor xml:id="_functions_8h_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="comment">//User&#32;Preferences</emphasis>
+<anchor xml:id="_functions_8h_source_1l00142"/><link linkend="_structglobals_1a243d8dce37e7c20a3aa558a5599bf48a">00142</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_structglobals_1a243d8dce37e7c20a3aa558a5599bf48a">displayElapsedTime</link>{};&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00143"/><link linkend="_structglobals_1af5b7f30cabd10f24059123a8100589a3">00143</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_structglobals_1af5b7f30cabd10f24059123a8100589a3">userPrecision</link>{40};&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00144"/>00144 
+<anchor xml:id="_functions_8h_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="comment">//Progress&#32;Tracking</emphasis>
+<anchor xml:id="_functions_8h_source_1l00146"/><link linkend="_structglobals_1add26994aa930d44a11cf93c91ef3ada1">00146</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_structglobals_1add26994aa930d44a11cf93c91ef3ada1">zeroCount</link>{};&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00147"/><link linkend="_structglobals_1a80c1636a0d85ac9778779d0b346a3187">00147</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="_structglobals_1a80c1636a0d85ac9778779d0b346a3187">totalTokens</link>{0.0f};&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_functions_8h_source_1l00148"/><link linkend="_structglobals_1a31c0203f2279f18cc66cb177a5514d1c">00148</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;<link linkend="_structglobals_1a31c0203f2279f18cc66cb177a5514d1c">currentTokens</link>{<emphasis role="keyword">static_cast&lt;</emphasis><emphasis role="keywordtype">float</emphasis><emphasis role="keyword">&gt;</emphasis>(<link linkend="_structglobals_1af8164e2095e2213110b324be3cc6b463">rawTokens</link>.size())};&#32;
+<anchor xml:id="_functions_8h_source_1l00149"/><link linkend="_structglobals_1ad6954113475f63fb6b12d37d6286ca10">00149</link> &#32;&#32;&#32;&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6d">phase</link>&#32;<link linkend="_structglobals_1ad6954113475f63fb6b12d37d6286ca10">currentPhase</link>{<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb">phase::idle</link>};&#32;
+<anchor xml:id="_functions_8h_source_1l00150"/>00150 };
+<anchor xml:id="_functions_8h_source_1l00151"/>00151 
+<anchor xml:id="_functions_8h_source_1l00152"/>00152 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8h_source_1l00153"/>00153 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00154"/>00154 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;FUNCTION&#32;DECLARATIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00155"/>00155 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8h_source_1l00156"/>00156 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8h_source_1l00157"/>00157 
+<anchor xml:id="_functions_8h_source_1l00162"/>00162 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link>();
+<anchor xml:id="_functions_8h_source_1l00163"/>00163 
+<anchor xml:id="_functions_8h_source_1l00168"/>00168 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link>();
+<anchor xml:id="_functions_8h_source_1l00169"/>00169 
+<anchor xml:id="_functions_8h_source_1l00174"/>00174 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link>();
+<anchor xml:id="_functions_8h_source_1l00175"/>00175 
+<anchor xml:id="_functions_8h_source_1l00183"/>00183 <emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8h_1a934deca8a1216d29140a7965acf53707">isValidInput</link>();
+<anchor xml:id="_functions_8h_source_1l00184"/>00184 
+<anchor xml:id="_functions_8h_source_1l00191"/>00191 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link>();
+<anchor xml:id="_functions_8h_source_1l00192"/>00192 
+<anchor xml:id="_functions_8h_source_1l00199"/>00199 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67">renderCalculationProgress</link>();
+<anchor xml:id="_functions_8h_source_1l00200"/>00200 
+<anchor xml:id="_functions_8h_source_1l00207"/>00207 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8h_1a570eda3c279bcaa2dad085617116843b">renderGUI</link>&#32;();
+<anchor xml:id="_functions_8h_source_1l00208"/>00208 
+</programlisting></section>

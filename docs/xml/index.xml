@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.13.2" xml:lang="en-US">
+  <compound refid="structglobals" kind="struct"><name>globals</name>
+    <member refid="structglobals_1a21cfa4911a020abd93196257f16f1c9c" kind="variable"><name>globalInput</name></member>
+    <member refid="structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd" kind="variable"><name>rawInput</name></member>
+    <member refid="structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123" kind="variable"><name>cleanInput</name></member>
+    <member refid="structglobals_1af8164e2095e2213110b324be3cc6b463" kind="variable"><name>rawTokens</name></member>
+    <member refid="structglobals_1a46b25073320c32f18d9fea86c064eacf" kind="variable"><name>float128_Result</name></member>
+    <member refid="structglobals_1aebf1d77908e583110c060bc3f10ef6f7" kind="variable"><name>stringResult</name></member>
+    <member refid="structglobals_1a623cc0c55239723cd7286e40ba040b08" kind="variable"><name>globalResult</name></member>
+    <member refid="structglobals_1a7a82e89893efc5828d494af105db6146" kind="variable"><name>calculationTime</name></member>
+    <member refid="structglobals_1a3c4ea25c7632a0b6ab362d68de434a33" kind="variable"><name>timeTaken</name></member>
+    <member refid="structglobals_1a243d8dce37e7c20a3aa558a5599bf48a" kind="variable"><name>displayElapsedTime</name></member>
+    <member refid="structglobals_1af5b7f30cabd10f24059123a8100589a3" kind="variable"><name>userPrecision</name></member>
+    <member refid="structglobals_1add26994aa930d44a11cf93c91ef3ada1" kind="variable"><name>zeroCount</name></member>
+    <member refid="structglobals_1a80c1636a0d85ac9778779d0b346a3187" kind="variable"><name>totalTokens</name></member>
+    <member refid="structglobals_1a31c0203f2279f18cc66cb177a5514d1c" kind="variable"><name>currentTokens</name></member>
+    <member refid="structglobals_1ad6954113475f63fb6b12d37d6286ca10" kind="variable"><name>currentPhase</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="functions_8h" kind="file"><name>functions.h</name>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860" kind="enum"><name>state</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" kind="enumvalue"><name>start</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df" kind="enumvalue"><name>number</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26" kind="enumvalue"><name>variable</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437" kind="enumvalue"><name>operator_</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7" kind="enumvalue"><name>minus</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12" kind="enumvalue"><name>unary_minus</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5" kind="enumvalue"><name>binary_minus</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f" kind="enumvalue"><name>decimal</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5" kind="enumvalue"><name>fractional</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322" kind="enumvalue"><name>open_par</name></member>
+    <member refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51" kind="enumvalue"><name>close_par</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" kind="enum"><name>phase</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" kind="enumvalue"><name>idle</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47" kind="enumvalue"><name>verifying</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493" kind="enumvalue"><name>validating</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86" kind="enumvalue"><name>calculating</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1" kind="enumvalue"><name>complete</name></member>
+    <member refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282" kind="enumvalue"><name>error</name></member>
+    <member refid="functions_8h_1a538796c494f27edc133ab80c6bf225a6" kind="variable"><name>validList</name></member>
+    <member refid="functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6" kind="variable"><name>invalidFirst</name></member>
+    <member refid="functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491" kind="variable"><name>operatorList</name></member>
+    <member refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kind="variable"><name>screenRatioMultiplier</name></member>
+    <member refid="functions_8h_1a050b21607767707ea2b3000538598bdf" kind="variable"><name>windowWidth</name></member>
+    <member refid="functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0" kind="variable"><name>windowHeight</name></member>
+    <member refid="functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b" kind="function"><name>isValidFirst</name></member>
+    <member refid="functions_8h_1a12cd1d9d8726563506fd2141d3f75f45" kind="function"><name>isValidPar</name></member>
+    <member refid="functions_8h_1a06f3efbda9626fc105f146c3f64c702f" kind="function"><name>isValidSyntax</name></member>
+    <member refid="functions_8h_1a934deca8a1216d29140a7965acf53707" kind="function"><name>isValidInput</name></member>
+    <member refid="functions_8h_1a760d14bec1ac400123cb014ac0f64cf0" kind="function"><name>calculationResult</name></member>
+    <member refid="functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67" kind="function"><name>renderCalculationProgress</name></member>
+    <member refid="functions_8h_1a570eda3c279bcaa2dad085617116843b" kind="function"><name>renderGUI</name></member>
+  </compound>
+  <compound refid="functions_8cpp" kind="file"><name>functions.cpp</name>
+    <member refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" kind="variable"><name>global</name></member>
+    <member refid="functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3" kind="function"><name>to_string128</name></member>
+    <member refid="functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82" kind="function"><name>dividedZero</name></member>
+    <member refid="functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a" kind="function"><name>getRawInput</name></member>
+    <member refid="functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4" kind="function"><name>getCleanInput</name></member>
+    <member refid="functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b" kind="function"><name>isValidFirst</name></member>
+    <member refid="functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45" kind="function"><name>isValidPar</name></member>
+    <member refid="functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f" kind="function"><name>isValidSyntax</name></member>
+    <member refid="functions_8cpp_1a934deca8a1216d29140a7965acf53707" kind="function"><name>isValidInput</name></member>
+    <member refid="functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e" kind="function"><name>tokenize</name></member>
+    <member refid="functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7" kind="function"><name>calculate</name></member>
+    <member refid="functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67" kind="function"><name>renderCalculationProgress</name></member>
+    <member refid="functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e" kind="function"><name>calculationTimeFormat</name></member>
+    <member refid="functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0" kind="function"><name>calculationResult</name></member>
+    <member refid="functions_8cpp_1a570eda3c279bcaa2dad085617116843b" kind="function"><name>renderGUI</name></member>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="group__validation" kind="group"><name>validation</name>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="_2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example" kind="example"><name>/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

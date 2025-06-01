@@ -1,0 +1,7 @@
+<map id="calculate" name="calculate">
+<area shape="rect" id="Node000001" title="Evaluates tokenized expression using operator precedence." alt="" coords="5,31,79,57"/>
+<area shape="rect" id="Node000002" href="$functions_8cpp.html#a5e046d6d5950acb5d923fcb881d19e82" title="Handles division by zero errors with tracking." alt="" coords="129,5,217,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,34,113,28,114,33,80,40"/>
+<area shape="rect" id="Node000003" href="$functions_8cpp.html#af4346d6b81ac856fb62d2650297ef4d3" title="Converts __float128 to formatted string." alt="" coords="127,56,219,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="80,48,112,55,111,60,79,54"/>
+</map>

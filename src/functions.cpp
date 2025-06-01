@@ -1,5 +1,5 @@
 /**
-* @file functions.cpp
+ * @file functions.cpp
  * @brief High-precision mathematical expression calculator implementation
  * @author jwarbax
  * @date 5/28/25
@@ -114,12 +114,13 @@ void getCleanInput()
  *
  * @example
  * Valid expressions:
- * - "2 + 3 * 4"        → 14
+ * - "2 + 3 \* 4"        → 14
  * - "2(3 + 4)"         → 14 (implicit multiplication)
  * - "-(2 + 3)"         → -5 (unary minus) **BREAKS TOKENIZATION** **DEBUG**
  * - "2^3^2"            → 512 (right-associative exponentiation)
- * - "((2+3)*4)/5"      → 4 (nested parentheses)
+ * - "((2+3) \* 4)/5"      → 4 (nested parentheses)
  */
+
 //╔══════════════════════════════════════════════════════════════════════════════╗
 //║▓▓▓▓▓▒▒▒▒▒░░░░░                    ❖ ◦ ❖ ◦ ❖                   ░░░░░▒▒▒▒▒▓▓▓▓▓║
 //║▓▓▓▓▒▒▒▒░░░░                  VALIDATION FUNCTIONS                ░░░░▒▒▒▒▓▓▓▓║
@@ -375,7 +376,7 @@ void getCleanInput()
  * @brief Converts cleaned input into mathematical operation tokens
  *
  * Parses expression into array of numbers, operators, and parentheses.
- * Handles implicit multiplication (e.g., "2(3)" → "2*3"), converts
+ * Handles implicit multiplication (e.g., "2(3)" → "2 \* 3"), converts
  * unary minus to negative numbers, and validates decimal formatting.
  *
  * @note Does not support factorial (!) or variables (x,y,z) in current version
@@ -551,7 +552,7 @@ void tokenize()
  * Processes tokens in mathematical order:
  * 1. Innermost parentheses first
  * 2. Exponentiation (^) - right associative
- * 3. Multiplication/Division (*,/) - left associative
+ * 3. Multiplication/Division ( \* ,/) - left associative
  * 4. Addition/Subtraction (+,-) - left associative
  *
  * Uses 128-bit floating point throughout for maximum precision.
@@ -572,6 +573,7 @@ void tokenize()
        * This avoids deep recursion and provides O(n²) worst-case performance
        * for complex nested expressions.
        */
+
     BEGIN:
 
     for (size_t index{0};index<global.rawTokens.size();++index)

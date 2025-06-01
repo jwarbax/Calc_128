@@ -1,0 +1,1677 @@
+AutoGen Definitions dummy;
+struct = {
+  cp-id     = 'structglobals';
+  cp-name   = 'globals';
+  cp-section = {
+    sec-kind = 'public-attrib';
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a21cfa4911a020abd93196257f16f1c9c';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'globalInput';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '127';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Raw user input from GUI field.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'rawInput';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '128';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Input with guaranteed outer parentheses.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'cleanInput';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '129';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Whitespace-stripped, ready for parsing.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1af8164e2095e2213110b324be3cc6b463';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+vector< string >
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'rawTokens';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '130';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Parsed mathematical tokens (numbers, operators, parentheses)
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a46b25073320c32f18d9fea86c064eacf';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+__float128
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'float128_Result';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '133';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+High-precision numerical result.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1aebf1d77908e583110c060bc3f10ef6f7';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'stringResult';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '134';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Formatted result for current calculation.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a623cc0c55239723cd7286e40ba040b08';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'globalResult';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+=" "
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '135';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Persistent result display for GUI.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a7a82e89893efc5828d494af105db6146';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'calculationTime';
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '138';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Formatted elapsed time string.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a3c4ea25c7632a0b6ab362d68de434a33';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'timeTaken';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+=" "
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '139';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Persistent timing display for GUI.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a243d8dce37e7c20a3aa558a5599bf48a';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'displayElapsedTime';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '142';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+User preference for showing timing.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1af5b7f30cabd10f24059123a8100589a3';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+int
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'userPrecision';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{40}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '143';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Decimal places to display (max 40)
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1add26994aa930d44a11cf93c91ef3ada1';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+int
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'zeroCount';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '146';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Division-by-zero attempts (for error messages)
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a80c1636a0d85ac9778779d0b346a3187';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+float
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'totalTokens';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{0.0f}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '147';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Initial token count for progress calculation.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1a31c0203f2279f18cc66cb177a5514d1c';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+float
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'currentTokens';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{static_cast<float>(rawTokens.size())}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '148';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Remaining operations.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+    sec-member = {
+      sec-mem-kind = 'variable';
+      sec-mem-id   = 'structglobals_1ad6954113475f63fb6b12d37d6286ca10';
+      sec-mem-virt = normal;
+      sec-mem-prot = public;
+      sec-mem-type = <<_EnD_oF_dEf_TeXt_
+phase
+_EnD_oF_dEf_TeXt_;
+      sec-mem-name = 'currentPhase';
+      sec-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{phase::idle}
+_EnD_oF_dEf_TeXt_;
+      sec-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      sec-mem-desc-line = '149';
+      sec-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Current processing stage.
+_EnD_oF_dEf_TeXt_;
+      sec-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* sec-member */
+  }; /* cp-section */
+  cp-filename  = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+  cp-fileline  = '124';
+  cp-briefdesc = <<_EnD_oF_dEf_TeXt_
+Global application state and calculation context.
+_EnD_oF_dEf_TeXt_;
+  cp-documentation = <<_EnD_oF_dEf_TeXt_
+Centralized storage for input processing stages, calculation results,
+timing data, user preferences, and GUI state management.
+_EnD_oF_dEf_TeXt_;
+}; /* struct */
+file = {
+  file-id   = 'functions_8h';
+  file-name = 'functions.h';
+    enum = {
+    enum-member = {
+      enum-mem-kind = 'enum';
+      enum-mem-id   = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860';
+      enum-mem-virt = normal;
+      enum-mem-prot = public;
+      enum-mem-name = 'state';
+      enum-mem-enum = { enum-name = start; };
+      enum-mem-enum = { enum-name = number; };
+      enum-mem-enum = { enum-name = variable; };
+      enum-mem-enum = { enum-name = operator_; };
+      enum-mem-enum = { enum-name = minus; };
+      enum-mem-enum = { enum-name = unary_minus; };
+      enum-mem-enum = { enum-name = binary_minus; };
+      enum-mem-enum = { enum-name = decimal; };
+      enum-mem-enum = { enum-name = fractional; };
+      enum-mem-enum = { enum-name = open_par; };
+      enum-mem-enum = { enum-name = close_par; };
+      enum-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      enum-mem-desc-line = '70';
+      enum-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Parser state machine states for syntax validation.
+_EnD_oF_dEf_TeXt_;
+      enum-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Defines transition states used during mathematical expression parsing
+to ensure proper grammar and operator precedence.
+_EnD_oF_dEf_TeXt_;
+    }; /* enum-member */
+    enum-member = {
+      enum-mem-kind = 'enum';
+      enum-mem-id   = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6d';
+      enum-mem-virt = normal;
+      enum-mem-prot = public;
+      enum-mem-name = 'phase';
+      enum-mem-enum = { enum-name = idle; };
+      enum-mem-enum = { enum-name = verifying; };
+      enum-mem-enum = { enum-name = validating; };
+      enum-mem-enum = { enum-name = calculating; };
+      enum-mem-enum = { enum-name = complete; };
+      enum-mem-enum = { enum-name = error; };
+      enum-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      enum-mem-desc-line = '102';
+      enum-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Calculation progress phases for user feedback.
+_EnD_oF_dEf_TeXt_;
+      enum-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Tracks current processing stage to display meaningful progress
+information during long calculations.
+_EnD_oF_dEf_TeXt_;
+    }; /* enum-member */
+    };
+    func = {
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidFirst';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '162';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Validates expression starting character.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if first character follows mathematical grammar rules
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6';
+        func-mem-ref-line = '51';
+        func-mem-ref-name = 'invalidFirst';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a12cd1d9d8726563506fd2141d3f75f45';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidPar';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '168';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Ensures balanced parentheses throughout expression.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if all parentheses are properly matched and nested
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a06f3efbda9626fc105f146c3f64c702f';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidSyntax';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '174';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Validates complete mathematical expression syntax.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if expression follows proper mathematical grammar
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5';
+        func-mem-ref-line = '85';
+        func-mem-ref-name = 'binary_minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51';
+        func-mem-ref-line = '93';
+        func-mem-ref-name = 'close_par';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f';
+        func-mem-ref-line = '87';
+        func-mem-ref-name = 'decimal';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5';
+        func-mem-ref-line = '89';
+        func-mem-ref-name = 'fractional';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7';
+        func-mem-ref-line = '81';
+        func-mem-ref-name = 'minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df';
+        func-mem-ref-line = '74';
+        func-mem-ref-name = 'number';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322';
+        func-mem-ref-line = '91';
+        func-mem-ref-name = 'open_par';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437';
+        func-mem-ref-line = '79';
+        func-mem-ref-name = 'operator_';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92';
+        func-mem-ref-line = '72';
+        func-mem-ref-name = 'start';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12';
+        func-mem-ref-line = '83';
+        func-mem-ref-name = 'unary_minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26';
+        func-mem-ref-line = '77';
+        func-mem-ref-name = 'variable';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a934deca8a1216d29140a7965acf53707';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidInput';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '183';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Comprehensive input validation pipeline.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if input passes character, syntax, and structure validation
+
+Combines all validation functions to ensure safe processing of
+mathematical expressions before tokenization and calculation.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b';
+        func-mem-ref-line = '130';
+        func-mem-ref-name = 'isValidFirst';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45';
+        func-mem-ref-line = '157';
+        func-mem-ref-name = 'isValidPar';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f';
+        func-mem-ref-line = '189';
+        func-mem-ref-name = 'isValidSyntax';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a538796c494f27edc133ab80c6bf225a6';
+        func-mem-ref-line = '50';
+        func-mem-ref-name = 'validList';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a760d14bec1ac400123cb014ac0f64cf0';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'calculationResult';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '191';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Orchestrates complete calculation workflow.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Processes input through validation, tokenization, calculation,
+and result formatting with timing measurements.
+
+Orchestrates complete calculation workflow.
+
+Coordinates the complete calculation workflow:
+1. Input processing and cleaning
+2. Validation of mathematical expression
+3. Tokenization and parsing
+4. High-precision calculation
+5. Result formatting and timing
+
+Cleans up context after processing.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+        func-mem-ref-line = '561';
+        func-mem-ref-name = 'calculate';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e';
+        func-mem-ref-line = '722';
+        func-mem-ref-name = 'calculationTimeFormat';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4';
+        func-mem-ref-line = '91';
+        func-mem-ref-name = 'getCleanInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a';
+        func-mem-ref-line = '75';
+        func-mem-ref-name = 'getRawInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92';
+        func-mem-ref-line = '72';
+        func-mem-ref-name = 'start';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e';
+        func-mem-ref-line = '384';
+        func-mem-ref-name = 'tokenize';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        func-mem-ref-line = '803';
+        func-mem-ref-name = 'renderGUI';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'renderCalculationProgress';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '199';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Renders real-time calculation progress in ImGui.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Displays phase-appropriate progress information including
+progress bars for long calculations.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86';
+        func-mem-ref-line = '107';
+        func-mem-ref-name = 'calculating';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1';
+        func-mem-ref-line = '108';
+        func-mem-ref-name = 'complete';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282';
+        func-mem-ref-line = '109';
+        func-mem-ref-name = 'error';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493';
+        func-mem-ref-line = '106';
+        func-mem-ref-name = 'validating';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47';
+        func-mem-ref-line = '105';
+        func-mem-ref-name = 'verifying';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8h_1a570eda3c279bcaa2dad085617116843b';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'renderGUI';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      func-mem-desc-line = '207';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Main application GUI renderer.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Creates the primary interface for input, calculation trigger,
+and result display using ImGui framework.
+
+Main application GUI renderer.
+
+Creates fixed-size window with multiline input field, calculate button,
+and result display area. Handles user interaction events and triggers
+calculation workflow.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0';
+        func-mem-ref-line = '56';
+        func-mem-ref-name = 'windowHeight';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a050b21607767707ea2b3000538598bdf';
+        func-mem-ref-line = '55';
+        func-mem-ref-name = 'windowWidth';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4';
+        func-mem-ref-line = '27';
+        func-mem-ref-name = 'main';
+    };
+    }; /* func-member */
+    };
+    var = {
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1a538796c494f27edc133ab80c6bf225a6';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+const string
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'validList';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{" ()^*/+-0123456789."}
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '50';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Parser configuration constants and validation sets.
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Character sets for input validation, window dimensions, and
+global state management for the calculation workflow.
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        var-mem-ref-line = '344';
+        var-mem-ref-name = 'isValidInput';
+    };
+    }; /* var-member */
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+const string
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'invalidFirst';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{"*/+=)^"}
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '51';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b';
+        var-mem-ref-line = '130';
+        var-mem-ref-name = 'isValidFirst';
+    };
+    }; /* var-member */
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+const string
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'operatorList';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{"^*/+-()"}
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '52';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e';
+        var-mem-ref-line = '384';
+        var-mem-ref-name = 'tokenize';
+    };
+    }; /* var-member */
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1a80ba6c853ffdc30b2889aed0eca21626';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+constexpr int
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'screenRatioMultiplier';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+{50}
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '54';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+    }; /* var-member */
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1a050b21607767707ea2b3000538598bdf';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+constexpr int
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'windowWidth';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+= 16*screenRatioMultiplier
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '55';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4';
+        var-mem-ref-line = '27';
+        var-mem-ref-name = 'main';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        var-mem-ref-line = '803';
+        var-mem-ref-name = 'renderGUI';
+    };
+    }; /* var-member */
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+constexpr int
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'windowHeight';
+      var-mem-initializer = <<_EnD_oF_dEf_TeXt_
+= 9*screenRatioMultiplier
+_EnD_oF_dEf_TeXt_;
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+      var-mem-desc-line = '56';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4';
+        var-mem-ref-line = '27';
+        var-mem-ref-name = 'main';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        var-mem-ref-line = '803';
+        var-mem-ref-name = 'renderGUI';
+    };
+    }; /* var-member */
+    };
+  file-full-name  = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+  file-first-line = '1';
+  file-briefdesc  = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+  file-documentation = <<_EnD_oF_dEf_TeXt_
+@author jwarbax
+@date 5/28/25
+@version 1.0
+_EnD_oF_dEf_TeXt_;
+}; /* file */
+file = {
+  file-id   = 'functions_8cpp';
+  file-name = 'functions.cpp';
+    func = {
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'to_string128';
+      func-mem-param = {
+        func-mem-param-type = <<_EnD_oF_dEf_TeXt_
+__float128
+_EnD_oF_dEf_TeXt_;
+        func-mem-param-declname = 'value';
+      }; /*        func-mem-param--param */
+      func-mem-param = {
+        func-mem-param-type = <<_EnD_oF_dEf_TeXt_
+int
+_EnD_oF_dEf_TeXt_;
+        func-mem-param-declname = 'precision';
+        func-mem-param-defval = <<_EnD_oF_dEf_TeXt_
+40
+_EnD_oF_dEf_TeXt_;
+      }; /*        func-mem-param--param */
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '39';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Converts __float128 to formatted string.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@param value 128-bit floating point value
+@param precision Decimal places to display (default: 40)
+@return Formatted string representation
+
+Uses quadmath library for precise string conversion of high-precision values.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+        func-mem-ref-line = '561';
+        func-mem-ref-name = 'calculate';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'dividedZero';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '53';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Handles division by zero errors with tracking.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Records error occurrence for potential witty user feedback
+and outputs error information to stderr.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+        func-mem-ref-line = '561';
+        func-mem-ref-name = 'calculate';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'getRawInput';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '75';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Ensures expression has outer parentheses for consistent parsing.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Adds surrounding parentheses if not present, simplifying the
+recursive parsing algorithm by guaranteeing parenthetical structure.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'getCleanInput';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '91';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Removes all whitespace characters from input expression.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Strips space, horizontal tab, newline, vertical tab, form feed, and carriage return using isspace()
+to prepare clean input for character-by-character parsing.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidFirst';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '130';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Validates expression starting character.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if first character follows mathematical grammar rules
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6';
+        func-mem-ref-line = '51';
+        func-mem-ref-name = 'invalidFirst';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidPar';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '157';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Ensures balanced parentheses throughout expression.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if all parentheses are properly matched and nested
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidSyntax';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '189';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Validates complete mathematical expression syntax.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if expression follows proper mathematical grammar
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5';
+        func-mem-ref-line = '85';
+        func-mem-ref-name = 'binary_minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51';
+        func-mem-ref-line = '93';
+        func-mem-ref-name = 'close_par';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f';
+        func-mem-ref-line = '87';
+        func-mem-ref-name = 'decimal';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5';
+        func-mem-ref-line = '89';
+        func-mem-ref-name = 'fractional';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7';
+        func-mem-ref-line = '81';
+        func-mem-ref-name = 'minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df';
+        func-mem-ref-line = '74';
+        func-mem-ref-name = 'number';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322';
+        func-mem-ref-line = '91';
+        func-mem-ref-name = 'open_par';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437';
+        func-mem-ref-line = '79';
+        func-mem-ref-name = 'operator_';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92';
+        func-mem-ref-line = '72';
+        func-mem-ref-name = 'start';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12';
+        func-mem-ref-line = '83';
+        func-mem-ref-name = 'unary_minus';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26';
+        func-mem-ref-line = '77';
+        func-mem-ref-name = 'variable';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+bool
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'isValidInput';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '344';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Comprehensive input validation pipeline.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return true if input passes character, syntax, and structure validation
+
+Combines all validation functions to ensure safe processing of
+mathematical expressions before tokenization and calculation.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b';
+        func-mem-ref-line = '130';
+        func-mem-ref-name = 'isValidFirst';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45';
+        func-mem-ref-line = '157';
+        func-mem-ref-name = 'isValidPar';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f';
+        func-mem-ref-line = '189';
+        func-mem-ref-name = 'isValidSyntax';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a538796c494f27edc133ab80c6bf225a6';
+        func-mem-ref-line = '50';
+        func-mem-ref-name = 'validList';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'tokenize';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '384';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Converts cleaned input into mathematical operation tokens.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Parses expression into array of numbers, operators, and parentheses.
+Handles implicit multiplication (e.g., "2(3)" → "2 \* 3"), converts
+unary minus to negative numbers, and validates decimal formatting.
+
+@note Does not support factorial (!) or variables (x,y,z) in current version
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491';
+        func-mem-ref-line = '52';
+        func-mem-ref-name = 'operatorList';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'calculate';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '561';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Evaluates tokenized expression using operator precedence.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Processes tokens in mathematical order:
+1. Innermost parentheses first
+2. Exponentiation (^) - right associative
+3. Multiplication/Division ( * ,/) - left associative
+4. Addition/Subtraction (+,-) - left associative
+
+Uses 128-bit floating point throughout for maximum precision.
+Handles division by zero with error reporting.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82';
+        func-mem-ref-line = '53';
+        func-mem-ref-name = 'dividedZero';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3';
+        func-mem-ref-line = '39';
+        func-mem-ref-name = 'to_string128';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'renderCalculationProgress';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '685';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Renders real-time calculation progress in ImGui.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Displays phase-appropriate progress information including
+progress bars for long calculations.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86';
+        func-mem-ref-line = '107';
+        func-mem-ref-name = 'calculating';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1';
+        func-mem-ref-line = '108';
+        func-mem-ref-name = 'complete';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282';
+        func-mem-ref-line = '109';
+        func-mem-ref-name = 'error';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493';
+        func-mem-ref-line = '106';
+        func-mem-ref-name = 'validating';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47';
+        func-mem-ref-line = '105';
+        func-mem-ref-name = 'verifying';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+string
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'calculationTimeFormat';
+      func-mem-param = {
+        func-mem-param-type = <<_EnD_oF_dEf_TeXt_
+chrono::microseconds &
+_EnD_oF_dEf_TeXt_;
+        func-mem-param-declname = 'duration';
+      }; /*        func-mem-param--param */
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '722';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Formats calculation duration with appropriate time units.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@param duration Elapsed time in microseconds
+@return Human-readable time string (µs, ms, or s)
+
+Automatically selects optimal units: microseconds (<1ms),
+milliseconds (<1s), or seconds with 2 decimal places.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'calculationResult';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '756';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Main calculation orchestrator function.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Orchestrates complete calculation workflow.
+
+Coordinates the complete calculation workflow:
+1. Input processing and cleaning
+2. Validation of mathematical expression
+3. Tokenization and parsing
+4. High-precision calculation
+5. Result formatting and timing
+
+Cleans up context after processing.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+        func-mem-ref-line = '561';
+        func-mem-ref-name = 'calculate';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e';
+        func-mem-ref-line = '722';
+        func-mem-ref-name = 'calculationTimeFormat';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4';
+        func-mem-ref-line = '91';
+        func-mem-ref-name = 'getCleanInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a';
+        func-mem-ref-line = '75';
+        func-mem-ref-name = 'getRawInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        func-mem-ref-line = '344';
+        func-mem-ref-name = 'isValidInput';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92';
+        func-mem-ref-line = '72';
+        func-mem-ref-name = 'start';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e';
+        func-mem-ref-line = '384';
+        func-mem-ref-name = 'tokenize';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        func-mem-ref-line = '803';
+        func-mem-ref-name = 'renderGUI';
+    };
+    }; /* func-member */
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+void
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'renderGUI';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      func-mem-desc-line = '803';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Implements main calculator interface layout.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+Main application GUI renderer.
+
+Creates fixed-size window with multiline input field, calculate button,
+and result display area. Handles user interaction events and triggers
+calculation workflow.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        func-mem-ref-line = '756';
+        func-mem-ref-name = 'calculationResult';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+        func-mem-ref-line = '23';
+        func-mem-ref-name = 'global';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0';
+        func-mem-ref-line = '56';
+        func-mem-ref-name = 'windowHeight';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a050b21607767707ea2b3000538598bdf';
+        func-mem-ref-line = '55';
+        func-mem-ref-name = 'windowWidth';
+    };
+      func-mem-referencedby = {
+        func-mem-ref-id = 'main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4';
+        func-mem-ref-line = '27';
+        func-mem-ref-name = 'main';
+    };
+    }; /* func-member */
+    };
+    var = {
+    var-member = {
+      var-mem-kind = 'variable';
+      var-mem-id   = 'functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f';
+      var-mem-virt = normal;
+      var-mem-prot = public;
+      var-mem-type = <<_EnD_oF_dEf_TeXt_
+globals
+_EnD_oF_dEf_TeXt_;
+      var-mem-name = 'global';
+      var-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+      var-mem-desc-line = '23';
+      var-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7';
+        var-mem-ref-line = '561';
+        var-mem-ref-name = 'calculate';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0';
+        var-mem-ref-line = '756';
+        var-mem-ref-name = 'calculationResult';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4';
+        var-mem-ref-line = '91';
+        var-mem-ref-name = 'getCleanInput';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a';
+        var-mem-ref-line = '75';
+        var-mem-ref-name = 'getRawInput';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b';
+        var-mem-ref-line = '130';
+        var-mem-ref-name = 'isValidFirst';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a934deca8a1216d29140a7965acf53707';
+        var-mem-ref-line = '344';
+        var-mem-ref-name = 'isValidInput';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45';
+        var-mem-ref-line = '157';
+        var-mem-ref-name = 'isValidPar';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f';
+        var-mem-ref-line = '189';
+        var-mem-ref-name = 'isValidSyntax';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67';
+        var-mem-ref-line = '685';
+        var-mem-ref-name = 'renderCalculationProgress';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        var-mem-ref-line = '803';
+        var-mem-ref-name = 'renderGUI';
+    };
+      var-mem-referencedby = {
+        var-mem-ref-id = 'functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e';
+        var-mem-ref-line = '384';
+        var-mem-ref-name = 'tokenize';
+    };
+    }; /* var-member */
+    };
+  file-full-name  = '/home/war/Documents/CPP_Projects/Calc/src/functions.cpp';
+  file-first-line = '1';
+  file-briefdesc  = <<_EnD_oF_dEf_TeXt_
+High-precision mathematical expression calculator implementation.
+_EnD_oF_dEf_TeXt_;
+  file-documentation = <<_EnD_oF_dEf_TeXt_
+@author jwarbax
+@date 5/28/25
+@version 1.0
+
+Implements a complete mathematical expression parser with 128-bit floating
+point precision, supporting standard operators (+,-,*,/,^) with proper
+precedence, parentheses, and comprehensive error handling.
+_EnD_oF_dEf_TeXt_;
+}; /* file */
+file = {
+  file-id   = 'main_8cpp';
+  file-name = 'main.cpp';
+    func = {
+    func-member = {
+      func-mem-kind = 'function';
+      func-mem-id   = 'main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4';
+      func-mem-virt = normal;
+      func-mem-prot = public;
+      func-mem-type = <<_EnD_oF_dEf_TeXt_
+int
+_EnD_oF_dEf_TeXt_;
+      func-mem-name = 'main';
+      func-mem-desc-file = '/home/war/Documents/CPP_Projects/Calc/src/main.cpp';
+      func-mem-desc-line = '27';
+      func-mem-briefdesc =    <<_EnD_oF_dEf_TeXt_
+Application entry point.
+_EnD_oF_dEf_TeXt_;
+      func-mem-documentation = <<_EnD_oF_dEf_TeXt_
+@return 0 on success, -1 on initialization failure
+
+Sets up SDL3 window and renderer, initializes ImGui framework,
+and runs the main event loop until user closes the application.
+_EnD_oF_dEf_TeXt_;
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8cpp_1a570eda3c279bcaa2dad085617116843b';
+        func-mem-ref-line = '803';
+        func-mem-ref-name = 'renderGUI';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0';
+        func-mem-ref-line = '56';
+        func-mem-ref-name = 'windowHeight';
+    };
+      func-mem-referenceto = {
+        func-mem-ref-id = 'functions_8h_1a050b21607767707ea2b3000538598bdf';
+        func-mem-ref-line = '55';
+        func-mem-ref-name = 'windowWidth';
+    };
+    }; /* func-member */
+    };
+  file-full-name  = '/home/war/Documents/CPP_Projects/Calc/src/main.cpp';
+  file-first-line = '1';
+  file-briefdesc  = <<_EnD_oF_dEf_TeXt_
+Application entry point and SDL3/ImGui initialization.
+_EnD_oF_dEf_TeXt_;
+  file-documentation = <<_EnD_oF_dEf_TeXt_
+@author jwarbax
+@date 5/28/25
+
+Initializes SDL3 graphics, creates ImGui context, and runs the
+main application loop for the high-precision calculator interface.
+_EnD_oF_dEf_TeXt_;
+}; /* file */
+  namespace = {
+    ns-id   = 'namespacestd';
+    ns-name = 'std';
+  ns-filename  = '/home/war/Documents/CPP_Projects/Calc/include/functions.h';
+  ns-fileline  = '36';
+  ns-briefdesc = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+  ns-documentation = <<_EnD_oF_dEf_TeXt_
+
+_EnD_oF_dEf_TeXt_;
+  };

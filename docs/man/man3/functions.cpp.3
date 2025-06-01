@@ -1,0 +1,339 @@
+.TH "src/functions.cpp" 3 "Version 1.0" "Calc_128" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/functions.cpp \- High-precision mathematical expression calculator implementation\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'functions\&.h'\fP
+.br
+\fR#include <chrono>\fP
+.br
+\fR#include <map>\fP
+.br
+\fR#include <quadmath\&.h>\fP
+.br
+\fR#include <iostream>\fP
+.br
+\fR#include 'examples/example_sdl3_sdlrenderer3/imgui\&.h'\fP
+.br
+\fR#include 'misc/cpp/imgui_stdlib\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "string \fBto_string128\fP (__float128 value, int precision=40)"
+.br
+.RI "Converts __float128 to formatted string\&. "
+.ti -1c
+.RI "void \fBdividedZero\fP ()"
+.br
+.RI "Handles division by zero errors with tracking\&. "
+.ti -1c
+.RI "void \fBgetRawInput\fP ()"
+.br
+.RI "Ensures expression has outer parentheses for consistent parsing\&. "
+.ti -1c
+.RI "void \fBgetCleanInput\fP ()"
+.br
+.RI "Removes all whitespace characters from input expression\&. "
+.ti -1c
+.RI "bool \fBisValidFirst\fP ()"
+.br
+.RI "Validates expression starting character\&. "
+.ti -1c
+.RI "bool \fBisValidPar\fP ()"
+.br
+.RI "Ensures balanced parentheses throughout expression\&. "
+.ti -1c
+.RI "bool \fBisValidSyntax\fP ()"
+.br
+.RI "Validates complete mathematical expression syntax\&. "
+.ti -1c
+.RI "bool \fBisValidInput\fP ()"
+.br
+.RI "Comprehensive input validation pipeline\&. "
+.ti -1c
+.RI "void \fBtokenize\fP ()"
+.br
+.RI "Converts cleaned input into mathematical operation tokens\&. "
+.ti -1c
+.RI "void \fBcalculate\fP ()"
+.br
+.RI "Evaluates tokenized expression using operator precedence\&. "
+.ti -1c
+.RI "void \fBrenderCalculationProgress\fP ()"
+.br
+.RI "Renders real-time calculation progress in ImGui\&. "
+.ti -1c
+.RI "string \fBcalculationTimeFormat\fP (chrono::microseconds &duration)"
+.br
+.RI "Formats calculation duration with appropriate time units\&. "
+.ti -1c
+.RI "void \fBcalculationResult\fP ()"
+.br
+.RI "Main calculation orchestrator function\&. "
+.ti -1c
+.RI "void \fBrenderGUI\fP ()"
+.br
+.RI "Implements main calculator interface layout\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBglobals\fP \fBglobal\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+High-precision mathematical expression calculator implementation\&. 
+
+
+.PP
+\fBAuthor\fP
+.RS 4
+jwarbax 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+5/28/25 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Implements a complete mathematical expression parser with 128-bit floating point precision, supporting standard operators (+,-,*,/,^) with proper precedence, parentheses, and comprehensive error handling\&. 
+.PP
+Definition in file \fBfunctions\&.cpp\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void calculate ()"
+
+.PP
+Evaluates tokenized expression using operator precedence\&. Processes tokens in mathematical order:
+.IP "1." 4
+Innermost parentheses first
+.IP "2." 4
+Exponentiation (^) - right associative
+.IP "3." 4
+Multiplication/Division ( * ,/) - left associative
+.IP "4." 4
+Addition/Subtraction (+,-) - left associative
+.PP
+
+.PP
+Uses 128-bit floating point throughout for maximum precision\&. Handles division by zero with error reporting\&. 
+.PP
+\fBNote\fP
+.RS 4
+Uses goto for efficient re-parsing after token modifications\&. This avoids deep recursion and provides O(n²) worst-case performance for complex nested expressions\&.
+.RE
+.PP
+
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB561\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void calculationResult ()"
+
+.PP
+Main calculation orchestrator function\&. Orchestrates complete calculation workflow\&.
+
+.PP
+Coordinates the complete calculation workflow:
+.IP "1." 4
+Input processing and cleaning
+.IP "2." 4
+Validation of mathematical expression
+.IP "3." 4
+Tokenization and parsing
+.IP "4." 4
+High-precision calculation
+.IP "5." 4
+Result formatting and timing
+.PP
+
+.PP
+Cleans up context after processing\&. 
+.PP
+Definition at line \fB756\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "string calculationTimeFormat (chrono::microseconds & duration)"
+
+.PP
+Formats calculation duration with appropriate time units\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIduration\fP Elapsed time in microseconds 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Human-readable time string (µs, ms, or s)
+.RE
+.PP
+Automatically selects optimal units: microseconds (<1ms), milliseconds (<1s), or seconds with 2 decimal places\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB722\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void dividedZero ()\fR [inline]\fP"
+
+.PP
+Handles division by zero errors with tracking\&. Records error occurrence for potential witty user feedback and outputs error information to stderr\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB53\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void getCleanInput ()"
+
+.PP
+Removes all whitespace characters from input expression\&. Strips space, horizontal tab, newline, vertical tab, form feed, and carriage return using isspace() to prepare clean input for character-by-character parsing\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB91\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void getRawInput ()"
+
+.PP
+Ensures expression has outer parentheses for consistent parsing\&. Adds surrounding parentheses if not present, simplifying the recursive parsing algorithm by guaranteeing parenthetical structure\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB75\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidFirst ()"
+
+.PP
+Validates expression starting character\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if first character follows mathematical grammar rules 
+.RE
+.PP
+
+.PP
+Definition at line \fB130\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidInput ()"
+
+.PP
+Comprehensive input validation pipeline\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if input passes character, syntax, and structure validation
+.RE
+.PP
+Combines all validation functions to ensure safe processing of mathematical expressions before tokenization and calculation\&. 
+.PP
+Definition at line \fB344\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidPar ()"
+
+.PP
+Ensures balanced parentheses throughout expression\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if all parentheses are properly matched and nested 
+.RE
+.PP
+
+.PP
+Definition at line \fB157\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidSyntax ()"
+
+.PP
+Validates complete mathematical expression syntax\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if expression follows proper mathematical grammar 
+.RE
+.PP
+
+.PP
+Definition at line \fB189\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void renderCalculationProgress ()"
+
+.PP
+Renders real-time calculation progress in ImGui\&. Displays phase-appropriate progress information including progress bars for long calculations\&. 
+.PP
+Definition at line \fB685\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void renderGUI ()"
+
+.PP
+Implements main calculator interface layout\&. Main application GUI renderer\&.
+
+.PP
+Creates fixed-size window with multiline input field, calculate button, and result display area\&. Handles user interaction events and triggers calculation workflow\&. 
+.PP
+Definition at line \fB803\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "string to_string128 (__float128 value, int precision = \fR40\fP)"
+
+.PP
+Converts __float128 to formatted string\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvalue\fP 128-bit floating point value 
+.br
+\fIprecision\fP Decimal places to display (default: 40) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Formatted string representation
+.RE
+.PP
+Uses quadmath library for precise string conversion of high-precision values\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB39\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void tokenize ()"
+
+.PP
+Converts cleaned input into mathematical operation tokens\&. Parses expression into array of numbers, operators, and parentheses\&. Handles implicit multiplication (e\&.g\&., "2(3)" → "2 \\* 3"), converts unary minus to negative numbers, and validates decimal formatting\&.
+
+.PP
+\fBNote\fP
+.RS 4
+Does not support factorial (!) or variables (x,y,z) in current version 
+.RE
+.PP
+
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB384\fP of file \fBfunctions\&.cpp\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "\fBglobals\fP global"
+
+.PP
+Definition at line \fB23\fP of file \fBfunctions\&.cpp\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Calc_128 from the source code\&.

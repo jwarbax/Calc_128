@@ -1,0 +1,9 @@
+<map id="isValidInput" name="isValidInput">
+<area shape="rect" id="Node000001" title="Comprehensive input validation pipeline." alt="" coords="401,5,490,32"/>
+<area shape="rect" id="Node000002" href="$functions_8cpp.html#a760d14bec1ac400123cb014ac0f64cf0" title="Orchestrates complete calculation workflow." alt="" coords="232,5,353,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,21,354,21,354,16,386,16"/>
+<area shape="rect" id="Node000003" href="$functions_8cpp.html#a570eda3c279bcaa2dad085617116843b" title="Main application GUI renderer." alt="" coords="103,5,184,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,21,185,21,185,16,217,16"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="Application entry point." alt="" coords="5,5,55,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

@@ -7,8 +7,8 @@
  * @section features Key Features
  * - 128-bit floating point precision using libquadmath
  * - Complete expression syntax validation with detailed error reporting
- * - Support for standard operators: +, -, *, /, ^ with proper precedence
- * - Implicit multiplication (e.g., "2(3+4)" becomes "2*(3+4)")
+ * - Support for standard operators: +, -, \*, /, ^ with proper precedence
+ * - Implicit multiplication (e.g., 2(3+4) becomes 2 \* (3+4))
  * - Real-time calculation progress feedback
  * - SDL3 + ImGui cross-platform interface
  *
@@ -23,6 +23,7 @@
  * - No factorial operator (!)
  * - No trigonometric or logarithmic functions
  *
+ * @file functions.h
  * @author jwarbax
  * @date 5/28/25
  * @version 1.0

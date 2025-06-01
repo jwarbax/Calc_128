@@ -1,0 +1,575 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_functions_8cpp" xml:lang="en-US">
+<title>src/functions.cpp File Reference</title>
+<indexterm><primary>src/functions.cpp</primary></indexterm>
+<para>
+
+<para>High-precision mathematical expression calculator implementation. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;functions.h&quot;<?linebreak?>#include &lt;chrono&gt;<?linebreak?>#include &lt;map&gt;<?linebreak?>#include &lt;quadmath.h&gt;<?linebreak?>#include &lt;iostream&gt;<?linebreak?>#include &quot;examples/example_sdl3_sdlrenderer3/imgui.h&quot;<?linebreak?>#include &quot;misc/cpp/imgui_stdlib.h&quot;<?linebreak?></programlisting>Include dependency graph for functions.cpp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>string <link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link> (__float128 value, int precision=40)</para>
+
+<para>Converts __float128 to formatted string. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">dividedZero</link> ()</para>
+
+<para>Handles division by zero errors with tracking. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">getRawInput</link> ()</para>
+
+<para>Ensures expression has outer parentheses for consistent parsing. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">getCleanInput</link> ()</para>
+
+<para>Removes all whitespace characters from input expression. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link> ()</para>
+
+<para>Validates expression starting character. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link> ()</para>
+
+<para>Ensures balanced parentheses throughout expression. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link> ()</para>
+
+<para>Validates complete mathematical expression syntax. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_functions_8cpp_1a934deca8a1216d29140a7965acf53707">isValidInput</link> ()</para>
+
+<para>Comprehensive input validation pipeline. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">tokenize</link> ()</para>
+
+<para>Converts cleaned input into mathematical operation tokens. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">calculate</link> ()</para>
+
+<para>Evaluates tokenized expression using operator precedence. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67">renderCalculationProgress</link> ()</para>
+
+<para>Renders real-time calculation progress in ImGui. </para>
+</listitem>
+            <listitem><para>string <link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">calculationTimeFormat</link> (chrono::microseconds &amp;duration)</para>
+
+<para>Formats calculation duration with appropriate time units. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link> ()</para>
+
+<para>Main calculation orchestrator function. </para>
+</listitem>
+            <listitem><para>void <link linkend="_functions_8cpp_1a570eda3c279bcaa2dad085617116843b">renderGUI</link> ()</para>
+
+<para>Implements main calculator interface layout. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_structglobals">globals</link> <link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>High-precision mathematical expression calculator implementation. </para>
+
+<para><formalpara><title>Author</title>
+
+<para>jwarbax </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>5/28/25 </para>
+</formalpara>
+<formalpara><title>Version</title>
+
+<para>1.0</para>
+</formalpara>
+Implements a complete mathematical expression parser with 128-bit floating point precision, supporting standard operators (+,-,*,/,^) with proper precedence, parentheses, and comprehensive error handling. </para>
+<para>
+Definition in file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7"/><section>
+    <title>calculate()</title>
+<indexterm><primary>calculate</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>calculate</secondary></indexterm>
+<para><computeroutput>void calculate ( )</computeroutput></para><para>
+
+<para>Evaluates tokenized expression using operator precedence. </para>
+</para>
+
+<para>Processes tokens in mathematical order:<orderedlist>
+<listitem>
+<para>Innermost parentheses first</para>
+</listitem><listitem>
+<para>Exponentiation (^) - right associative</para>
+</listitem><listitem>
+<para>Multiplication/Division ( * ,/) - left associative</para>
+</listitem><listitem>
+<para>Addition/Subtraction (+,-) - left associative</para>
+</listitem></orderedlist>
+</para>
+
+<para>Uses 128-bit floating point throughout for maximum precision. Handles division by zero with error reporting. </para>
+
+<para><note><title>Note</title>
+
+<para>Uses goto for efficient re-parsing after token modifications. This avoids deep recursion and provides O(n²) worst-case performance for complex nested expressions.</para>
+</note>
+</para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00561">561</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_afe1d8348c24e6589bc7c0b3f689316a7_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_afe1d8348c24e6589bc7c0b3f689316a7_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0"/><section>
+    <title>calculationResult()</title>
+<indexterm><primary>calculationResult</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>calculationResult</secondary></indexterm>
+<para><computeroutput>void calculationResult ( )</computeroutput></para><para>
+
+<para>Main calculation orchestrator function. </para>
+</para>
+
+<para>Orchestrates complete calculation workflow.</para>
+
+<para>Coordinates the complete calculation workflow:<orderedlist>
+<listitem>
+<para>Input processing and cleaning</para>
+</listitem><listitem>
+<para>Validation of mathematical expression</para>
+</listitem><listitem>
+<para>Tokenization and parsing</para>
+</listitem><listitem>
+<para>High-precision calculation</para>
+</listitem><listitem>
+<para>Result formatting and timing</para>
+</listitem></orderedlist>
+</para>
+
+<para>Cleans up context after processing. </para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00756">756</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a760d14bec1ac400123cb014ac0f64cf0_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a760d14bec1ac400123cb014ac0f64cf0_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e"/><section>
+    <title>calculationTimeFormat()</title>
+<indexterm><primary>calculationTimeFormat</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>calculationTimeFormat</secondary></indexterm>
+<para><computeroutput>string calculationTimeFormat (chrono::microseconds &amp; duration)</computeroutput></para><para>
+
+<para>Formats calculation duration with appropriate time units. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>duration</entry><entry>
+<para>Elapsed time in microseconds </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Human-readable time string (µs, ms, or s)</para>
+</formalpara>
+Automatically selects optimal units: microseconds (&lt;1ms), milliseconds (&lt;1s), or seconds with 2 decimal places. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00722">722</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a4cd6e6fa7aad77f50bb62f245e1c5f8e_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82"/><section>
+    <title>dividedZero()</title>
+<indexterm><primary>dividedZero</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>dividedZero</secondary></indexterm>
+<para><computeroutput>void dividedZero ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+
+<para>Handles division by zero errors with tracking. </para>
+</para>
+
+<para>Records error occurrence for potential witty user feedback and outputs error information to stderr. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00053">53</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a5e046d6d5950acb5d923fcb881d19e82_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4"/><section>
+    <title>getCleanInput()</title>
+<indexterm><primary>getCleanInput</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>getCleanInput</secondary></indexterm>
+<para><computeroutput>void getCleanInput ( )</computeroutput></para><para>
+
+<para>Removes all whitespace characters from input expression. </para>
+</para>
+
+<para>Strips space, horizontal tab, newline, vertical tab, form feed, and carriage return using isspace() to prepare clean input for character-by-character parsing. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00091">91</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a7cb868eb6582055d74bd2ab6ecd33da4_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a"/><section>
+    <title>getRawInput()</title>
+<indexterm><primary>getRawInput</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>getRawInput</secondary></indexterm>
+<para><computeroutput>void getRawInput ( )</computeroutput></para><para>
+
+<para>Ensures expression has outer parentheses for consistent parsing. </para>
+</para>
+
+<para>Adds surrounding parentheses if not present, simplifying the recursive parsing algorithm by guaranteeing parenthetical structure. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00075">75</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_aaacc5027501af609b6aa2c792e8aed5a_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b"/><section>
+    <title>isValidFirst()</title>
+<indexterm><primary>isValidFirst</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>isValidFirst</secondary></indexterm>
+<para><computeroutput>bool isValidFirst ( )</computeroutput></para><para>
+
+<para>Validates expression starting character. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if first character follows mathematical grammar rules </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00130">130</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a4da61f7a155354b3cbb7f1fd4468a68b_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a934deca8a1216d29140a7965acf53707"/><section>
+    <title>isValidInput()</title>
+<indexterm><primary>isValidInput</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>isValidInput</secondary></indexterm>
+<para><computeroutput>bool isValidInput ( )</computeroutput></para><para>
+
+<para>Comprehensive input validation pipeline. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if input passes character, syntax, and structure validation</para>
+</formalpara>
+Combines all validation functions to ensure safe processing of mathematical expressions before tokenization and calculation. </para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00344">344</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a934deca8a1216d29140a7965acf53707_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a934deca8a1216d29140a7965acf53707_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45"/><section>
+    <title>isValidPar()</title>
+<indexterm><primary>isValidPar</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>isValidPar</secondary></indexterm>
+<para><computeroutput>bool isValidPar ( )</computeroutput></para><para>
+
+<para>Ensures balanced parentheses throughout expression. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if all parentheses are properly matched and nested </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00157">157</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a12cd1d9d8726563506fd2141d3f75f45_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f"/><section>
+    <title>isValidSyntax()</title>
+<indexterm><primary>isValidSyntax</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>isValidSyntax</secondary></indexterm>
+<para><computeroutput>bool isValidSyntax ( )</computeroutput></para><para>
+
+<para>Validates complete mathematical expression syntax. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>true if expression follows proper mathematical grammar </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00189">189</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a06f3efbda9626fc105f146c3f64c702f_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67"/><section>
+    <title>renderCalculationProgress()</title>
+<indexterm><primary>renderCalculationProgress</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>renderCalculationProgress</secondary></indexterm>
+<para><computeroutput>void renderCalculationProgress ( )</computeroutput></para><para>
+
+<para>Renders real-time calculation progress in ImGui. </para>
+</para>
+
+<para>Displays phase-appropriate progress information including progress bars for long calculations. </para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00685">685</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a570eda3c279bcaa2dad085617116843b"/><section>
+    <title>renderGUI()</title>
+<indexterm><primary>renderGUI</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>renderGUI</secondary></indexterm>
+<para><computeroutput>void renderGUI ( )</computeroutput></para><para>
+
+<para>Implements main calculator interface layout. </para>
+</para>
+
+<para>Main application GUI renderer.</para>
+
+<para>Creates fixed-size window with multiline input field, calculate button, and result display area. Handles user interaction events and triggers calculation workflow. </para>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00803">803</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a570eda3c279bcaa2dad085617116843b_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a570eda3c279bcaa2dad085617116843b_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3"/><section>
+    <title>to_string128()</title>
+<indexterm><primary>to_string128</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>to_string128</secondary></indexterm>
+<para><computeroutput>string to_string128 (__float128 value, int precision = <computeroutput>40</computeroutput>
+)</computeroutput></para><para>
+
+<para>Converts __float128 to formatted string. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>value</entry><entry>
+<para>128-bit floating point value </para>
+</entry>
+                            </row>
+                            <row>
+<entry>precision</entry><entry>
+<para>Decimal places to display (default: 40) </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Formatted string representation</para>
+</formalpara>
+Uses quadmath library for precise string conversion of high-precision values. </para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00039">39</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_af4346d6b81ac856fb62d2650297ef4d3_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e"/><section>
+    <title>tokenize()</title>
+<indexterm><primary>tokenize</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>tokenize</secondary></indexterm>
+<para><computeroutput>void tokenize ( )</computeroutput></para><para>
+
+<para>Converts cleaned input into mathematical operation tokens. </para>
+</para>
+
+<para>Parses expression into array of numbers, operators, and parentheses. Handles implicit multiplication (e.g., &quot;2(3)&quot; → &quot;2 \* 3&quot;), converts unary minus to negative numbers, and validates decimal formatting.</para>
+
+<para><note><title>Note</title>
+
+<para>Does not support factorial (!) or variables (x,y,z) in current version </para>
+</note>
+</para>
+<simplesect><title>Examples</title><link linkend="__2home_2war_2Documents_2CPP_Projects_2Calc_2src_2functions_8cpp-example">/home/war/Documents/CPP_Projects/Calc/src/functions.cpp</link>.</simplesect>
+<para>
+Definition at line <link linkend="_functions_8cpp_source_1l00384">384</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="functions_8cpp_a4090d9a7990ab9c64a87f3026044243e_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f"/><section>
+    <title>global</title>
+<indexterm><primary>global</primary><secondary>functions.cpp</secondary></indexterm>
+<indexterm><primary>functions.cpp</primary><secondary>global</secondary></indexterm>
+<para><computeroutput><link linkend="_structglobals">globals</link> global</computeroutput></para><para>
+Definition at line <link linkend="_functions_8cpp_source_1l00023">23</link> of file <link linkend="_functions_8cpp_source">functions.cpp</link>.</para>
+</section>
+</section>
+</section>

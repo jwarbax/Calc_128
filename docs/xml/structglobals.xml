@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="structglobals" kind="struct" language="C++" prot="public">
+    <compoundname>globals</compoundname>
+    <includes refid="functions_8h" local="no">functions.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structglobals_1a21cfa4911a020abd93196257f16f1c9c" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::globalInput</definition>
+        <argsstring></argsstring>
+        <name>globalInput</name>
+        <qualifiedname>globals::globalInput</qualifiedname>
+        <briefdescription>
+<para>Raw user input from GUI field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="127" column="12" bodyfile="include/functions.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::rawInput</definition>
+        <argsstring></argsstring>
+        <name>rawInput</name>
+        <qualifiedname>globals::rawInput</qualifiedname>
+        <briefdescription>
+<para>Input with guaranteed outer parentheses. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="128" column="12" bodyfile="include/functions.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::cleanInput</definition>
+        <argsstring></argsstring>
+        <name>cleanInput</name>
+        <qualifiedname>globals::cleanInput</qualifiedname>
+        <briefdescription>
+<para>Whitespace-stripped, ready for parsing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="129" column="12" bodyfile="include/functions.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1af8164e2095e2213110b324be3cc6b463" prot="public" static="no" mutable="no">
+        <type>vector&lt; string &gt;</type>
+        <definition>vector&lt;string&gt; globals::rawTokens</definition>
+        <argsstring></argsstring>
+        <name>rawTokens</name>
+        <qualifiedname>globals::rawTokens</qualifiedname>
+        <briefdescription>
+<para>Parsed mathematical tokens (numbers, operators, parentheses) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="130" column="12" bodyfile="include/functions.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a46b25073320c32f18d9fea86c064eacf" prot="public" static="no" mutable="no">
+        <type>__float128</type>
+        <definition>__float128 globals::float128_Result</definition>
+        <argsstring></argsstring>
+        <name>float128_Result</name>
+        <qualifiedname>globals::float128_Result</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>High-precision numerical result. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="133" column="16" bodyfile="include/functions.h" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1aebf1d77908e583110c060bc3f10ef6f7" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::stringResult</definition>
+        <argsstring></argsstring>
+        <name>stringResult</name>
+        <qualifiedname>globals::stringResult</qualifiedname>
+        <briefdescription>
+<para>Formatted result for current calculation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="134" column="12" bodyfile="include/functions.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a623cc0c55239723cd7286e40ba040b08" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::globalResult</definition>
+        <argsstring></argsstring>
+        <name>globalResult</name>
+        <qualifiedname>globals::globalResult</qualifiedname>
+        <initializer>=&quot; &quot;</initializer>
+        <briefdescription>
+<para>Persistent result display for GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="135" column="12" bodyfile="include/functions.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a7a82e89893efc5828d494af105db6146" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::calculationTime</definition>
+        <argsstring></argsstring>
+        <name>calculationTime</name>
+        <qualifiedname>globals::calculationTime</qualifiedname>
+        <briefdescription>
+<para>Formatted elapsed time string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="138" column="12" bodyfile="include/functions.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a3c4ea25c7632a0b6ab362d68de434a33" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string globals::timeTaken</definition>
+        <argsstring></argsstring>
+        <name>timeTaken</name>
+        <qualifiedname>globals::timeTaken</qualifiedname>
+        <initializer>=&quot; &quot;</initializer>
+        <briefdescription>
+<para>Persistent timing display for GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="139" column="12" bodyfile="include/functions.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a243d8dce37e7c20a3aa558a5599bf48a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool globals::displayElapsedTime</definition>
+        <argsstring></argsstring>
+        <name>displayElapsedTime</name>
+        <qualifiedname>globals::displayElapsedTime</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>User preference for showing timing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="142" column="10" bodyfile="include/functions.h" bodystart="142" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1af5b7f30cabd10f24059123a8100589a3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int globals::userPrecision</definition>
+        <argsstring></argsstring>
+        <name>userPrecision</name>
+        <qualifiedname>globals::userPrecision</qualifiedname>
+        <initializer>{40}</initializer>
+        <briefdescription>
+<para>Decimal places to display (max 40) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="143" column="9" bodyfile="include/functions.h" bodystart="143" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1add26994aa930d44a11cf93c91ef3ada1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int globals::zeroCount</definition>
+        <argsstring></argsstring>
+        <name>zeroCount</name>
+        <qualifiedname>globals::zeroCount</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>Division-by-zero attempts (for error messages) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="146" column="9" bodyfile="include/functions.h" bodystart="146" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a80c1636a0d85ac9778779d0b346a3187" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float globals::totalTokens</definition>
+        <argsstring></argsstring>
+        <name>totalTokens</name>
+        <qualifiedname>globals::totalTokens</qualifiedname>
+        <initializer>{0.0f}</initializer>
+        <briefdescription>
+<para>Initial token count for progress calculation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="147" column="11" bodyfile="include/functions.h" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1a31c0203f2279f18cc66cb177a5514d1c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float globals::currentTokens</definition>
+        <argsstring></argsstring>
+        <name>currentTokens</name>
+        <qualifiedname>globals::currentTokens</qualifiedname>
+        <initializer>{static_cast&lt;float&gt;(rawTokens.size())}</initializer>
+        <briefdescription>
+<para>Remaining operations. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="148" column="11" bodyfile="include/functions.h" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="variable" id="structglobals_1ad6954113475f63fb6b12d37d6286ca10" prot="public" static="no" mutable="no">
+        <type><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" kindref="member">phase</ref></type>
+        <definition>phase globals::currentPhase</definition>
+        <argsstring></argsstring>
+        <name>currentPhase</name>
+        <qualifiedname>globals::currentPhase</qualifiedname>
+        <initializer>{<ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" kindref="member">phase::idle</ref>}</initializer>
+        <briefdescription>
+<para>Current processing stage. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="149" column="11" bodyfile="include/functions.h" bodystart="149" bodyend="149"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Global application state and calculation context. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Centralized storage for input processing stages, calculation results, timing data, user preferences, and GUI state management. </para>
+    </detaileddescription>
+    <location file="include/functions.h" line="124" column="1" bodyfile="include/functions.h" bodystart="125" bodyend="150"/>
+    <listofallmembers>
+      <member refid="structglobals_1a7a82e89893efc5828d494af105db6146" prot="public" virt="non-virtual"><scope>globals</scope><name>calculationTime</name></member>
+      <member refid="structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123" prot="public" virt="non-virtual"><scope>globals</scope><name>cleanInput</name></member>
+      <member refid="structglobals_1ad6954113475f63fb6b12d37d6286ca10" prot="public" virt="non-virtual"><scope>globals</scope><name>currentPhase</name></member>
+      <member refid="structglobals_1a31c0203f2279f18cc66cb177a5514d1c" prot="public" virt="non-virtual"><scope>globals</scope><name>currentTokens</name></member>
+      <member refid="structglobals_1a243d8dce37e7c20a3aa558a5599bf48a" prot="public" virt="non-virtual"><scope>globals</scope><name>displayElapsedTime</name></member>
+      <member refid="structglobals_1a46b25073320c32f18d9fea86c064eacf" prot="public" virt="non-virtual"><scope>globals</scope><name>float128_Result</name></member>
+      <member refid="structglobals_1a21cfa4911a020abd93196257f16f1c9c" prot="public" virt="non-virtual"><scope>globals</scope><name>globalInput</name></member>
+      <member refid="structglobals_1a623cc0c55239723cd7286e40ba040b08" prot="public" virt="non-virtual"><scope>globals</scope><name>globalResult</name></member>
+      <member refid="structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd" prot="public" virt="non-virtual"><scope>globals</scope><name>rawInput</name></member>
+      <member refid="structglobals_1af8164e2095e2213110b324be3cc6b463" prot="public" virt="non-virtual"><scope>globals</scope><name>rawTokens</name></member>
+      <member refid="structglobals_1aebf1d77908e583110c060bc3f10ef6f7" prot="public" virt="non-virtual"><scope>globals</scope><name>stringResult</name></member>
+      <member refid="structglobals_1a3c4ea25c7632a0b6ab362d68de434a33" prot="public" virt="non-virtual"><scope>globals</scope><name>timeTaken</name></member>
+      <member refid="structglobals_1a80c1636a0d85ac9778779d0b346a3187" prot="public" virt="non-virtual"><scope>globals</scope><name>totalTokens</name></member>
+      <member refid="structglobals_1af5b7f30cabd10f24059123a8100589a3" prot="public" virt="non-virtual"><scope>globals</scope><name>userPrecision</name></member>
+      <member refid="structglobals_1add26994aa930d44a11cf93c91ef3ada1" prot="public" virt="non-virtual"><scope>globals</scope><name>zeroCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

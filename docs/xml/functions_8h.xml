@@ -1,0 +1,597 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="functions_8h" kind="file" language="C++">
+    <compoundname>functions.h</compoundname>
+    <includes local="no">cstdint</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">string</includes>
+    <includedby refid="functions_8cpp" local="yes">src/functions.cpp</includedby>
+    <includedby refid="main_8cpp" local="yes">src/main.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/functions.h</label>
+        <link refid="functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cstdint</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/functions.h</label>
+        <link refid="functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/functions.cpp</label>
+        <link refid="functions_8cpp"/>
+      </node>
+      <node id="3">
+        <label>src/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structglobals" prot="public">globals</innerclass>
+    <innernamespace refid="namespacestd">std</innernamespace>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860" prot="public" static="no" strong="yes">
+        <type>uint8_t</type>
+        <name>state</name>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" prot="public">
+          <name>start</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df" prot="public">
+          <name>number</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26" prot="public">
+          <name>variable</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437" prot="public">
+          <name>operator_</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7" prot="public">
+          <name>minus</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12" prot="public">
+          <name>unary_minus</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5" prot="public">
+          <name>binary_minus</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f" prot="public">
+          <name>decimal</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5" prot="public">
+          <name>fractional</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322" prot="public">
+          <name>open_par</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51" prot="public">
+          <name>close_par</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Parser state machine states for syntax validation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Defines transition states used during mathematical expression parsing to ensure proper grammar and operator precedence. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="70" column="1" bodyfile="include/functions.h" bodystart="71" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="enum" id="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>phase</name>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" prot="public">
+          <name>idle</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47" prot="public">
+          <name>verifying</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493" prot="public">
+          <name>validating</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86" prot="public">
+          <name>calculating</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1" prot="public">
+          <name>complete</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282" prot="public">
+          <name>error</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Calculation progress phases for user feedback. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Tracks current processing stage to display meaningful progress information during long calculations. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="102" column="1" bodyfile="include/functions.h" bodystart="103" bodyend="110"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="functions_8h_1a538796c494f27edc133ab80c6bf225a6" prot="public" static="no" mutable="no">
+        <type>const string</type>
+        <definition>const string validList</definition>
+        <argsstring></argsstring>
+        <name>validList</name>
+        <initializer>{&quot; ()^*/+-0123456789.&quot;}</initializer>
+        <briefdescription>
+<para>Parser configuration constants and validation sets. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Character sets for input validation, window dimensions, and global state management for the calculation workflow. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="50" column="14" bodyfile="include/functions.h" bodystart="50" bodyend="50"/>
+        <referencedby refid="functions_8h_1a934deca8a1216d29140a7965acf53707" compoundref="functions_8cpp" startline="344" endline="367">isValidInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6" prot="public" static="no" mutable="no">
+        <type>const string</type>
+        <definition>const string invalidFirst</definition>
+        <argsstring></argsstring>
+        <name>invalidFirst</name>
+        <initializer>{&quot;*/+=)^&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="51" column="14" bodyfile="include/functions.h" bodystart="51" bodyend="51"/>
+        <referencedby refid="functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b" compoundref="functions_8cpp" startline="130" endline="155">isValidFirst</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491" prot="public" static="no" mutable="no">
+        <type>const string</type>
+        <definition>const string operatorList</definition>
+        <argsstring></argsstring>
+        <name>operatorList</name>
+        <initializer>{&quot;^*/+-()&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="52" column="14" bodyfile="include/functions.h" bodystart="52" bodyend="52"/>
+        <referencedby refid="functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e" compoundref="functions_8cpp" startline="384" endline="541">tokenize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int screenRatioMultiplier</definition>
+        <argsstring></argsstring>
+        <name>screenRatioMultiplier</name>
+        <initializer>{50}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="54" column="15" bodyfile="include/functions.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="variable" id="functions_8h_1a050b21607767707ea2b3000538598bdf" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int windowWidth</definition>
+        <argsstring></argsstring>
+        <name>windowWidth</name>
+        <initializer>= 16*<ref refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kindref="member">screenRatioMultiplier</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="55" column="15" bodyfile="include/functions.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="27" endline="94">main</referencedby>
+        <referencedby refid="functions_8h_1a570eda3c279bcaa2dad085617116843b" compoundref="functions_8cpp" startline="803" endline="819">renderGUI</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>int</type>
+        <definition>int windowHeight</definition>
+        <argsstring></argsstring>
+        <name>windowHeight</name>
+        <initializer>= 9*<ref refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kindref="member">screenRatioMultiplier</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="56" column="15" bodyfile="include/functions.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="27" endline="94">main</referencedby>
+        <referencedby refid="functions_8h_1a570eda3c279bcaa2dad085617116843b" compoundref="functions_8cpp" startline="803" endline="819">renderGUI</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isValidFirst</definition>
+        <argsstring>()</argsstring>
+        <name>isValidFirst</name>
+        <briefdescription>
+<para>Validates expression starting character. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if first character follows mathematical grammar rules </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="162" column="6" bodyfile="src/functions.cpp" bodystart="130" bodyend="155" declfile="include/functions.h" declline="162" declcolumn="6"/>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6" compoundref="functions_8h" startline="51" endline="51">invalidFirst</references>
+        <referencedby refid="functions_8h_1a934deca8a1216d29140a7965acf53707" compoundref="functions_8cpp" startline="344" endline="367">isValidInput</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1a12cd1d9d8726563506fd2141d3f75f45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isValidPar</definition>
+        <argsstring>()</argsstring>
+        <name>isValidPar</name>
+        <briefdescription>
+<para>Ensures balanced parentheses throughout expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if all parentheses are properly matched and nested </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="168" column="6" bodyfile="src/functions.cpp" bodystart="157" bodyend="187" declfile="include/functions.h" declline="168" declcolumn="6"/>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <referencedby refid="functions_8h_1a934deca8a1216d29140a7965acf53707" compoundref="functions_8cpp" startline="344" endline="367">isValidInput</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1a06f3efbda9626fc105f146c3f64c702f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isValidSyntax</definition>
+        <argsstring>()</argsstring>
+        <name>isValidSyntax</name>
+        <briefdescription>
+<para>Validates complete mathematical expression syntax. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if expression follows proper mathematical grammar </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="174" column="6" bodyfile="src/functions.cpp" bodystart="189" bodyend="342" declfile="include/functions.h" declline="174" declcolumn="6"/>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5" compoundref="functions_8h" startline="85">binary_minus</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51" compoundref="functions_8h" startline="93">close_par</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f" compoundref="functions_8h" startline="87">decimal</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5" compoundref="functions_8h" startline="89">fractional</references>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7" compoundref="functions_8h" startline="81">minus</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df" compoundref="functions_8h" startline="74">number</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322" compoundref="functions_8h" startline="91">open_par</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437" compoundref="functions_8h" startline="79">operator_</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" compoundref="functions_8h" startline="72">start</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12" compoundref="functions_8h" startline="83">unary_minus</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26" compoundref="functions_8h" startline="77">variable</references>
+        <referencedby refid="functions_8h_1a934deca8a1216d29140a7965acf53707" compoundref="functions_8cpp" startline="344" endline="367">isValidInput</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1a934deca8a1216d29140a7965acf53707" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isValidInput</definition>
+        <argsstring>()</argsstring>
+        <name>isValidInput</name>
+        <briefdescription>
+<para>Comprehensive input validation pipeline. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if input passes character, syntax, and structure validation</para>
+</simplesect>
+Combines all validation functions to ensure safe processing of mathematical expressions before tokenization and calculation. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="183" column="6" bodyfile="src/functions.cpp" bodystart="344" bodyend="367" declfile="include/functions.h" declline="183" declcolumn="6"/>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b" compoundref="functions_8cpp" startline="130" endline="155">isValidFirst</references>
+        <references refid="functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45" compoundref="functions_8cpp" startline="157" endline="187">isValidPar</references>
+        <references refid="functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f" compoundref="functions_8cpp" startline="189" endline="342">isValidSyntax</references>
+        <references refid="functions_8h_1a538796c494f27edc133ab80c6bf225a6" compoundref="functions_8h" startline="50" endline="50">validList</references>
+        <referencedby refid="functions_8h_1a760d14bec1ac400123cb014ac0f64cf0" compoundref="functions_8cpp" startline="756" endline="794">calculationResult</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1a760d14bec1ac400123cb014ac0f64cf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void calculationResult</definition>
+        <argsstring>()</argsstring>
+        <name>calculationResult</name>
+        <briefdescription>
+<para>Orchestrates complete calculation workflow. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Processes input through validation, tokenization, calculation, and result formatting with timing measurements.</para>
+<para>Orchestrates complete calculation workflow.</para>
+<para>Coordinates the complete calculation workflow:<orderedlist>
+<listitem><para>Input processing and cleaning</para>
+</listitem><listitem><para>Validation of mathematical expression</para>
+</listitem><listitem><para>Tokenization and parsing</para>
+</listitem><listitem><para>High-precision calculation</para>
+</listitem><listitem><para>Result formatting and timing</para>
+</listitem></orderedlist>
+</para>
+<para>Cleans up context after processing. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="191" column="6" bodyfile="src/functions.cpp" bodystart="756" bodyend="794" declfile="include/functions.h" declline="191" declcolumn="6"/>
+        <references refid="functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7" compoundref="functions_8cpp" startline="561" endline="677">calculate</references>
+        <references refid="functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e" compoundref="functions_8cpp" startline="722" endline="742">calculationTimeFormat</references>
+        <references refid="functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4" compoundref="functions_8cpp" startline="91" endline="102">getCleanInput</references>
+        <references refid="functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a" compoundref="functions_8cpp" startline="75" endline="83">getRawInput</references>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8cpp_1a934deca8a1216d29140a7965acf53707" compoundref="functions_8cpp" startline="344" endline="367">isValidInput</references>
+        <references refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" compoundref="functions_8h" startline="72">start</references>
+        <references refid="functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e" compoundref="functions_8cpp" startline="384" endline="541">tokenize</references>
+        <referencedby refid="functions_8h_1a570eda3c279bcaa2dad085617116843b" compoundref="functions_8cpp" startline="803" endline="819">renderGUI</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void renderCalculationProgress</definition>
+        <argsstring>()</argsstring>
+        <name>renderCalculationProgress</name>
+        <briefdescription>
+<para>Renders real-time calculation progress in ImGui. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Displays phase-appropriate progress information including progress bars for long calculations. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="199" column="6" bodyfile="src/functions.cpp" bodystart="685" bodyend="712" declfile="include/functions.h" declline="199" declcolumn="6"/>
+        <references refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86" compoundref="functions_8h" startline="107">calculating</references>
+        <references refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1" compoundref="functions_8h" startline="108">complete</references>
+        <references refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282" compoundref="functions_8h" startline="109">error</references>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493" compoundref="functions_8h" startline="106">validating</references>
+        <references refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47" compoundref="functions_8h" startline="105">verifying</references>
+      </memberdef>
+      <memberdef kind="function" id="functions_8h_1a570eda3c279bcaa2dad085617116843b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void renderGUI</definition>
+        <argsstring>()</argsstring>
+        <name>renderGUI</name>
+        <briefdescription>
+<para>Main application GUI renderer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates the primary interface for input, calculation trigger, and result display using ImGui framework.</para>
+<para>Main application GUI renderer.</para>
+<para>Creates fixed-size window with multiline input field, calculate button, and result display area. Handles user interaction events and triggers calculation workflow. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/functions.h" line="207" column="6" bodyfile="src/functions.cpp" bodystart="803" bodyend="819" declfile="include/functions.h" declline="207" declcolumn="6"/>
+        <references refid="functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0" compoundref="functions_8cpp" startline="756" endline="794">calculationResult</references>
+        <references refid="functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f" compoundref="functions_8cpp" startline="23">global</references>
+        <references refid="functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0" compoundref="functions_8h" startline="56">windowHeight</references>
+        <references refid="functions_8h_1a050b21607767707ea2b3000538598bdf" compoundref="functions_8h" startline="55">windowWidth</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="27" endline="94">main</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>jwarbax </para>
+</simplesect>
+<simplesect kind="date"><para>5/28/25 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>❖<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▒▒▒▒░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONSTANTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░▒▒▒▒▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="functions_8h_1a538796c494f27edc133ab80c6bf225a6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a538796c494f27edc133ab80c6bf225a6" kindref="member">validList</ref>{</highlight><highlight class="stringliteral">&quot;<sp/>()^*/+-0123456789.&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51" refid="functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6" kindref="member">invalidFirst</ref>{</highlight><highlight class="stringliteral">&quot;*/+=)^&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="52" refid="functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491" kindref="member">operatorList</ref>{</highlight><highlight class="stringliteral">&quot;^*/+-()&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kindref="member">screenRatioMultiplier</ref>{50};</highlight></codeline>
+<codeline lineno="55" refid="functions_8h_1a050b21607767707ea2b3000538598bdf" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a050b21607767707ea2b3000538598bdf" kindref="member">windowWidth</ref><sp/>=<sp/>16*<ref refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kindref="member">screenRatioMultiplier</ref>;</highlight></codeline>
+<codeline lineno="56" refid="functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0" kindref="member">windowHeight</ref><sp/>=<sp/>9*<ref refid="functions_8h_1a80ba6c853ffdc30b2889aed0eca21626" kindref="member">screenRatioMultiplier</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>❖<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▒▒▒▒░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENUMERATIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░▒▒▒▒▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860" kindref="member">state</ref><sp/>:<sp/>uint8_t</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92" kindref="member">start</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df" kindref="member">number</ref>,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//**UNUSED**//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26" kindref="member">variable</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437" kindref="member">operator_</ref>,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7" kindref="member">minus</ref>,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12" kindref="member">unary_minus</ref>,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5" kindref="member">binary_minus</ref>,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f" kindref="member">decimal</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5" kindref="member">fractional</ref>,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322" kindref="member">open_par</ref>,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51" kindref="member">close_par</ref>,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" kindref="member">phase</ref></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" kindref="member">idle</ref>,</highlight></codeline>
+<codeline lineno="105" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47" kindref="member">verifying</ref>,</highlight></codeline>
+<codeline lineno="106" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493" kindref="member">validating</ref>,</highlight></codeline>
+<codeline lineno="107" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86" kindref="member">calculating</ref>,</highlight></codeline>
+<codeline lineno="108" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1" kindref="member">complete</ref>,</highlight></codeline>
+<codeline lineno="109" refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282" kindref="member">error</ref></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>❖<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▒▒▒▒░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DATA<sp/>STRUCTURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░▒▒▒▒▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="structglobals" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structglobals" kindref="compound">globals</ref></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Input<sp/>Processing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="structglobals_1a21cfa4911a020abd93196257f16f1c9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a21cfa4911a020abd93196257f16f1c9c" kindref="member">globalInput</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a4c493154f0ab5cf5e4fbcd71957cdebd" kindref="member">rawInput</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1ade6db3d9ee0fc1b745f25ba06dea9123" kindref="member">cleanInput</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="structglobals_1af8164e2095e2213110b324be3cc6b463" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;string&gt;<sp/><ref refid="structglobals_1af8164e2095e2213110b324be3cc6b463" kindref="member">rawTokens</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Calculation<sp/>Results</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="structglobals_1a46b25073320c32f18d9fea86c064eacf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>__float128<sp/><ref refid="structglobals_1a46b25073320c32f18d9fea86c064eacf" kindref="member">float128_Result</ref>{};<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="structglobals_1aebf1d77908e583110c060bc3f10ef6f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1aebf1d77908e583110c060bc3f10ef6f7" kindref="member">stringResult</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="structglobals_1a623cc0c55239723cd7286e40ba040b08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a623cc0c55239723cd7286e40ba040b08" kindref="member">globalResult</ref>=</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Performance<sp/>Metrics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="structglobals_1a7a82e89893efc5828d494af105db6146" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a7a82e89893efc5828d494af105db6146" kindref="member">calculationTime</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="structglobals_1a3c4ea25c7632a0b6ab362d68de434a33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a3c4ea25c7632a0b6ab362d68de434a33" kindref="member">timeTaken</ref>=</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//User<sp/>Preferences</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="structglobals_1a243d8dce37e7c20a3aa558a5599bf48a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a243d8dce37e7c20a3aa558a5599bf48a" kindref="member">displayElapsedTime</ref>{};<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="structglobals_1af5b7f30cabd10f24059123a8100589a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structglobals_1af5b7f30cabd10f24059123a8100589a3" kindref="member">userPrecision</ref>{40};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Progress<sp/>Tracking</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="structglobals_1add26994aa930d44a11cf93c91ef3ada1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structglobals_1add26994aa930d44a11cf93c91ef3ada1" kindref="member">zeroCount</ref>{};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="structglobals_1a80c1636a0d85ac9778779d0b346a3187" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a80c1636a0d85ac9778779d0b346a3187" kindref="member">totalTokens</ref>{0.0f};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="structglobals_1a31c0203f2279f18cc66cb177a5514d1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structglobals_1a31c0203f2279f18cc66cb177a5514d1c" kindref="member">currentTokens</ref>{</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="structglobals_1af8164e2095e2213110b324be3cc6b463" kindref="member">rawTokens</ref>.size())};<sp/></highlight></codeline>
+<codeline lineno="149" refid="structglobals_1ad6954113475f63fb6b12d37d6286ca10" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6d" kindref="member">phase</ref><sp/><ref refid="structglobals_1ad6954113475f63fb6b12d37d6286ca10" kindref="member">currentPhase</ref>{<ref refid="functions_8h_1a4432ad5c680b2372adf2f56998516c6daec2f993aec2c27fc750119ab17b16cdb" kindref="member">phase::idle</ref>};<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>❖<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▒▒▒▒░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FUNCTION<sp/>DECLARATIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░▒▒▒▒▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>❖<sp/>◦<sp/>◦<sp/>❖<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>░░░░░▒▒▒▒▒▓▓▓▓▓║</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b" kindref="member">isValidFirst</ref>();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a12cd1d9d8726563506fd2141d3f75f45" kindref="member">isValidPar</ref>();</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a06f3efbda9626fc105f146c3f64c702f" kindref="member">isValidSyntax</ref>();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a934deca8a1216d29140a7965acf53707" kindref="member">isValidInput</ref>();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a760d14bec1ac400123cb014ac0f64cf0" kindref="member">calculationResult</ref>();</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67" kindref="member">renderCalculationProgress</ref>();</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="functions_8h_1a570eda3c279bcaa2dad085617116843b" kindref="member">renderGUI</ref><sp/>();</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/functions.h"/>
+  </compounddef>
+</doxygen>

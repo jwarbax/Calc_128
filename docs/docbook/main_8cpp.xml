@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main_8cpp" xml:lang="en-US">
+<title>src/main.cpp File Reference</title>
+<indexterm><primary>src/main.cpp</primary></indexterm>
+<para>
+
+<para>Application entry point and SDL3/ImGui initialization. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &lt;iostream&gt;<?linebreak?>#include &quot;SDL3/SDL.h&quot;<?linebreak?>#include &quot;imgui.h&quot;<?linebreak?>#include &quot;imgui_impl_sdl3.h&quot;<?linebreak?>#include &lt;imgui_impl_sdlrenderer3.h&gt;<?linebreak?>#include &quot;functions.h&quot;<?linebreak?></programlisting>Include dependency graph for main.cpp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="main_8cpp__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link> ()</para>
+
+<para>Application entry point. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Application entry point and SDL3/ImGui initialization. </para>
+
+<para><formalpara><title>Author</title>
+
+<para>jwarbax </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>5/28/25</para>
+</formalpara>
+Initializes SDL3 graphics, creates ImGui context, and runs the main application loop for the high-precision calculator interface. </para>
+<para>
+Definition in file <link linkend="_main_8cpp_source">main.cpp</link>.</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>main.cpp</secondary></indexterm>
+<indexterm><primary>main.cpp</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main ( )</computeroutput></para><para>
+
+<para>Application entry point. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>0 on success, -1 on initialization failure</para>
+</formalpara>
+Sets up SDL3 window and renderer, initializes ImGui framework, and runs the main event loop until user closes the application. </para>
+<para>
+Definition at line <link linkend="_main_8cpp_source_1l00027">27</link> of file <link linkend="_main_8cpp_source">main.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

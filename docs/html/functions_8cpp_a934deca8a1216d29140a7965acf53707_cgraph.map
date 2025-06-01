@@ -1,0 +1,9 @@
+<map id="isValidInput" name="isValidInput">
+<area shape="rect" id="Node000001" title="Comprehensive input validation pipeline." alt="" coords="5,56,94,83"/>
+<area shape="rect" id="Node000002" href="$functions_8cpp.html#a4da61f7a155354b3cbb7f1fd4468a68b" title="Validates expression starting character." alt="" coords="149,5,234,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,53,137,35,139,40,90,58"/>
+<area shape="rect" id="Node000003" href="$functions_8cpp.html#a12cd1d9d8726563506fd2141d3f75f45" title="Ensures balanced parentheses throughout expression." alt="" coords="152,56,232,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,67,137,67,137,72,94,72"/>
+<area shape="rect" id="Node000004" href="$functions_8cpp.html#a06f3efbda9626fc105f146c3f64c702f" title="Validates complete mathematical expression syntax." alt="" coords="142,107,242,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="90,81,139,98,137,103,88,86"/>
+</map>

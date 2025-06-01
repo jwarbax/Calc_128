@@ -1,0 +1,29 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="Application entry point." alt="" coords="5,157,55,184"/>
+<area shape="rect" id="Node000002" href="$functions_8cpp.html#a570eda3c279bcaa2dad085617116843b" title="Main application GUI renderer." alt="" coords="103,157,184,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,168,87,168,87,173,55,173"/>
+<area shape="rect" id="Node000003" href="$functions_8cpp.html#a760d14bec1ac400123cb014ac0f64cf0" title="Main calculation orchestrator function." alt="" coords="232,157,353,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,168,217,168,217,173,184,173"/>
+<area shape="rect" id="Node000004" href="$functions_8cpp.html#afe1d8348c24e6589bc7c0b3f689316a7" title="Evaluates tokenized expression using operator precedence." alt="" coords="441,31,515,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="303,155,343,112,370,88,400,67,425,55,428,60,403,72,373,92,347,116,307,159"/>
+<area shape="rect" id="Node000007" href="$functions_8cpp.html#a4cd6e6fa7aad77f50bb62f245e1c5f8e" title="Formats calculation duration with appropriate time units." alt="" coords="401,81,555,108"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="320,154,400,118,417,111,419,116,402,122,322,159"/>
+<area shape="rect" id="Node000008" href="$functions_8cpp.html#a7cb868eb6582055d74bd2ab6ecd33da4" title="Removes all whitespace characters from input expression." alt="" coords="427,132,529,159"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="353,160,411,152,412,157,354,165"/>
+<area shape="rect" id="Node000009" href="$functions_8cpp.html#aaacc5027501af609b6aa2c792e8aed5a" title="Ensures expression has outer parentheses for consistent parsing." alt="" coords="430,183,526,209"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="354,176,416,185,415,190,353,182"/>
+<area shape="rect" id="Node000010" href="$functions_8cpp.html#a934deca8a1216d29140a7965acf53707" title="Comprehensive input validation pipeline." alt="" coords="434,233,522,260"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="322,182,402,219,420,226,418,231,400,224,320,187"/>
+<area shape="rect" id="Node000014" href="$functions_8cpp.html#a4090d9a7990ab9c64a87f3026044243e" title="Converts cleaned input into mathematical operation tokens." alt="" coords="443,284,513,311"/>
+<area shape="poly" id="edge13_Node000003_Node000014" title=" " alt="" coords="307,183,347,225,373,249,403,270,429,282,427,287,400,274,370,253,343,229,303,186"/>
+<area shape="rect" id="Node000005" href="$functions_8cpp.html#a5e046d6d5950acb5d923fcb881d19e82" title="Handles division by zero errors with tracking." alt="" coords="609,5,697,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="515,36,593,25,594,30,515,41"/>
+<area shape="rect" id="Node000006" href="$functions_8cpp.html#af4346d6b81ac856fb62d2650297ef4d3" title="Converts __float128 to formatted string." alt="" coords="607,56,699,83"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="515,47,592,58,591,63,515,52"/>
+<area shape="rect" id="Node000011" href="$functions_8cpp.html#a4da61f7a155354b3cbb7f1fd4468a68b" title="Validates expression starting character." alt="" coords="610,183,696,209"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="522,231,595,210,596,215,524,236"/>
+<area shape="rect" id="Node000012" href="$functions_8cpp.html#a12cd1d9d8726563506fd2141d3f75f45" title="Ensures balanced parentheses throughout expression." alt="" coords="613,233,692,260"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="523,244,598,244,598,249,523,249"/>
+<area shape="rect" id="Node000013" href="$functions_8cpp.html#a06f3efbda9626fc105f146c3f64c702f" title="Validates complete mathematical expression syntax." alt="" coords="603,284,703,311"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="524,257,591,277,589,282,522,262"/>
+</map>

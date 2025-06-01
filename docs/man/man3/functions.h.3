@@ -1,0 +1,323 @@
+.TH "include/functions.h" 3 "Version 1.0" "Calc_128" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/functions.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <cstdint>\fP
+.br
+\fR#include <vector>\fP
+.br
+\fR#include <string>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBglobals\fP"
+.br
+.RI "Global application state and calculation context\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBstate\fP : uint8_t { \fBstart\fP, \fBnumber\fP, \fBvariable\fP, \fBoperator_\fP, \fBminus\fP, \fBunary_minus\fP, \fBbinary_minus\fP, \fBdecimal\fP, \fBfractional\fP, \fBopen_par\fP, \fBclose_par\fP }"
+.br
+.RI "Parser state machine states for syntax validation\&. "
+.ti -1c
+.RI "enum class \fBphase\fP { \fBidle\fP, \fBverifying\fP, \fBvalidating\fP, \fBcalculating\fP, \fBcomplete\fP, \fBerror\fP }"
+.br
+.RI "Calculation progress phases for user feedback\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBisValidFirst\fP ()"
+.br
+.RI "Validates expression starting character\&. "
+.ti -1c
+.RI "bool \fBisValidPar\fP ()"
+.br
+.RI "Ensures balanced parentheses throughout expression\&. "
+.ti -1c
+.RI "bool \fBisValidSyntax\fP ()"
+.br
+.RI "Validates complete mathematical expression syntax\&. "
+.ti -1c
+.RI "bool \fBisValidInput\fP ()"
+.br
+.RI "Comprehensive input validation pipeline\&. "
+.ti -1c
+.RI "void \fBcalculationResult\fP ()"
+.br
+.RI "Orchestrates complete calculation workflow\&. "
+.ti -1c
+.RI "void \fBrenderCalculationProgress\fP ()"
+.br
+.RI "Renders real-time calculation progress in ImGui\&. "
+.ti -1c
+.RI "void \fBrenderGUI\fP ()"
+.br
+.RI "Main application GUI renderer\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const string \fBvalidList\fP {' ()^*/+\-0123456789\&.'}"
+.br
+.RI "Parser configuration constants and validation sets\&. "
+.ti -1c
+.RI "const string \fBinvalidFirst\fP {'*/+=)^'}"
+.br
+.ti -1c
+.RI "const string \fBoperatorList\fP {'^*/+\-()'}"
+.br
+.ti -1c
+.RI "constexpr int \fBscreenRatioMultiplier\fP {50}"
+.br
+.ti -1c
+.RI "constexpr int \fBwindowWidth\fP = 16*\fBscreenRatioMultiplier\fP"
+.br
+.ti -1c
+.RI "constexpr int \fBwindowHeight\fP = 9*\fBscreenRatioMultiplier\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor\fP
+.RS 4
+jwarbax 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+5/28/25 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.PP
+Definition in file \fBfunctions\&.h\fP\&.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum class \fBphase\fP\fR [strong]\fP"
+
+.PP
+Calculation progress phases for user feedback\&. Tracks current processing stage to display meaningful progress information during long calculations\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIidle \fP
+.TP
+\f(BIverifying \fP
+.TP
+\f(BIvalidating \fP
+.TP
+\f(BIcalculating \fP
+.TP
+\f(BIcomplete \fP
+.TP
+\f(BIerror \fP
+.PP
+Definition at line \fB102\fP of file \fBfunctions\&.h\fP\&.
+.SS "enum class \fBstate\fP : uint8_t\fR [strong]\fP"
+
+.PP
+Parser state machine states for syntax validation\&. Defines transition states used during mathematical expression parsing to ensure proper grammar and operator precedence\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIstart \fP
+.TP
+\f(BInumber \fP
+.TP
+\f(BIvariable \fP
+.TP
+\f(BIoperator_ \fP
+.TP
+\f(BIminus \fP
+.TP
+\f(BIunary_minus \fP
+.TP
+\f(BIbinary_minus \fP
+.TP
+\f(BIdecimal \fP
+.TP
+\f(BIfractional \fP
+.TP
+\f(BIopen_par \fP
+.TP
+\f(BIclose_par \fP
+.PP
+Definition at line \fB70\fP of file \fBfunctions\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void calculationResult ()"
+
+.PP
+Orchestrates complete calculation workflow\&. Processes input through validation, tokenization, calculation, and result formatting with timing measurements\&.
+
+.PP
+Orchestrates complete calculation workflow\&.
+
+.PP
+Coordinates the complete calculation workflow:
+.IP "1." 4
+Input processing and cleaning
+.IP "2." 4
+Validation of mathematical expression
+.IP "3." 4
+Tokenization and parsing
+.IP "4." 4
+High-precision calculation
+.IP "5." 4
+Result formatting and timing
+.PP
+
+.PP
+Cleans up context after processing\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB756\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidFirst ()"
+
+.PP
+Validates expression starting character\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if first character follows mathematical grammar rules 
+.RE
+.PP
+
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB130\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidInput ()"
+
+.PP
+Comprehensive input validation pipeline\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if input passes character, syntax, and structure validation
+.RE
+.PP
+Combines all validation functions to ensure safe processing of mathematical expressions before tokenization and calculation\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB344\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidPar ()"
+
+.PP
+Ensures balanced parentheses throughout expression\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if all parentheses are properly matched and nested 
+.RE
+.PP
+
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB157\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "bool isValidSyntax ()"
+
+.PP
+Validates complete mathematical expression syntax\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true if expression follows proper mathematical grammar 
+.RE
+.PP
+
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB189\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void renderCalculationProgress ()"
+
+.PP
+Renders real-time calculation progress in ImGui\&. Displays phase-appropriate progress information including progress bars for long calculations\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB685\fP of file \fBfunctions\&.cpp\fP\&.
+.SS "void renderGUI ()"
+
+.PP
+Main application GUI renderer\&. Creates the primary interface for input, calculation trigger, and result display using ImGui framework\&.
+
+.PP
+Main application GUI renderer\&.
+
+.PP
+Creates fixed-size window with multiline input field, calculate button, and result display area\&. Handles user interaction events and triggers calculation workflow\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB803\fP of file \fBfunctions\&.cpp\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "const string invalidFirst {'*/+=)^'}"
+
+.PP
+Definition at line \fB51\fP of file \fBfunctions\&.h\fP\&.
+.SS "const string operatorList {'^*/+\-()'}"
+
+.PP
+Definition at line \fB52\fP of file \fBfunctions\&.h\fP\&.
+.SS "int screenRatioMultiplier {50}\fR [constexpr]\fP"
+
+.PP
+Definition at line \fB54\fP of file \fBfunctions\&.h\fP\&.
+.SS "const string validList {' ()^*/+\-0123456789\&.'}"
+
+.PP
+Parser configuration constants and validation sets\&. Character sets for input validation, window dimensions, and global state management for the calculation workflow\&. 
+.PP
+Definition at line \fB50\fP of file \fBfunctions\&.h\fP\&.
+.SS "int windowHeight = 9*\fBscreenRatioMultiplier\fP\fR [constexpr]\fP"
+
+.PP
+Definition at line \fB56\fP of file \fBfunctions\&.h\fP\&.
+.SS "int windowWidth = 16*\fBscreenRatioMultiplier\fP\fR [constexpr]\fP"
+
+.PP
+Definition at line \fB55\fP of file \fBfunctions\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Calc_128 from the source code\&.

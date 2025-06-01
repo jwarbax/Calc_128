@@ -1,0 +1,182 @@
+.TH "globals" 3 "Version 1.0" "Calc_128" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+globals \- Global application state and calculation context\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <functions\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "string \fBglobalInput\fP"
+.br
+.RI "Raw user input from GUI field\&. "
+.ti -1c
+.RI "string \fBrawInput\fP"
+.br
+.RI "Input with guaranteed outer parentheses\&. "
+.ti -1c
+.RI "string \fBcleanInput\fP"
+.br
+.RI "Whitespace-stripped, ready for parsing\&. "
+.ti -1c
+.RI "vector< string > \fBrawTokens\fP"
+.br
+.RI "Parsed mathematical tokens (numbers, operators, parentheses) "
+.ti -1c
+.RI "__float128 \fBfloat128_Result\fP {}"
+.br
+.RI "High-precision numerical result\&. "
+.ti -1c
+.RI "string \fBstringResult\fP"
+.br
+.RI "Formatted result for current calculation\&. "
+.ti -1c
+.RI "string \fBglobalResult\fP =' '"
+.br
+.RI "Persistent result display for GUI\&. "
+.ti -1c
+.RI "string \fBcalculationTime\fP"
+.br
+.RI "Formatted elapsed time string\&. "
+.ti -1c
+.RI "string \fBtimeTaken\fP =' '"
+.br
+.RI "Persistent timing display for GUI\&. "
+.ti -1c
+.RI "bool \fBdisplayElapsedTime\fP {}"
+.br
+.RI "User preference for showing timing\&. "
+.ti -1c
+.RI "int \fBuserPrecision\fP {40}"
+.br
+.RI "Decimal places to display (max 40) "
+.ti -1c
+.RI "int \fBzeroCount\fP {}"
+.br
+.RI "Division-by-zero attempts (for error messages) "
+.ti -1c
+.RI "float \fBtotalTokens\fP {0\&.0f}"
+.br
+.RI "Initial token count for progress calculation\&. "
+.ti -1c
+.RI "float \fBcurrentTokens\fP {static_cast<float>(rawTokens\&.size())}"
+.br
+.RI "Remaining operations\&. "
+.ti -1c
+.RI "\fBphase\fP \fBcurrentPhase\fP {\fBphase::idle\fP}"
+.br
+.RI "Current processing stage\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Global application state and calculation context\&. 
+
+Centralized storage for input processing stages, calculation results, timing data, user preferences, and GUI state management\&. 
+.PP
+\fBExamples\fP
+.in +1c
+\fB/home/war/Documents/CPP_Projects/Calc/src/functions\&.cpp\fP\&.
+.PP
+Definition at line \fB124\fP of file \fBfunctions\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "string globals::calculationTime"
+
+.PP
+Formatted elapsed time string\&. 
+.PP
+Definition at line \fB138\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::cleanInput"
+
+.PP
+Whitespace-stripped, ready for parsing\&. 
+.PP
+Definition at line \fB129\fP of file \fBfunctions\&.h\fP\&.
+.SS "\fBphase\fP globals::currentPhase {\fBphase::idle\fP}"
+
+.PP
+Current processing stage\&. 
+.PP
+Definition at line \fB149\fP of file \fBfunctions\&.h\fP\&.
+.SS "float globals::currentTokens {static_cast<float>(rawTokens\&.size())}"
+
+.PP
+Remaining operations\&. 
+.PP
+Definition at line \fB148\fP of file \fBfunctions\&.h\fP\&.
+.SS "bool globals::displayElapsedTime {}"
+
+.PP
+User preference for showing timing\&. 
+.PP
+Definition at line \fB142\fP of file \fBfunctions\&.h\fP\&.
+.SS "__float128 globals::float128_Result {}"
+
+.PP
+High-precision numerical result\&. 
+.PP
+Definition at line \fB133\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::globalInput"
+
+.PP
+Raw user input from GUI field\&. 
+.PP
+Definition at line \fB127\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::globalResult =' '"
+
+.PP
+Persistent result display for GUI\&. 
+.PP
+Definition at line \fB135\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::rawInput"
+
+.PP
+Input with guaranteed outer parentheses\&. 
+.PP
+Definition at line \fB128\fP of file \fBfunctions\&.h\fP\&.
+.SS "vector<string> globals::rawTokens"
+
+.PP
+Parsed mathematical tokens (numbers, operators, parentheses) 
+.PP
+Definition at line \fB130\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::stringResult"
+
+.PP
+Formatted result for current calculation\&. 
+.PP
+Definition at line \fB134\fP of file \fBfunctions\&.h\fP\&.
+.SS "string globals::timeTaken =' '"
+
+.PP
+Persistent timing display for GUI\&. 
+.PP
+Definition at line \fB139\fP of file \fBfunctions\&.h\fP\&.
+.SS "float globals::totalTokens {0\&.0f}"
+
+.PP
+Initial token count for progress calculation\&. 
+.PP
+Definition at line \fB147\fP of file \fBfunctions\&.h\fP\&.
+.SS "int globals::userPrecision {40}"
+
+.PP
+Decimal places to display (max 40) 
+.PP
+Definition at line \fB143\fP of file \fBfunctions\&.h\fP\&.
+.SS "int globals::zeroCount {}"
+
+.PP
+Division-by-zero attempts (for error messages) 
+.PP
+Definition at line \fB146\fP of file \fBfunctions\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Calc_128 from the source code\&.

@@ -1,0 +1,27 @@
+<map id="renderGUI" name="renderGUI">
+<area shape="rect" id="Node000001" title="Main application GUI renderer." alt="" coords="5,157,87,184"/>
+<area shape="rect" id="Node000002" href="$functions_8cpp.html#a760d14bec1ac400123cb014ac0f64cf0" title="Main calculation orchestrator function." alt="" coords="135,157,256,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,168,119,168,119,173,87,173"/>
+<area shape="rect" id="Node000003" href="$functions_8cpp.html#afe1d8348c24e6589bc7c0b3f689316a7" title="Evaluates tokenized expression using operator precedence." alt="" coords="344,31,417,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="206,155,246,112,273,88,303,67,328,55,330,60,305,72,276,92,249,116,210,159"/>
+<area shape="rect" id="Node000006" href="$functions_8cpp.html#a4cd6e6fa7aad77f50bb62f245e1c5f8e" title="Formats calculation duration with appropriate time units." alt="" coords="304,81,457,108"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="223,154,303,118,320,111,322,116,305,122,225,159"/>
+<area shape="rect" id="Node000007" href="$functions_8cpp.html#a7cb868eb6582055d74bd2ab6ecd33da4" title="Removes all whitespace characters from input expression." alt="" coords="330,132,432,159"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="256,160,314,152,315,157,257,165"/>
+<area shape="rect" id="Node000008" href="$functions_8cpp.html#aaacc5027501af609b6aa2c792e8aed5a" title="Ensures expression has outer parentheses for consistent parsing." alt="" coords="333,183,428,209"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="257,176,318,185,318,190,256,182"/>
+<area shape="rect" id="Node000009" href="$functions_8cpp.html#a934deca8a1216d29140a7965acf53707" title="Comprehensive input validation pipeline." alt="" coords="336,233,425,260"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="225,182,305,219,323,226,321,231,303,224,223,187"/>
+<area shape="rect" id="Node000013" href="$functions_8cpp.html#a4090d9a7990ab9c64a87f3026044243e" title="Converts cleaned input into mathematical operation tokens." alt="" coords="346,284,416,311"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="210,183,249,225,276,249,305,270,332,282,330,287,303,274,273,253,246,229,206,186"/>
+<area shape="rect" id="Node000004" href="$functions_8cpp.html#a5e046d6d5950acb5d923fcb881d19e82" title="Handles division by zero errors with tracking." alt="" coords="511,5,600,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="417,36,496,25,496,30,418,41"/>
+<area shape="rect" id="Node000005" href="$functions_8cpp.html#af4346d6b81ac856fb62d2650297ef4d3" title="Converts __float128 to formatted string." alt="" coords="509,56,602,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="418,47,494,58,493,63,417,52"/>
+<area shape="rect" id="Node000010" href="$functions_8cpp.html#a4da61f7a155354b3cbb7f1fd4468a68b" title="Validates expression starting character." alt="" coords="513,183,598,209"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="425,231,497,210,499,215,426,236"/>
+<area shape="rect" id="Node000011" href="$functions_8cpp.html#a12cd1d9d8726563506fd2141d3f75f45" title="Ensures balanced parentheses throughout expression." alt="" coords="516,233,595,260"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="425,244,500,244,500,249,425,249"/>
+<area shape="rect" id="Node000012" href="$functions_8cpp.html#a06f3efbda9626fc105f146c3f64c702f" title="Validates complete mathematical expression syntax." alt="" coords="505,284,606,311"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="426,257,494,277,492,282,425,262"/>
+</map>

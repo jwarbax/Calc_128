@@ -1,0 +1,716 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_functions_8cpp_source" xml:lang="en-US">
+<title>functions.cpp</title>
+<indexterm><primary>src/functions.cpp</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_functions_8cpp_source_1l00001"/>00001 
+<anchor xml:id="_functions_8cpp_source_1l00012"/>00012 
+<anchor xml:id="_functions_8cpp_source_1l00013"/>00013 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_functions_8h">functions.h</link>&quot;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00014"/>00014 <emphasis role="preprocessor">#include&#32;&lt;chrono&gt;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&lt;map&gt;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&lt;quadmath.h&gt;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00017"/>00017 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00018"/>00018 <emphasis role="preprocessor">#include&#32;&quot;examples/example_sdl3_sdlrenderer3/imgui.h&quot;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00019"/>00019 <emphasis role="preprocessor">#include&#32;&quot;misc/cpp/imgui_stdlib.h&quot;</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00020"/>00020 
+<anchor xml:id="_functions_8cpp_source_1l00021"/>00021 <emphasis role="keyword">using&#32;namespace&#32;</emphasis>std;
+<anchor xml:id="_functions_8cpp_source_1l00022"/>00022 
+<anchor xml:id="_functions_8cpp_source_1l00023"/><link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">00023</link> <link linkend="_structglobals">globals</link>&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>;
+<anchor xml:id="_functions_8cpp_source_1l00024"/>00024 
+<anchor xml:id="_functions_8cpp_source_1l00025"/>00025 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00026"/>00026 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00027"/>00027 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;HELPER&#32;FUNCTIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00028"/>00028 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00029"/>00029 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00030"/>00030 
+<anchor xml:id="_functions_8cpp_source_1l00039"/><link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">00039</link> <emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(__float128&#32;value,&#32;<emphasis role="keywordtype">int</emphasis>&#32;precision&#32;=&#32;40)&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00040"/>00040 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buf[1024];
+<anchor xml:id="_functions_8cpp_source_1l00041"/>00041 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;fmt[40];
+<anchor xml:id="_functions_8cpp_source_1l00042"/>00042 &#32;&#32;snprintf(fmt,&#32;<emphasis role="keyword">sizeof</emphasis>(fmt),&#32;<emphasis role="stringliteral">&quot;%%.%dQg&quot;</emphasis>,&#32;precision);
+<anchor xml:id="_functions_8cpp_source_1l00043"/>00043 &#32;&#32;quadmath_snprintf(buf,&#32;<emphasis role="keyword">sizeof</emphasis>(buf),&#32;fmt,&#32;value);
+<anchor xml:id="_functions_8cpp_source_1l00044"/>00044 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;{buf};
+<anchor xml:id="_functions_8cpp_source_1l00045"/>00045 }
+<anchor xml:id="_functions_8cpp_source_1l00046"/>00046 
+<anchor xml:id="_functions_8cpp_source_1l00053"/><link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">00053</link> <emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">dividedZero</link>()
+<anchor xml:id="_functions_8cpp_source_1l00054"/>00054 {
+<anchor xml:id="_functions_8cpp_source_1l00055"/>00055 &#32;&#32;map&lt;string,int&gt;zero_table;
+<anchor xml:id="_functions_8cpp_source_1l00056"/>00056 
+<anchor xml:id="_functions_8cpp_source_1l00057"/>00057 &#32;&#32;zero_table[<emphasis role="stringliteral">&quot;Error:&#32;Division&#32;by&#32;Zero&quot;</emphasis>]=0;
+<anchor xml:id="_functions_8cpp_source_1l00058"/>00058 &#32;&#32;zero_table[<emphasis role="stringliteral">&quot;Error:&#32;Division&#32;by&#32;Zero&quot;</emphasis>]=1;
+<anchor xml:id="_functions_8cpp_source_1l00059"/>00059 
+<anchor xml:id="_functions_8cpp_source_1l00060"/>00060 &#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Big&#32;Error:\n&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00061"/>00061 }
+<anchor xml:id="_functions_8cpp_source_1l00062"/>00062 
+<anchor xml:id="_functions_8cpp_source_1l00063"/>00063 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00064"/>00064 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00065"/>00065 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;INPUT&#32;PROCESSING&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00066"/>00066 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00067"/>00067 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00068"/>00068 
+<anchor xml:id="_functions_8cpp_source_1l00075"/><link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">00075</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">getRawInput</link>()
+<anchor xml:id="_functions_8cpp_source_1l00076"/>00076 {
+<anchor xml:id="_functions_8cpp_source_1l00077"/>00077 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput[0]!=<emphasis role="charliteral">&apos;(&apos;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput[<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.size()-1]!=<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00078"/>00078 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.insert(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.begin(),<emphasis role="charliteral">&apos;(&apos;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput.push_back(<emphasis role="charliteral">&apos;)&apos;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00081"/>00081 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00082"/>00082 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput;
+<anchor xml:id="_functions_8cpp_source_1l00083"/>00083 };
+<anchor xml:id="_functions_8cpp_source_1l00084"/>00084 
+<anchor xml:id="_functions_8cpp_source_1l00091"/><link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">00091</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">getCleanInput</link>()
+<anchor xml:id="_functions_8cpp_source_1l00092"/>00092 {
+<anchor xml:id="_functions_8cpp_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i=0;i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.size();i++)
+<anchor xml:id="_functions_8cpp_source_1l00094"/>00094 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isspace(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput[i]))
+<anchor xml:id="_functions_8cpp_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.begin()+i);
+<anchor xml:id="_functions_8cpp_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i--;
+<anchor xml:id="_functions_8cpp_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00101"/>00101 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput={<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput};
+<anchor xml:id="_functions_8cpp_source_1l00102"/>00102 };
+<anchor xml:id="_functions_8cpp_source_1l00103"/>00103 
+<anchor xml:id="_functions_8cpp_source_1l00123"/>00123 
+<anchor xml:id="_functions_8cpp_source_1l00124"/>00124 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00125"/>00125 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00126"/>00126 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;VALIDATION&#32;FUNCTIONS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00127"/>00127 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00128"/>00128 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00129"/>00129 
+<anchor xml:id="_functions_8cpp_source_1l00130"/><link linkend="_functions_8h_1a4da61f7a155354b3cbb7f1fd4468a68b">00130</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link>()
+<anchor xml:id="_functions_8cpp_source_1l00131"/>00131 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;c{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[0]};
+<anchor xml:id="_functions_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link>.find(c)!=string::npos)
+<anchor xml:id="_functions_8cpp_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;String&#32;cannot&#32;start&#32;with:&#32;&quot;</emphasis>&lt;&lt;<link linkend="_functions_8h_1a261b52b9b0d5a89abdbd0b7752200ce6">invalidFirst</link>;
+<anchor xml:id="_functions_8cpp_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00138"/>00138 
+<anchor xml:id="_functions_8cpp_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;-&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1])&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]!=<emphasis role="charliteral">&apos;.&apos;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]!=<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;&apos;-&apos;&#32;Must&#32;be&#32;followed&#32;by&#32;a&#32;digit,&#32;decimal,&#32;or&#32;open&#32;parentheses&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;(&apos;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Empty&#32;Parentheses()&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(c==<emphasis role="charliteral">&apos;.&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[1]))
+<anchor xml:id="_functions_8cpp_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;&apos;.&apos;&#32;Must&#32;be&#32;followed&#32;by&#32;a&#32;digit&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00155"/>00155 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00156"/>00156 
+<anchor xml:id="_functions_8cpp_source_1l00157"/><link linkend="_functions_8h_1a12cd1d9d8726563506fd2141d3f75f45">00157</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link>()
+<anchor xml:id="_functions_8cpp_source_1l00158"/>00158 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;openCount{0};
+<anchor xml:id="_functions_8cpp_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;closeCount{0};
+<anchor xml:id="_functions_8cpp_source_1l00161"/>00161 
+<anchor xml:id="_functions_8cpp_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;i{0};&#32;i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size();&#32;i++)
+<anchor xml:id="_functions_8cpp_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00164"/>00164 
+<anchor xml:id="_functions_8cpp_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;currentChar=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[i];
+<anchor xml:id="_functions_8cpp_source_1l00166"/>00166 
+<anchor xml:id="_functions_8cpp_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentChar==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;openCount++;
+<anchor xml:id="_functions_8cpp_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentChar==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closeCount++;
+<anchor xml:id="_functions_8cpp_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(openCount-closeCount&#32;&lt;&#32;0||closeCount-openCount&#32;&gt;&#32;0)
+<anchor xml:id="_functions_8cpp_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Parenthesis&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i==<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size()-1&amp;&amp;openCount-closeCount==0)
+<anchor xml:id="_functions_8cpp_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Parenthesis&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00187"/>00187 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00188"/>00188 
+<anchor xml:id="_functions_8cpp_source_1l00189"/><link linkend="_functions_8h_1a06f3efbda9626fc105f146c3f64c702f">00189</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link>()
+<anchor xml:id="_functions_8cpp_source_1l00190"/>00190 &#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00191"/>00191 
+<anchor xml:id="_functions_8cpp_source_1l00192"/>00192 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;currentState{<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>};
+<anchor xml:id="_functions_8cpp_source_1l00193"/>00193 
+<anchor xml:id="_functions_8cpp_source_1l00194"/>00194 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;i{0};i&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.size();++i)
+<anchor xml:id="_functions_8cpp_source_1l00195"/>00195 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;characterIndex{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[i]};
+<anchor xml:id="_functions_8cpp_source_1l00197"/>00197 
+<anchor xml:id="_functions_8cpp_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860">state</link>&#32;previousState=currentState;
+<anchor xml:id="_functions_8cpp_source_1l00199"/>00199 
+<anchor xml:id="_functions_8cpp_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//counter&#32;for&#32;currentState</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(isdigit(characterIndex))
+<anchor xml:id="_functions_8cpp_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>;
+<anchor xml:id="_functions_8cpp_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(isalpha(characterIndex))
+<anchor xml:id="_functions_8cpp_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>;
+<anchor xml:id="_functions_8cpp_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;*&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;/&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;+&apos;</emphasis>||characterIndex==<emphasis role="charliteral">&apos;^&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>;
+<anchor xml:id="_functions_8cpp_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">state::minus</link>;
+<anchor xml:id="_functions_8cpp_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>;
+<anchor xml:id="_functions_8cpp_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>;
+<anchor xml:id="_functions_8cpp_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>(characterIndex==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>;
+<anchor xml:id="_functions_8cpp_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Undefined&#32;valid_syntax&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00233"/>00233 
+<anchor xml:id="_functions_8cpp_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>(currentState)
+<anchor xml:id="_functions_8cpp_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>:
+<anchor xml:id="_functions_8cpp_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Undefined&#32;//syntax_switch_test&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>:
+<anchor xml:id="_functions_8cpp_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>;
+<anchor xml:id="_functions_8cpp_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>:
+<anchor xml:id="_functions_8cpp_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>)
+<anchor xml:id="_functions_8cpp_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Decimal&#32;cannot&#32;come&#32;before&#32;variable&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>;
+<anchor xml:id="_functions_8cpp_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>:
+<anchor xml:id="_functions_8cpp_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>)
+<anchor xml:id="_functions_8cpp_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Decimal&#32;cannot&#32;come&#32;before&#32;operator&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00256"/>00256 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>)
+<anchor xml:id="_functions_8cpp_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Operator&#32;cannot&#32;come&#32;before&#32;operator&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>)
+<anchor xml:id="_functions_8cpp_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Cannot&#32;start&#32;string&#32;with&#32;an&#32;operator&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>;
+<anchor xml:id="_functions_8cpp_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860adabe6e597b70e5760826aea1dcc564f7">state::minus</link>:
+<anchor xml:id="_functions_8cpp_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>:
+<anchor xml:id="_functions_8cpp_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>:
+<anchor xml:id="_functions_8cpp_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>
+<anchor xml:id="_functions_8cpp_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+<anchor xml:id="_functions_8cpp_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>;
+<anchor xml:id="_functions_8cpp_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>
+<anchor xml:id="_functions_8cpp_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>)
+<anchor xml:id="_functions_8cpp_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>;
+<anchor xml:id="_functions_8cpp_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>)
+<anchor xml:id="_functions_8cpp_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>
+<anchor xml:id="_functions_8cpp_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>
+<anchor xml:id="_functions_8cpp_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>)
+<anchor xml:id="_functions_8cpp_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Operator&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+<anchor xml:id="_functions_8cpp_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>
+<anchor xml:id="_functions_8cpp_source_1l00295"/>00295 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>)
+<anchor xml:id="_functions_8cpp_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Operator&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>:
+<anchor xml:id="_functions_8cpp_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>:
+<anchor xml:id="_functions_8cpp_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>)
+<anchor xml:id="_functions_8cpp_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Double&#32;Decimal&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">state::start</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>
+<anchor xml:id="_functions_8cpp_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ae04aa5104d082e4a51d241391941ba26">state::variable</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>
+<anchor xml:id="_functions_8cpp_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>
+<anchor xml:id="_functions_8cpp_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>)
+<anchor xml:id="_functions_8cpp_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>;
+<anchor xml:id="_functions_8cpp_source_1l00316"/>00316 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00317"/>00317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860ab1bc248a7ff2b2e95569f56de68615df">state::number</link>)
+<anchor xml:id="_functions_8cpp_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>;
+<anchor xml:id="_functions_8cpp_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>:
+<anchor xml:id="_functions_8cpp_source_1l00323"/>00323 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>)
+<anchor xml:id="_functions_8cpp_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Open&#32;Parenthesis/Unary&#32;Minus&#32;must&#32;only&#32;precede&#32;a&#32;digit&#32;or&#32;decimal&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00327"/>00327 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00328"/>00328 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>;
+<anchor xml:id="_functions_8cpp_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>:
+<anchor xml:id="_functions_8cpp_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860abdaa3c20a3e3851599514f7c6be5f62f">state::decimal</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aca17f48991b922b0b45d18ac40b449a5">state::fractional</link>
+<anchor xml:id="_functions_8cpp_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a4087f1ffc05f4eab1b923856a05c6d12">state::unary_minus</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a26b20ff7f57b916fd96c386c0ba9d1c5">state::binary_minus</link>
+<anchor xml:id="_functions_8cpp_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a52d76f4231073ba56a413274f8e5a437">state::operator_</link>||previousState==<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a9e6424e9edb5a0c522ee3ef31a886322">state::open_par</link>)
+<anchor xml:id="_functions_8cpp_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Close&#32;Parenthesis&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;currentState=<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860a1fb95f2f00db53577a1c589d50d85d51">state::close_par</link>;
+<anchor xml:id="_functions_8cpp_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00340"/>00340 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00341"/>00341 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00342"/>00342 &#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00343"/>00343 
+<anchor xml:id="_functions_8cpp_source_1l00344"/><link linkend="_functions_8h_1a934deca8a1216d29140a7965acf53707">00344</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_functions_8cpp_1a934deca8a1216d29140a7965acf53707">isValidInput</link>()
+<anchor xml:id="_functions_8cpp_source_1l00345"/>00345 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00346"/>00346 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(<emphasis role="keywordtype">char</emphasis>&#32;currentCharacter:<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput)
+<anchor xml:id="_functions_8cpp_source_1l00347"/>00347 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00348"/>00348 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link>.find(currentCharacter)==string::npos)
+<anchor xml:id="_functions_8cpp_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Input\n&quot;</emphasis>&lt;&lt;<emphasis role="stringliteral">&quot;valid_list&#32;=&#32;&quot;</emphasis>&lt;&lt;<link linkend="_functions_8h_1a538796c494f27edc133ab80c6bf225a6">validList</link>;
+<anchor xml:id="_functions_8cpp_source_1l00351"/>00351 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00353"/>00353 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00354"/>00354 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!<link linkend="_functions_8cpp_1a4da61f7a155354b3cbb7f1fd4468a68b">isValidFirst</link>())
+<anchor xml:id="_functions_8cpp_source_1l00355"/>00355 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00356"/>00356 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00357"/>00357 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!<link linkend="_functions_8cpp_1a12cd1d9d8726563506fd2141d3f75f45">isValidPar</link>())
+<anchor xml:id="_functions_8cpp_source_1l00359"/>00359 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00360"/>00360 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00361"/>00361 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00362"/>00362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!<link linkend="_functions_8cpp_1a06f3efbda9626fc105f146c3f64c702f">isValidSyntax</link>())
+<anchor xml:id="_functions_8cpp_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00365"/>00365 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00366"/>00366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00367"/>00367 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00368"/>00368 
+<anchor xml:id="_functions_8cpp_source_1l00369"/>00369 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00370"/>00370 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00371"/>00371 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;TOKEN&#32;PARSING&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00372"/>00372 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00373"/>00373 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00374"/>00374 
+<anchor xml:id="_functions_8cpp_source_1l00384"/><link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">00384</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">tokenize</link>()
+<anchor xml:id="_functions_8cpp_source_1l00385"/>00385 {
+<anchor xml:id="_functions_8cpp_source_1l00386"/>00386 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;decimalCount{0};
+<anchor xml:id="_functions_8cpp_source_1l00387"/>00387 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;substring;
+<anchor xml:id="_functions_8cpp_source_1l00388"/>00388 
+<anchor xml:id="_functions_8cpp_source_1l00389"/>00389 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">long</emphasis>&#32;index{0};index&lt;=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.length();index++)
+<anchor xml:id="_functions_8cpp_source_1l00390"/>00390 &#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00391"/>00391 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;currentCharacter{<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index]};
+<anchor xml:id="_functions_8cpp_source_1l00392"/>00392 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(currentCharacter))
+<anchor xml:id="_functions_8cpp_source_1l00393"/>00393 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(decimalCount&gt;1)
+<anchor xml:id="_functions_8cpp_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error:&#32;Too&#32;Many&#32;Decimals&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00399"/>00399 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00401"/>00401 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00402"/>00402 &#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(currentCharacter);
+<anchor xml:id="_functions_8cpp_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00404"/>00404 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00405"/>00405 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00406"/>00406 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]))
+<anchor xml:id="_functions_8cpp_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;Decimal&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00410"/>00410 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;decimalCount++;
+<anchor xml:id="_functions_8cpp_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(currentCharacter);
+<anchor xml:id="_functions_8cpp_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00418"/>00418 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00419"/>00419 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8h_1a74ec3253a5c8c0b1fb1a030baa581491">operatorList</link>.find(currentCharacter)!=string::npos)
+<anchor xml:id="_functions_8cpp_source_1l00420"/>00420 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00421"/>00421 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!empty(substring))
+<anchor xml:id="_functions_8cpp_source_1l00422"/>00422 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00423"/>00423 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(substring);
+<anchor xml:id="_functions_8cpp_source_1l00424"/>00424 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.clear();
+<anchor xml:id="_functions_8cpp_source_1l00425"/>00425 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00426"/>00426 &#32;&#32;&#32;&#32;&#32;&#32;decimalCount=0;
+<anchor xml:id="_functions_8cpp_source_1l00427"/>00427 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00428"/>00428 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00429"/>00429 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index==0)
+<anchor xml:id="_functions_8cpp_source_1l00430"/>00430 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00431"/>00431 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00432"/>00432 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00434"/>00434 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=1&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00435"/>00435 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00436"/>00436 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=2&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]!=<emphasis role="charliteral">&apos;)&apos;</emphasis>&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]))
+<anchor xml:id="_functions_8cpp_source_1l00437"/>00437 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00438"/>00438 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;-1&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00439"/>00439 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00440"/>00440 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00441"/>00441 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00442"/>00442 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00443"/>00443 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index&gt;=2&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-2]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00444"/>00444 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00445"/>00445 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00446"/>00446 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00447"/>00447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00448"/>00448 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00449"/>00449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00451"/>00451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00452"/>00452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00453"/>00453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00454"/>00454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00455"/>00455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+<anchor xml:id="_functions_8cpp_source_1l00456"/>00456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00457"/>00457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00458"/>00458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00461"/>00461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+<anchor xml:id="_functions_8cpp_source_1l00462"/>00462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00463"/>00463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00464"/>00464 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00465"/>00465 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00466"/>00466 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00467"/>00467 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index!=0)
+<anchor xml:id="_functions_8cpp_source_1l00468"/>00468 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;(&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00474"/>00474 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;)&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00476"/>00476 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00477"/>00477 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00478"/>00478 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;^&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00479"/>00479 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00480"/>00480 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;^&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00481"/>00481 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00482"/>00482 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00483"/>00483 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;*&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00484"/>00484 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00485"/>00485 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;*&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00486"/>00486 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00487"/>00487 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00488"/>00488 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;/&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00489"/>00489 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;/&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00492"/>00492 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00493"/>00493 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;+&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00494"/>00494 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00495"/>00495 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00496"/>00496 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00497"/>00497 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00498"/>00498 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(currentCharacter==<emphasis role="charliteral">&apos;-&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00499"/>00499 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00500"/>00500 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(index==0)
+<anchor xml:id="_functions_8cpp_source_1l00501"/>00501 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00502"/>00502 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00503"/>00503 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00504"/>00504 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00505"/>00505 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00506"/>00506 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(<emphasis role="charliteral">&apos;-&apos;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00507"/>00507 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00508"/>00508 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00509"/>00509 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isblank(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00510"/>00510 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00511"/>00511 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cerr&lt;&lt;<emphasis role="stringliteral">&quot;Error:&#32;Invalid&#32;End\n&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00512"/>00512 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00514"/>00514 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])&#32;||&#32;isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&amp;&amp;!isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&amp;&amp;!isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]!=<emphasis role="charliteral">&apos;.&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00517"/>00517 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;-&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00518"/>00518 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00519"/>00519 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00520"/>00520 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])&#32;||&#32;isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1])
+<anchor xml:id="_functions_8cpp_source_1l00521"/>00521 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index+1]==<emphasis role="charliteral">&apos;.&apos;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;(&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00522"/>00522 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00523"/>00523 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]==<emphasis role="charliteral">&apos;)&apos;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00524"/>00524 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00525"/>00525 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00526"/>00526 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00527"/>00527 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(isalpha(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1])||isdigit(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput[index-1]))
+<anchor xml:id="_functions_8cpp_source_1l00528"/>00528 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00529"/>00529 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;+&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00530"/>00530 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00531"/>00531 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;substring.push_back(<emphasis role="charliteral">&apos;-&apos;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00534"/>00534 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00535"/>00535 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00536"/>00536 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!empty(substring))
+<anchor xml:id="_functions_8cpp_source_1l00537"/>00537 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00538"/>00538 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(substring);
+<anchor xml:id="_functions_8cpp_source_1l00539"/>00539 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00540"/>00540 &#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00541"/>00541 }
+<anchor xml:id="_functions_8cpp_source_1l00542"/>00542 
+<anchor xml:id="_functions_8cpp_source_1l00543"/>00543 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00544"/>00544 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00545"/>00545 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;CALCULATION&#32;ENGINE&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00546"/>00546 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00547"/>00547 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00548"/>00548 
+<anchor xml:id="_functions_8cpp_source_1l00561"/><link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">00561</link> &#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">calculate</link>()
+<anchor xml:id="_functions_8cpp_source_1l00562"/>00562 &#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00563"/>00563 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;power{<emphasis role="stringliteral">&quot;^&quot;</emphasis>};
+<anchor xml:id="_functions_8cpp_source_1l00564"/>00564 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;multiply{<emphasis role="stringliteral">&quot;*&quot;</emphasis>};
+<anchor xml:id="_functions_8cpp_source_1l00565"/>00565 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;divide{<emphasis role="stringliteral">&quot;/&quot;</emphasis>};
+<anchor xml:id="_functions_8cpp_source_1l00566"/>00566 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;add{<emphasis role="stringliteral">&quot;+&quot;</emphasis>};
+<anchor xml:id="_functions_8cpp_source_1l00567"/>00567 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">string</emphasis>&#32;subtract{<emphasis role="stringliteral">&quot;-&quot;</emphasis>};
+<anchor xml:id="_functions_8cpp_source_1l00568"/>00568 
+<anchor xml:id="_functions_8cpp_source_1l00569"/>00569 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.emplace_back(<emphasis role="stringliteral">&quot;&#32;&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00570"/>00570 
+<anchor xml:id="_functions_8cpp_source_1l00576"/>00576 
+<anchor xml:id="_functions_8cpp_source_1l00577"/>00577 &#32;&#32;&#32;&#32;BEGIN:
+<anchor xml:id="_functions_8cpp_source_1l00578"/>00578 
+<anchor xml:id="_functions_8cpp_source_1l00579"/>00579 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;index{0};index&lt;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.size();++index)
+<anchor xml:id="_functions_8cpp_source_1l00580"/>00580 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00581"/>00581 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[index]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00582"/>00582 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00583"/>00583 
+<anchor xml:id="_functions_8cpp_source_1l00584"/>00584 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;firstClosedPar{0};firstClosedPar&lt;index;++firstClosedPar)&#32;<emphasis role="comment">//double&#32;check&#32;it&apos;s&#32;the&#32;first&#32;closed&#32;par</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00585"/>00585 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00586"/>00586 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstClosedPar]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>&amp;&amp;index&gt;firstClosedPar)
+<anchor xml:id="_functions_8cpp_source_1l00587"/>00587 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00588"/>00588 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;index=firstClosedPar;
+<anchor xml:id="_functions_8cpp_source_1l00589"/>00589 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00590"/>00590 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00591"/>00591 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;firstOpenPar{index};firstOpenPar&gt;=0;--firstOpenPar)
+<anchor xml:id="_functions_8cpp_source_1l00592"/>00592 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00593"/>00593 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar]==<emphasis role="stringliteral">&quot;(&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00594"/>00594 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00595"/>00595 
+<anchor xml:id="_functions_8cpp_source_1l00596"/>00596 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=index;subIndex&gt;firstOpenPar;--subIndex)
+<anchor xml:id="_functions_8cpp_source_1l00597"/>00597 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00598"/>00598 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;^&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00599"/>00599 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00600"/>00600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;base=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00601"/>00601 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;exponent=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00602"/>00602 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult=powq(base,exponent);
+<anchor xml:id="_functions_8cpp_source_1l00603"/>00603 
+<anchor xml:id="_functions_8cpp_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+<anchor xml:id="_functions_8cpp_source_1l00605"/>00605 
+<anchor xml:id="_functions_8cpp_source_1l00606"/>00606 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+<anchor xml:id="_functions_8cpp_source_1l00607"/>00607 
+<anchor xml:id="_functions_8cpp_source_1l00608"/>00608 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+<anchor xml:id="_functions_8cpp_source_1l00609"/>00609 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00610"/>00610 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00611"/>00611 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=firstOpenPar;subIndex&lt;index;++subIndex)
+<anchor xml:id="_functions_8cpp_source_1l00612"/>00612 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00613"/>00613 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;*&quot;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;/&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00614"/>00614 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00615"/>00615 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;leftOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00616"/>00616 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;rightOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00617"/>00617 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult;
+<anchor xml:id="_functions_8cpp_source_1l00618"/>00618 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;*&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00619"/>00619 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00620"/>00620 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand*rightOperand;
+<anchor xml:id="_functions_8cpp_source_1l00621"/>00621 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+<anchor xml:id="_functions_8cpp_source_1l00622"/>00622 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00623"/>00623 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00624"/>00624 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00625"/>00625 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(rightOperand==0)
+<anchor xml:id="_functions_8cpp_source_1l00626"/>00626 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00627"/>00627 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a5e046d6d5950acb5d923fcb881d19e82">dividedZero</link>();
+<anchor xml:id="_functions_8cpp_source_1l00628"/>00628 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00629"/>00629 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00630"/>00630 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand/rightOperand;
+<anchor xml:id="_functions_8cpp_source_1l00631"/>00631 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+<anchor xml:id="_functions_8cpp_source_1l00632"/>00632 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00633"/>00633 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00634"/>00634 
+<anchor xml:id="_functions_8cpp_source_1l00635"/>00635 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+<anchor xml:id="_functions_8cpp_source_1l00636"/>00636 
+<anchor xml:id="_functions_8cpp_source_1l00637"/>00637 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+<anchor xml:id="_functions_8cpp_source_1l00638"/>00638 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00639"/>00639 
+<anchor xml:id="_functions_8cpp_source_1l00640"/>00640 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00641"/>00641 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;subIndex=firstOpenPar;subIndex&lt;index;++subIndex)
+<anchor xml:id="_functions_8cpp_source_1l00642"/>00642 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00643"/>00643 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;+&quot;</emphasis>||<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;-&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00644"/>00644 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00645"/>00645 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;leftOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00646"/>00646 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;rightOperand=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex+1].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00647"/>00647 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;__float128&#32;localResult;
+<anchor xml:id="_functions_8cpp_source_1l00648"/>00648 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex]==<emphasis role="stringliteral">&quot;+&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00649"/>00649 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00650"/>00650 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand+rightOperand;
+<anchor xml:id="_functions_8cpp_source_1l00651"/>00651 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+<anchor xml:id="_functions_8cpp_source_1l00652"/>00652 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00653"/>00653 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00654"/>00654 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00655"/>00655 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;localResult=leftOperand-rightOperand;
+<anchor xml:id="_functions_8cpp_source_1l00656"/>00656 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[subIndex-1]=<link linkend="_functions_8cpp_1af4346d6b81ac856fb62d2650297ef4d3">to_string128</link>(localResult);
+<anchor xml:id="_functions_8cpp_source_1l00657"/>00657 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00658"/>00658 
+<anchor xml:id="_functions_8cpp_source_1l00659"/>00659 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex,<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+subIndex+2);
+<anchor xml:id="_functions_8cpp_source_1l00660"/>00660 
+<anchor xml:id="_functions_8cpp_source_1l00661"/>00661 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+<anchor xml:id="_functions_8cpp_source_1l00662"/>00662 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00663"/>00663 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00664"/>00664 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar]==<emphasis role="stringliteral">&quot;(&quot;</emphasis>&amp;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[firstOpenPar+2]==<emphasis role="stringliteral">&quot;)&quot;</emphasis>)
+<anchor xml:id="_functions_8cpp_source_1l00665"/>00665 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00666"/>00666 
+<anchor xml:id="_functions_8cpp_source_1l00667"/>00667 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+firstOpenPar);
+<anchor xml:id="_functions_8cpp_source_1l00668"/>00668 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.erase(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.begin()+firstOpenPar+1);
+<anchor xml:id="_functions_8cpp_source_1l00669"/>00669 
+<anchor xml:id="_functions_8cpp_source_1l00670"/>00670 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">goto</emphasis>&#32;BEGIN;
+<anchor xml:id="_functions_8cpp_source_1l00671"/>00671 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00672"/>00672 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00673"/>00673 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00674"/>00674 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00675"/>00675 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00676"/>00676 &#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result=strtoflt128(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens[0].c_str(),<emphasis role="keyword">nullptr</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00677"/>00677 &#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00678"/>00678 
+<anchor xml:id="_functions_8cpp_source_1l00679"/>00679 <emphasis role="comment">//╔══════════════════════════════════════════════════════════════════════════════╗</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00680"/>00680 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;❖&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00681"/>00681 <emphasis role="comment">//║▓▓▓▓▒▒▒▒░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OUTPUT&#32;AND&#32;DISPLAY&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░▒▒▒▒▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00682"/>00682 <emphasis role="comment">//║▓▓▓▓▓▒▒▒▒▒░░░░░&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;❖&#32;◦&#32;◦&#32;❖&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;░░░░░▒▒▒▒▒▓▓▓▓▓║</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00683"/>00683 <emphasis role="comment">//╚══════════════════════════════════════════════════════════════════════════════╝</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00684"/>00684 
+<anchor xml:id="_functions_8cpp_source_1l00685"/><link linkend="_functions_8h_1af1836aa55e670cbc67d8fb40b4e2ae67">00685</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1af1836aa55e670cbc67d8fb40b4e2ae67">renderCalculationProgress</link>()
+<anchor xml:id="_functions_8cpp_source_1l00686"/>00686 {
+<anchor xml:id="_functions_8cpp_source_1l00687"/>00687 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>&#32;(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentPhase)
+<anchor xml:id="_functions_8cpp_source_1l00688"/>00688 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00689"/>00689 &#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da0ffa0a5d41ae4bb935315c5683209d47">phase::verifying</link>:
+<anchor xml:id="_functions_8cpp_source_1l00690"/>00690 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Verifying&#32;input...&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00691"/>00691 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00692"/>00692 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad77932958a49e1f50f11c2d742fe1493">phase::validating</link>:
+<anchor xml:id="_functions_8cpp_source_1l00693"/>00693 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Parsing&#32;tokens...&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00694"/>00694 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00695"/>00695 &#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6da263e3cef2ffc1ddd2dc59cd2f9c19e86">phase::calculating</link>:
+<anchor xml:id="_functions_8cpp_source_1l00696"/>00696 &#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00697"/>00697 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;progress={1.0f&#32;-&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentTokens&#32;/&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.totalTokens};
+<anchor xml:id="_functions_8cpp_source_1l00698"/>00698 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Calculating...&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00699"/>00699 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::ProgressBar(progress);
+<anchor xml:id="_functions_8cpp_source_1l00700"/>00700 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Operations&#32;remaining:&#32;%zu&quot;</emphasis>,&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.currentTokens);
+<anchor xml:id="_functions_8cpp_source_1l00701"/>00701 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00702"/>00702 &#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00703"/>00703 &#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dad9a22d7a8178d5b42a8750123cbfe5b1">phase::complete</link>:
+<anchor xml:id="_functions_8cpp_source_1l00704"/>00704 &#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00705"/>00705 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;Completed&#32;in:&#32;&quot;</emphasis>,&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.timeTaken);
+<anchor xml:id="_functions_8cpp_source_1l00706"/>00706 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00707"/>00707 &#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00708"/>00708 &#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_functions_8h_1a4432ad5c680b2372adf2f56998516c6dacb5e100e5a9a3e7f6d1fd97512215282">phase::error</link>:
+<anchor xml:id="_functions_8cpp_source_1l00709"/>00709 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGui::Text(<emphasis role="stringliteral">&quot;UNDEFINED&#32;ERROR&#32;(renderCalculationProgress)&quot;</emphasis>);
+<anchor xml:id="_functions_8cpp_source_1l00710"/>00710 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00711"/>00711 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00712"/>00712 }
+<anchor xml:id="_functions_8cpp_source_1l00713"/>00713 
+<anchor xml:id="_functions_8cpp_source_1l00722"/><link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">00722</link> <emphasis role="keywordtype">string</emphasis>&#32;<link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">calculationTimeFormat</link>(chrono::microseconds&amp;&#32;duration)
+<anchor xml:id="_functions_8cpp_source_1l00723"/>00723 {
+<anchor xml:id="_functions_8cpp_source_1l00724"/>00724 &#32;&#32;&#32;&#32;<emphasis role="keyword">using&#32;namespace&#32;</emphasis>std::chrono;
+<anchor xml:id="_functions_8cpp_source_1l00725"/>00725 &#32;&#32;&#32;&#32;ostringstream&#32;durationStream;
+<anchor xml:id="_functions_8cpp_source_1l00726"/>00726 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(duration.count()&lt;1000)
+<anchor xml:id="_functions_8cpp_source_1l00727"/>00727 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00728"/>00728 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;duration.count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;µs&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00729"/>00729 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00730"/>00730 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(duration.count()&lt;1000000)
+<anchor xml:id="_functions_8cpp_source_1l00731"/>00731 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00732"/>00732 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;ms&#32;=&#32;duration_cast&lt;milliseconds&gt;(duration);
+<anchor xml:id="_functions_8cpp_source_1l00733"/>00733 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;ms.count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;ms&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00734"/>00734 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00735"/>00735 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00736"/>00736 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00737"/>00737 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;seconds&#32;=&#32;duration.count()/1000000.0;
+<anchor xml:id="_functions_8cpp_source_1l00738"/>00738 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;fixed&#32;&lt;&lt;&#32;setprecision(2);
+<anchor xml:id="_functions_8cpp_source_1l00739"/>00739 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;durationStream&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Elapsed&#32;Time:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;seconds&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;s&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00740"/>00740 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00741"/>00741 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;durationStream.str();
+<anchor xml:id="_functions_8cpp_source_1l00742"/>00742 }
+<anchor xml:id="_functions_8cpp_source_1l00743"/>00743 
+<anchor xml:id="_functions_8cpp_source_1l00756"/><link linkend="_functions_8h_1a760d14bec1ac400123cb014ac0f64cf0">00756</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link>()
+<anchor xml:id="_functions_8cpp_source_1l00757"/>00757 {
+<anchor xml:id="_functions_8cpp_source_1l00758"/>00758 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1aaacc5027501af609b6aa2c792e8aed5a">getRawInput</link>();
+<anchor xml:id="_functions_8cpp_source_1l00759"/>00759 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a7cb868eb6582055d74bd2ab6ecd33da4">getCleanInput</link>();
+<anchor xml:id="_functions_8cpp_source_1l00760"/>00760 
+<anchor xml:id="_functions_8cpp_source_1l00761"/>00761 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_functions_8cpp_1a934deca8a1216d29140a7965acf53707">isValidInput</link>())
+<anchor xml:id="_functions_8cpp_source_1l00762"/>00762 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00763"/>00763 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>{chrono::high_resolution_clock::now()};
+<anchor xml:id="_functions_8cpp_source_1l00764"/>00764 
+<anchor xml:id="_functions_8cpp_source_1l00765"/>00765 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a4090d9a7990ab9c64a87f3026044243e">tokenize</link>();
+<anchor xml:id="_functions_8cpp_source_1l00766"/>00766 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1afe1d8348c24e6589bc7c0b3f689316a7">calculate</link>();
+<anchor xml:id="_functions_8cpp_source_1l00767"/>00767 
+<anchor xml:id="_functions_8cpp_source_1l00768"/>00768 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;end{chrono::high_resolution_clock::now()};
+<anchor xml:id="_functions_8cpp_source_1l00769"/>00769 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;duration{std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(end&#32;-&#32;<link linkend="_functions_8h_1a06f4377dc4ea63fb0f6c6649da169860aea2b2676c28c0db26d39331a336c6b92">start</link>)};
+<anchor xml:id="_functions_8cpp_source_1l00770"/>00770 
+<anchor xml:id="_functions_8cpp_source_1l00771"/>00771 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ostringstream&#32;roundedResult;
+<anchor xml:id="_functions_8cpp_source_1l00772"/>00772 
+<anchor xml:id="_functions_8cpp_source_1l00773"/>00773 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">long</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;doubleResult{<emphasis role="keyword">static_cast&lt;</emphasis><emphasis role="keywordtype">double</emphasis><emphasis role="keyword">&gt;</emphasis>(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result)};
+<anchor xml:id="_functions_8cpp_source_1l00774"/>00774 
+<anchor xml:id="_functions_8cpp_source_1l00775"/>00775 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;roundedResult&#32;&lt;&lt;&#32;fixed&#32;&lt;&lt;&#32;setprecision(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.userPrecision);
+<anchor xml:id="_functions_8cpp_source_1l00776"/>00776 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;roundedResult&#32;&lt;&lt;&#32;doubleResult&#32;&lt;&lt;&#32;endl;
+<anchor xml:id="_functions_8cpp_source_1l00777"/>00777 
+<anchor xml:id="_functions_8cpp_source_1l00778"/>00778 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult&#32;=&#32;roundedResult.str();
+<anchor xml:id="_functions_8cpp_source_1l00779"/>00779 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult;
+<anchor xml:id="_functions_8cpp_source_1l00780"/>00780 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime=<link linkend="_functions_8cpp_1a4cd6e6fa7aad77f50bb62f245e1c5f8e">calculationTimeFormat</link>(duration);
+<anchor xml:id="_functions_8cpp_source_1l00781"/>00781 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00782"/>00782 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_functions_8cpp_source_1l00783"/>00783 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00784"/>00784 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult&#32;=&#32;<emphasis role="stringliteral">&quot;UNDEFINED&#32;ERROR(calculationResult)&quot;</emphasis>;
+<anchor xml:id="_functions_8cpp_source_1l00785"/>00785 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult=<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult;
+<anchor xml:id="_functions_8cpp_source_1l00786"/>00786 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime.clear();
+<anchor xml:id="_functions_8cpp_source_1l00787"/>00787 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00788"/>00788 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawInput.clear();
+<anchor xml:id="_functions_8cpp_source_1l00789"/>00789 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.cleanInput.clear();
+<anchor xml:id="_functions_8cpp_source_1l00790"/>00790 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.rawTokens.clear();
+<anchor xml:id="_functions_8cpp_source_1l00791"/>00791 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.float128_Result={0};
+<anchor xml:id="_functions_8cpp_source_1l00792"/>00792 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.stringResult.clear();
+<anchor xml:id="_functions_8cpp_source_1l00793"/>00793 &#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.calculationTime.clear();
+<anchor xml:id="_functions_8cpp_source_1l00794"/>00794 }
+<anchor xml:id="_functions_8cpp_source_1l00795"/>00795 
+<anchor xml:id="_functions_8cpp_source_1l00803"/><link linkend="_functions_8h_1a570eda3c279bcaa2dad085617116843b">00803</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_functions_8cpp_1a570eda3c279bcaa2dad085617116843b">renderGUI</link>&#32;()
+<anchor xml:id="_functions_8cpp_source_1l00804"/>00804 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00805"/>00805 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">constexpr</emphasis>&#32;ImGuiWindowFlags&#32;guiFlags&#32;=&#32;ImGuiWindowFlags_NoResize&#32;|
+<anchor xml:id="_functions_8cpp_source_1l00806"/>00806 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoMove&#32;|
+<anchor xml:id="_functions_8cpp_source_1l00807"/>00807 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoCollapse&#32;|
+<anchor xml:id="_functions_8cpp_source_1l00808"/>00808 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoTitleBar&#32;|
+<anchor xml:id="_functions_8cpp_source_1l00809"/>00809 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImGuiWindowFlags_NoBringToFrontOnFocus;
+<anchor xml:id="_functions_8cpp_source_1l00810"/>00810 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::Begin(<emphasis role="stringliteral">&quot;Main&quot;</emphasis>,<emphasis role="keyword">nullptr</emphasis>,guiFlags);
+<anchor xml:id="_functions_8cpp_source_1l00811"/>00811 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::InputTextMultiline(<emphasis role="stringliteral">&quot;boo&quot;</emphasis>,&#32;&amp;<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalInput,&#32;ImVec2(<link linkend="_functions_8h_1a050b21607767707ea2b3000538598bdf">windowWidth</link>/2,&#32;<link linkend="_functions_8h_1ab849da23cfa9ba653bbc12d9feca52d0">windowHeight</link>/2));
+<anchor xml:id="_functions_8cpp_source_1l00812"/>00812 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::NewLine();
+<anchor xml:id="_functions_8cpp_source_1l00813"/>00813 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ImGui::SmallButton(<emphasis role="stringliteral">&quot;click&#32;here&quot;</emphasis>))
+<anchor xml:id="_functions_8cpp_source_1l00814"/>00814 &#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_functions_8cpp_source_1l00815"/>00815 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_functions_8cpp_1a760d14bec1ac400123cb014ac0f64cf0">calculationResult</link>();
+<anchor xml:id="_functions_8cpp_source_1l00816"/>00816 &#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_functions_8cpp_source_1l00817"/>00817 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::TextWrapped(<link linkend="_functions_8cpp_1a3b7d32f7c7072963533b7c7e4f84577f">global</link>.globalResult.c_str());
+<anchor xml:id="_functions_8cpp_source_1l00818"/>00818 &#32;&#32;&#32;&#32;&#32;&#32;ImGui::End();
+<anchor xml:id="_functions_8cpp_source_1l00819"/>00819 &#32;&#32;&#32;&#32;}
+</programlisting></section>

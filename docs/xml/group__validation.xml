@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="group__validation" kind="group">
+    <compoundname>validation</compoundname>
+    <title>Input Validation</title>
+    <briefdescription>
+<para>Comprehensive input validation pipeline. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Multi-stage validation ensures mathematical expressions are syntactically correct before processing:<itemizedlist>
+<listitem><para>Character whitelist validation</para>
+</listitem><listitem><para>First character context rules</para>
+</listitem><listitem><para>Balanced parentheses checking</para>
+</listitem><listitem><para>Complete grammar state machine validation </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
